@@ -10,6 +10,7 @@ import drawNavg from "../screens/welcome/drawerNav";
 import AddButton from "../screens/welcome/addButton";
 import HomeScreen from "../screens/welcome/drawerNav";
 import Post from "../screens/post/post";
+import TabOneScreen from "../screens/welcome/modal";
 
 
 
@@ -35,6 +36,7 @@ export default function AppNavigator() {
         <Stack.Screen name="reg" component={Register} />
         <Stack.Screen name="home" component={HomeScreen} />
         <Stack.Screen name="post" component={Post} />
+        <Stack.Screen name="pop" component={TabOneScreen} />
         
       </Stack.Navigator>
     </NavigationContainer>

@@ -12,8 +12,9 @@ const { width, height } = Dimensions.get('screen');
 import faker from 'faker'
 import Post from '../post/post';
 import { auth } from "../../../firebase";
-import {db} from "../../../firebase-config"
-import {collection,doc,documentId,getDocs,addDoc,setDoc,updateDoc,query,deleteDoc,where,orderBy} from "firebase/firestore"
+import { db } from "../../../firebase-config"
+import { collection, doc, documentId, getDocs, addDoc, setDoc, updateDoc, query, deleteDoc, where, orderBy } from "firebase/firestore"
+import TabOneScreen from "./modal";
 
 
 faker.seed(10);
@@ -29,10 +30,10 @@ const DATA = [...Array(30).keys()].map((_, i) => {
     jobTitle: faker.name.jobTitle(),
     email: faker.internet.email(),
     location: 'Muree',
-    budget:"10000",
-    days:"3",
-    status:'individual',
-    uid:"saqib@test.com"
+    budget: "10000",
+    days: "3",
+    status: 'individual',
+    uid: "saqib@test.com"
   };
 });
 
@@ -44,82 +45,89 @@ function HomeScreen({ route, navigation }) {
 
   const { userId } = route.params;
   console.log("Params in Home:" + userId)
-  const postCollectionRef = collection(db,"post");
-  const [user,setUser] = useState([])
+  const postCollectionRef = collection(db, "post");
+  const [user, setUser] = useState([])
 
 
-  useEffect(()=>{
-    const getPost = async () =>{
+  useEffect(() => {
+    const getPost = async () => {
       // var id;
-       const data = await getDocs(postCollectionRef);
+      const data = await getDocs(postCollectionRef);
       // console.log(data1.data())
-        setUser(data.docs.map((doc)=>({...doc.data(),
-          id:doc.id})))
-          //console.log(user[0])
-        //console.log(user[0].comments)
-      //   console.log(id)
-      //   setComments(user[0].comments)
-      //   console.log(comments)
-        // for (var i =0 ;i<user.length;i++) {
-        //  console.log(user[i])
-        // }
+      setUser(data.docs.map((doc) => (
+        {
+          ...doc.data(),
+          id: doc.id
+        })))
 
-        //console.log(user)
-      
-        }
-  
-  getPost()
-  
-  },[])
-  
-  user.sort(function(x, y){
+    }
+
+    //console.log(user[0].id)
+
+    getPost()
+
+  }, [])
+
+  user.sort(function (x, y) {
     return y.postTime - x.postTime;
-})
+  })
+
+
+
+  function comment(id){
+    console.log("Post Id:"+id);
+  }
+
+
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <FlatList
         data={user}
-        keyExtractor={item => item.key}
+        keyExtractor={item => item.id}
         contentContainerStyle={{
-          padding:SPACING
+          padding: SPACING
         }}
+
+
         renderItem={({ item, index }) => {
-          return <View style={{flexDirection:'row',padding:SPACING,marginBottom:SPACING,backgroundColor:'lightgrey',
-          borderRadius:16,shadowColor:'lightgrey',shadowOffset:{
-            width:0,height:10
-          },
-          shadowOpacity:.5,shadowRadius:20
+          return <View style={{
+            flexDirection: 'row', padding: SPACING, marginBottom: SPACING, backgroundColor: 'lightgrey',
+            borderRadius: 16, shadowColor: 'lightgrey', shadowOffset: {
+              width: 0, height: 10
+            },
+            shadowOpacity: .5, shadowRadius: 20
           }}>
             <Image
               source={require("../../images/man.png")}
-              style={{ width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE,
-                marginRight:SPACING/2
+              style={{
+                width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE,
+                marginRight: SPACING / 2
               }}
             />
-          
+
             <View>
-              <Text style={{fontSize:22,fontWeight:'600'}}>{item.name}</Text>
-              <Text style={{fontSize:18,opacity:.7}}>Going to :{" "}{item.location}</Text>
-              <Text style={{fontSize:18,opacity:.7}}>Trip Budget:{" "}{item.budget}</Text>
-              <Text style={{fontSize:18,opacity:.7}}>Trip Days:{" "}{item.days}</Text>
-              <Text style={{fontSize:20,opacity:.8,color:'#F08080'}}>{item.description}</Text>
-          <View style={{flexDirection:'row'}}>
-          <TouchableOpacity style={styles.loginBtn}>
-         <Text>Invite</Text>
-       </TouchableOpacity>
-       <TouchableOpacity style={styles.loginBtn1}>
-         <Text>Comment</Text>
-       </TouchableOpacity>
-       </View>
+              <Text style={{ fontSize: 22, fontWeight: '600' }}>{item.name}</Text>
+              <Text style={{ fontSize: 18, opacity: .7 }}>Going to :{" "}{item.location}</Text>
+              <Text style={{ fontSize: 18, opacity: .7 }}>Trip Budget:{" "}{item.budget}</Text>
+              <Text style={{ fontSize: 18, opacity: .7 }}>Trip Days:{" "}{item.days}</Text>
+              <Text style={{ fontSize: 20, opacity: .8, color: '#F08080' }}>{item.description}</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <TouchableOpacity style={styles.loginBtn}>
+                  <Text>Invite</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.loginBtn1} onPress={(()=>comment(item.id))}>
+                  <Text>Comment</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            
+
 
           </View>
         }}
       />
-      <View style={{position:'relative',marginLeft:180,paddingTop:10}}>
-      <AddButton />
+      <View style={{ position: 'relative', marginLeft: 180, paddingTop: 10 }}>
+        <AddButton />
       </View>
     </View>
   );
@@ -138,6 +146,7 @@ export default function drawNavg({ route, navigation }) {
       <Drawer.Screen name="profile" component={ViewProfile} initialParams={{ userId }} />
       <Drawer.Screen name="update_profile" component={UpdateProfile} initialParams={{ userId }} />
       <Drawer.Screen name="post" component={Post} initialParams={{ userId }} />
+      <Drawer.Screen name="pop" component={TabOneScreen} initialParams={{ userId }} />
     </Drawer.Navigator>
   );
 }
@@ -161,10 +170,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFB6C1",
   },
   loginBtn: {
-    borderWidth:1,
-    borderColor:'rgba(0,0,0.2,0.2)',
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0.2,0.2)',
     width: "30%",
-    borderRadius:45,
+    borderRadius: 45,
     height: 20,
     alignItems: "center",
     justifyContent: "center",
@@ -173,14 +182,14 @@ const styles = StyleSheet.create({
 
   },
   loginBtn1: {
-    borderWidth:1,
-    borderColor:'rgba(0,0,0.2,0.2)',
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0.2,0.2)',
     width: "30%",
-    borderRadius:45,
+    borderRadius: 45,
     height: 20,
     alignItems: "center",
     justifyContent: "center",
-    marginLeft:50,
+    marginLeft: 50,
     marginTop: 20,
     backgroundColor: "#F08080",
 
