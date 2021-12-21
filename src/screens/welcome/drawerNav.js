@@ -10,11 +10,14 @@ import UpdateProfile from '../profile/updateProfile';
 import { StatusBar, FlatList, Image, Animated, Text, View, Dimensions, StyleSheet, TouchableOpacity, Easing, SafeAreaViewBase, SafeAreaView } from 'react-native';
 const { width, height } = Dimensions.get('screen');
 import faker from 'faker'
-import Post from '../post/post';
+import Post from '../post/post';;
 import { auth } from "../../../firebase";
 import { db } from "../../../firebase-config"
 import { collection, doc, documentId, getDocs, addDoc, setDoc, updateDoc, query, deleteDoc, where, orderBy } from "firebase/firestore"
 import TabOneScreen from "./modal";
+import ReportProfile from "../profile/repProfile";
+import Report from "../profile/report";
+import Smart from "../post/smart";
 
 
 faker.seed(10);
@@ -79,6 +82,13 @@ function HomeScreen({ route, navigation }) {
   }
 
 
+  function ViewP(id){
+      navigation.navigate('report',{
+          userId: userId,
+          repId:id
+      })
+  }
+
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -102,12 +112,15 @@ function HomeScreen({ route, navigation }) {
               source={require("../../images/man.png")}
               style={{
                 width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE,
-                marginRight: SPACING / 2
+                marginRight: SPACING / 2,marginTop:30
               }}
             />
 
             <View>
-              <Text style={{ fontSize: 22, fontWeight: '600' }}>{item.name}</Text>
+            <TouchableOpacity onPress={(()=>ViewP(item.uid))}>
+              <Text style={{ fontSize: 22, fontWeight: '600' }}>{item.uid}</Text>
+              </TouchableOpacity>
+              <Text></Text>
               <Text style={{ fontSize: 18, opacity: .7 }}>Going to :{" "}{item.location}</Text>
               <Text style={{ fontSize: 18, opacity: .7 }}>Trip Budget:{" "}{item.budget}</Text>
               <Text style={{ fontSize: 18, opacity: .7 }}>Trip Days:{" "}{item.days}</Text>
@@ -137,16 +150,19 @@ const Drawer = createDrawerNavigator();
 
 export default function drawNavg({ route, navigation }) {
   const { userId } = route.params;
-  console.log("Params in main:" + userId)
+  //console.log("Params in main:" + userId)
   return (
     <Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomSide {...props} />}
     // initialParams={{userId}}
     >
       <Drawer.Screen name="home" component={HomeScreen} initialParams={{ userId }} />
       <Drawer.Screen name="profile" component={ViewProfile} initialParams={{ userId }} />
+      <Drawer.Screen name="report" component={ReportProfile} />
+      <Drawer.Screen name="repdone" component={Report} />
       <Drawer.Screen name="update_profile" component={UpdateProfile} initialParams={{ userId }} />
       <Drawer.Screen name="post" component={Post} initialParams={{ userId }} />
       <Drawer.Screen name="pop" component={TabOneScreen} initialParams={{ userId }} />
+      <Drawer.Screen name="smart" component={Smart} initialParams={{ userId }} />
     </Drawer.Navigator>
   );
 }

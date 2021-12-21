@@ -32,7 +32,7 @@ if (Platform.OS === 'ios') {
 
 
 
-export default function ViewProfile({ route,navigation }) {
+export default function ReportProfile({ route,navigation }) {
 
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -49,10 +49,11 @@ export default function ViewProfile({ route,navigation }) {
   const [gender, setGender] = useState("Male");
   const [contact, setContact] = useState("");
   const [user,setUser] = useState([])
-   const { userId } = route.params;
    const [checked, setChecked] = React.useState('first');
 
-   console.log("Params in viewProfile:"+userId)
+   const { userId,repId } = route.params;
+   console.log("Params in reportProfile userID:"+userId)
+   console.log("Params in reportProfile repID:"+repId)
 
   
   var radio_props = [
@@ -66,7 +67,7 @@ export default function ViewProfile({ route,navigation }) {
         const data = await getDocs(userCollectionRef);
        // console.log(data1.data())
          setUser(data.docs.map((doc)=>({...doc.data(),id:doc.id})))
-         const q = query(userCollectionRef, where("userId", "==", userId));
+         const q = query(userCollectionRef, where("userId", "==", repId));
         // console.log(post[0])
          const getResult = await getDocs(q)
          getResult.forEach((doc) => {
@@ -86,6 +87,18 @@ export default function ViewProfile({ route,navigation }) {
   },[])
 
 
+  
+  // function report(){
+
+  //   console.log("121212")
+  // }
+
+  const report = () =>{
+    navigation.navigate('repdone',{
+      userId: userId,
+      repId:repId
+  })
+  }
 
 
 
@@ -122,8 +135,8 @@ return (
 <Text style={styles.display}>Address :{address}</Text>
 <Text style={styles.display}>Contact :{contact}</Text>
 
-       <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('update_profile')}>
-         <Text>Edit Profile</Text>
+       <TouchableOpacity style={styles.loginBtn} onPress={report}>
+         <Text>Report Profile</Text>
        </TouchableOpacity>
 
     </View>

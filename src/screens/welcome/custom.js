@@ -47,20 +47,26 @@ export default function CustomSide({route,navigation}) {
         <TouchableOpacity onPress={() => navigation.navigate('home')}>
         <View style={{flexDirection:'row',marginTop:20}}>
         <Entypo name="home" size={24} color="black" style={{marginTop:10,paddingLeft:10}}/>
-        <Text style={{color:'white',fontSize:20,marginTop:10,paddingLeft:10}}>Home</Text>
+        <Text style={{color:'white',fontSize:18,marginTop:10,paddingLeft:10}}>Home</Text>
         </View>
       </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('profile')}>
         <View style={{flexDirection:'row',marginTop:20}}>
         <AntDesign name="profile" size={24} color="black" style={{marginTop:10,paddingLeft:10}} />
-        <Text style={{color:'white',fontSize:20,marginTop:10,paddingLeft:10}}>View Profile</Text>
+        <Text style={{color:'white',fontSize:18,marginTop:10,paddingLeft:10}}>View Profile</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('smart')}>
+        <View style={{flexDirection:'row',marginTop:20}}>
+        <Feather name="search" size={24} color="black" style={{marginTop:10,paddingLeft:10}} />
+        <Text style={{color:'white',fontSize:18,marginTop:10,paddingLeft:10}}>Smart Search</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity>
       <View style={{flexDirection:'row',marginTop:20}}>
       <MaterialIcons name="groups" size={24} color="black" style={{marginTop:10,paddingLeft:10}} />
-        <Text style={{color:'white',fontSize:20,marginTop:10,paddingLeft:10}}>Groups</Text>
+        <Text style={{color:'white',fontSize:18,marginTop:10,paddingLeft:10}}>Groups</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity style={styles.loginBtn}>
@@ -115,7 +121,7 @@ const styles = StyleSheet.create({
       alignItems: "center",
       justifyContent: "center",
       marginLeft:20,
-      marginTop: 110,
+      marginTop: 50,
       backgroundColor: "#F08080",
   
     }
