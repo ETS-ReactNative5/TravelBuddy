@@ -130,7 +130,7 @@ function HomeScreen({ route, navigation }) {
                   <Text>Invite</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.loginBtn1} onPress={(()=>comment(item.id))}>
-                  <Text>Comment</Text>
+                  <Text>Comments</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0.2,0.2)',
     width: "30%",
     borderRadius: 45,
-    height: 20,
+    height: 30,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
@@ -200,9 +200,9 @@ const styles = StyleSheet.create({
   loginBtn1: {
     borderWidth: 1,
     borderColor: 'rgba(0,0,0.2,0.2)',
-    width: "30%",
+    width: "35%",
     borderRadius: 45,
-    height: 20,
+    height: 30,
     alignItems: "center",
     justifyContent: "center",
     marginLeft: 50,
