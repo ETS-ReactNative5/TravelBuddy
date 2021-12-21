@@ -109,8 +109,9 @@ const styles = StyleSheet.create({
         height: 72,
         borderRadius: 36,
         backgroundColor: "#F08080",
-        position: "absolute",
+        position: "relative",
         marginTop: -60,
+        marginLeft:-20,
         shadowColor: "#F08080",
         shadowRadius: 5,
         shadowOffset: { height: 10 },
@@ -119,9 +120,10 @@ const styles = StyleSheet.create({
         borderColor: "#FFFFFF"
     },
     secondaryButton: {
-        position: "absolute",
+        position: "relative",
         alignItems: "center",
         justifyContent: "center",
+        marginLeft:20,
         width: 48,
         height: 48,
         borderRadius: 24,

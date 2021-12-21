@@ -10,7 +10,7 @@ import UpdateProfile from '../profile/updateProfile';
 import { StatusBar, FlatList, Image, Animated, Text, View, Dimensions, StyleSheet, TouchableOpacity, Easing, SafeAreaViewBase, SafeAreaView } from 'react-native';
 const { width, height } = Dimensions.get('screen');
 import faker from 'faker'
-import Post from '../post/post';;
+import Post from '../post/post';
 import { auth } from "../../../firebase";
 import { db } from "../../../firebase-config"
 import { collection, doc, documentId, getDocs, addDoc, setDoc, updateDoc, query, deleteDoc, where, orderBy } from "firebase/firestore"
@@ -18,6 +18,7 @@ import TabOneScreen from "./modal";
 import ReportProfile from "../profile/repProfile";
 import Report from "../profile/report";
 import Smart from "../post/smart";
+import CommentScreen from "../comment/comments"
 
 
 faker.seed(10);
@@ -50,7 +51,7 @@ function HomeScreen({ route, navigation }) {
   console.log("Params in Home:" + userId)
   const postCollectionRef = collection(db, "post");
   const [user, setUser] = useState([])
-
+ 
 
   useEffect(() => {
     const getPost = async () => {
@@ -79,6 +80,9 @@ function HomeScreen({ route, navigation }) {
 
   function comment(id){
     console.log("Post Id:"+id);
+    navigation.navigate('comment',{
+      postId:id
+    })
   }
 
 
@@ -163,6 +167,7 @@ export default function drawNavg({ route, navigation }) {
       <Drawer.Screen name="post" component={Post} initialParams={{ userId }} />
       <Drawer.Screen name="pop" component={TabOneScreen} initialParams={{ userId }} />
       <Drawer.Screen name="smart" component={Smart} initialParams={{ userId }} />
+      <Drawer.Screen name="comment" component={CommentScreen} initialParams={{ userId }} />
     </Drawer.Navigator>
   );
 }

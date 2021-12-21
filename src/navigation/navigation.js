@@ -12,6 +12,7 @@ import HomeScreen from "../screens/welcome/drawerNav";
 import Post from "../screens/post/post";
 import TabOneScreen from "../screens/welcome/modal";
 import Smart from "../screens/post/smart";
+import CommentScreen from "../screens/comment/comments";
 
 
 
@@ -39,6 +40,7 @@ export default function AppNavigator() {
         <Stack.Screen name="post" component={Post} />
         <Stack.Screen name="pop" component={TabOneScreen} />
         <Stack.Screen name="smart" component={Smart} />
+        <Stack.Screen name="comment" component={CommentScreen} />
         
       </Stack.Navigator>
     </NavigationContainer>

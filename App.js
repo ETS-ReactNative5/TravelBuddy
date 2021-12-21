@@ -10,7 +10,7 @@ export default function App() {
 
 
 // const UpdateComment = async (id) => {
-//   let prevComment=Post[1].data.comments  //change to array of posts.
+//   let prevComment=
 //   prevComment.push({"UserID":ID,"comment":Comment})
 //   await updateDoc(doc(db, "post",id), {
 //       comments: prevComment
