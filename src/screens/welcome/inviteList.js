@@ -9,8 +9,8 @@ import { auth } from "../../../firebase";
 import { db } from "../../../firebase-config"
 import { collection, doc, documentId, getDocs, addDoc, setDoc, updateDoc, query, deleteDoc, where, Firestore } from "firebase/firestore"
 import { createIconSetFromFontello } from "@expo/vector-icons";
-import { MaterialIcons } from '@expo/vector-icons'; 
-import { Entypo } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 faker.seed(5);
 
@@ -43,9 +43,9 @@ const AVATAR_SIZE = 50;
 
 export default function InviteList({ route, navigation }) {
 
-    const { userId } = route.params;
+  const { userId } = route.params;
 
-    console.log("invitation list---"+userId)
+  console.log("invitation list---" + userId)
 
   const groupCollectionRef = collection(db, "groups");
   const inviteCollectionRef = collection(db, "invite");
@@ -54,17 +54,17 @@ export default function InviteList({ route, navigation }) {
 
   useEffect(() => {
 
-    const getInvitation = async () =>{  
-        let intermediateList=[];
-        const q = query(inviteCollectionRef,where("toId", "==",userId));
-     // console.log(post[0])
+    const getInvitation = async () => {
+      let intermediateList = [];
+      const q = query(inviteCollectionRef, where("toId", "==", userId));
+      // console.log(post[0])
       const getResult = await getDocs(q)
-      console.log("\n\nFinaly:",getResult);
+      console.log("\n\nFinaly:", getResult);
       getResult.forEach((doc) => {
         intermediateList.push({
-            "data":doc.data(),
-            "id": doc.id
-          })
+          "data": doc.data(),
+          "id": doc.id
+        })
       });
       setUser(intermediateList)
       console.log(intermediateList)
@@ -76,55 +76,58 @@ export default function InviteList({ route, navigation }) {
 
 
   function deleteInv(id) {
-    const rejectInvitation = async () =>{  
-        const dat = doc(db,"invite",id)
-        await deleteDoc(dat)
+    const rejectInvitation = async () => {
+      const dat = doc(db, "invite", id)
+      await deleteDoc(dat)
     }
     rejectInvitation()
   }
 
-  const acceptInvitation=async (groupID,fromID,IID)=>{
-    console.log("groupID:",groupID)
-    console.log("fromID:",fromID)
-    console.log("IID:",IID)
+  const acceptInvitation = async (groupID, fromID, IID) => {
+    console.log("groupID:", groupID)
+    console.log("fromID:", fromID)
+    console.log("IID:", IID)
+    const dat = doc(db, "invite", IID)
+    await deleteDoc(dat)
+    console.log("detele")
   }
 
 
 
- 
+
 
 
 
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-          <View style={{
-      backgroundColor:'#F08080',
-      position:'absolute',
-      width:400,
-      height:400,
-      borderRadius:200,
-      right:-100,
-      top:-200,
-    }}></View>
-    <View style={{
-      backgroundColor:'#FFB6C1',
-      position:'absolute',
-      width:200,
-      height:200,
-      borderRadius:100,
-      left:-50,
-      top:-50,
-    }}></View>
+      <View style={{
+        backgroundColor: '#F08080',
+        position: 'absolute',
+        width: 400,
+        height: 400,
+        borderRadius: 200,
+        right: -100,
+        top: -200,
+      }}></View>
+      <View style={{
+        backgroundColor: '#FFB6C1',
+        position: 'absolute',
+        width: 200,
+        height: 200,
+        borderRadius: 100,
+        left: -50,
+        top: -50,
+      }}></View>
 
-<Text style={{fontSize:30,color:'grey',marginTop:200,marginLeft:80,alignItems:'center',justifyContent:'center'}}>Invitations</Text>
+      <Text style={{ fontSize: 30, color: 'grey', marginTop: 200, marginLeft: 80, alignItems: 'center', justifyContent: 'center' }}>Invitations</Text>
 
       <FlatList
         data={user}
         keyExtractor={item => item.id}
         contentContainerStyle={{
           padding: SPACING,
-          marginTop:10
+          marginTop: 10
         }}
 
 
@@ -136,18 +139,18 @@ export default function InviteList({ route, navigation }) {
             },
             shadowOpacity: .5, shadowRadius: 10
           }}>
-            <View style={{ marginLeft: 10, height: 40}}>
+            <View style={{ marginLeft: 10, height: 40 }}>
               <Text style={{ fontSize: 22, opacity: .7 }}>From :{" "}{item.data.fromId}</Text>
-              <View style={{flexDirection:'row'}}>
-              <Text style={{ fontSize: 22, opacity: .7}}>Group ID :{" "}{item.data.groupId}</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={{ fontSize: 22, opacity: .7 }}>Group ID :{" "}{item.data.groupId}</Text>
 
-              <TouchableOpacity onPress={()=>acceptInvitation(item.data.groupId,item.data.fromId,item.id)}>
-              <MaterialIcons name="verified-user" size={24} color="green" style={{paddingLeft:20}}/>
-              </TouchableOpacity>
-              
-              <TouchableOpacity onPress={()=>deleteInv(item.id)}>
-              <Entypo name="cross" size={24} color="red"  style={{paddingLeft:20}} />
-              </TouchableOpacity>
+                <TouchableOpacity onPress={() => acceptInvitation(item.data.groupId, item.data.fromId, item.id)}>
+                  <MaterialIcons name="verified-user" size={24} color="green" style={{ paddingLeft: 20 }} />
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => deleteInv(item.id)}>
+                  <Entypo name="cross" size={24} color="red" style={{ paddingLeft: 20 }} />
+                </TouchableOpacity>
               </View>
             </View>
 
