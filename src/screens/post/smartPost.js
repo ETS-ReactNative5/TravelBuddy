@@ -46,25 +46,21 @@ export default function SmartPost({ route, navigation }) {
     const getPost = async () => {
       // var id;
       const q = query(postCollectionRef, where("location", "==",loc));
-       // console.log(post[0])
+       
+       let intermediateList=[];
         const getResult = await getDocs(q)
         getResult.forEach((doc) => {
-          console.log(doc.id);
-          console.log(doc.data());
-          setUser(doc.data())
+          intermediateList.push({
+            "data":doc.data(),
+            "id": doc.id
+          })
         });
+        setUser(intermediateList)
 
     }
-
-  //  console.log(user)
-
     getPost()
 
   }, [])
-
-//   user.sort(function (x, y) {
-//     return y.postTime - x.postTime;
-//   })
 
 
 
@@ -115,10 +111,10 @@ export default function SmartPost({ route, navigation }) {
               <Text style={{ fontSize: 22, fontWeight: '600' }}>{item.uid}</Text>
               </TouchableOpacity>
               <Text></Text>
-              <Text style={{ fontSize: 18, opacity: .7 }}>Going to :{" "}{item.location}</Text>
-              <Text style={{ fontSize: 18, opacity: .7 }}>Trip Budget:{" "}{item.budget}</Text>
-              <Text style={{ fontSize: 18, opacity: .7 }}>Trip Days:{" "}{item.days}</Text>
-              <Text style={{ fontSize: 20, opacity: .8, color: '#F08080' }}>{item.description}</Text>
+              <Text style={{ fontSize: 18, opacity: .7 }}>Going to :{" "}{item.data.location}</Text>
+              <Text style={{ fontSize: 18, opacity: .7 }}>Trip Budget:{" "}{item.data.budget}</Text>
+              <Text style={{ fontSize: 18, opacity: .7 }}>Trip Days:{" "}{item.data.days}</Text>
+              <Text style={{ fontSize: 20, opacity: .8, color: '#F08080' }}>{item.data.description}</Text>
               <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity style={styles.loginBtn}>
                   <Text>Invite</Text>
