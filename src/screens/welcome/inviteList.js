@@ -59,6 +59,7 @@ export default function InviteList({ route, navigation }) {
         const q = query(inviteCollectionRef,where("toId", "==",userId));
      // console.log(post[0])
       const getResult = await getDocs(q)
+      console.log("\n\nFinaly:",getResult);
       getResult.forEach((doc) => {
         intermediateList.push({
             "data":doc.data(),
@@ -66,7 +67,7 @@ export default function InviteList({ route, navigation }) {
           })
       });
       setUser(intermediateList)
-   
+      console.log(intermediateList)
     }
     getInvitation()
 
@@ -81,6 +82,14 @@ export default function InviteList({ route, navigation }) {
     }
     rejectInvitation()
   }
+
+  const acceptInvitation=async (groupID,fromID,IID)=>{
+    console.log("groupID:",groupID)
+    console.log("fromID:",fromID)
+    console.log("IID:",IID)
+  }
+
+
 
  
 
@@ -131,7 +140,11 @@ export default function InviteList({ route, navigation }) {
               <Text style={{ fontSize: 22, opacity: .7 }}>From :{" "}{item.data.fromId}</Text>
               <View style={{flexDirection:'row'}}>
               <Text style={{ fontSize: 22, opacity: .7}}>Group ID :{" "}{item.data.groupId}</Text>
+
+              <TouchableOpacity onPress={()=>acceptInvitation(item.data.groupId,item.data.fromId,item.id)}>
               <MaterialIcons name="verified-user" size={24} color="green" style={{paddingLeft:20}}/>
+              </TouchableOpacity>
+              
               <TouchableOpacity onPress={()=>deleteInv(item.id)}>
               <Entypo name="cross" size={24} color="red"  style={{paddingLeft:20}} />
               </TouchableOpacity>
