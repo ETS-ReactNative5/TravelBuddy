@@ -57,13 +57,21 @@ export default function CommentScreen({ route, navigation }) {
         })
     }
 
+    const getPreviousComment=async ()=>{
+        let refinedComment=[]
+        for(let i=0;i<comments.length;i++){
+            refinedComment.push({"comment_text":comments[i].data.comment_text,"uid":comments[i].data.uid})
+        }
+        return refinedComment;
+    }
+
 
     const comFtn = async () => {
 
         console.log(postId)
         const UpdateComment = async () => {
-
-            let prevComment = comments
+            
+            let prevComment = await getPreviousComment();
             prevComment.push({ "comment_text": com, "uid": uid })
             await updateDoc(doc(db, "post", postId), {
                 comments: prevComment
