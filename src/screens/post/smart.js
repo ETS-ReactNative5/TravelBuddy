@@ -66,7 +66,7 @@ export default function Smart({ route, navigation }) {
     const MyEffect = async () => {
 
       const getPost = async () => {
-        console.log("\ncalling post")
+        //console.log("\ncalling post")
         const data = await getDocs(query(postCollectionRef));
         
         //added to delay irrelvant
@@ -76,15 +76,15 @@ export default function Smart({ route, navigation }) {
             id: doc.id
           })))}
         await Myf1();
-        console.log("asdad")
+        //console.log("asdad")
         let r1=await Myf1();//added to delay irrelvant
         
         // console.log("myData:",user[0])
         // console.log("calling then in setUser")
         
-        console.log("mylength:",data.docs.length)
+        //console.log("mylength:",data.docs.length)
         for (let i = 0; i < data.docs.length; i++) {
-          console.log("location",data.docs[i].data().location)
+        //  console.log("location",data.docs[i].data().location)
           tempLocation.push(data.docs[i].data().location)
         }
         setLocation(tempLocation)
@@ -95,9 +95,9 @@ export default function Smart({ route, navigation }) {
       }
 
       await getPost()
-      console.log("Caling then in getPOst:",location)
+     // console.log("Caling then in getPOst:",location)
       let uniqueLocation = getUnique(tempLocation);
-      console.log("checking list:", uniqueLocation);
+   //   console.log("checking list:", uniqueLocation);
 
       // let locationNew = arrayToObject(uniqueLocation);
       let locationNew=[]
@@ -108,7 +108,7 @@ export default function Smart({ route, navigation }) {
       }
       let temp=await myTemp();
       setLocation(locationNew)
-      console.log("result",locationNew)
+//      console.log("result",locationNew)
 
     }
 
@@ -121,6 +121,22 @@ export default function Smart({ route, navigation }) {
   // for (var i =0 ;i<location.length;i++){
   //     console.log(location[i])
   // }
+  function ViewP(location){
+    navigation.navigate('smart_post',{
+      loc:location
+    })
+    // const getP = async () =>{
+    //  const q = query(postCollectionRef, where("location", "==",loc));
+    //    // console.log(post[0])
+    //     const getResult = await getDocs(q)
+    //     getResult.forEach((doc) => {
+    //       console.log(doc.id);
+    //       console.log(doc.data());
+    //     });
+    //   }
+    //   getP()
+}
+
 
 
   return (
@@ -147,7 +163,7 @@ export default function Smart({ route, navigation }) {
               <Text style={{ fontSize: 22, opacity: .7 }}>Location :{item.location}</Text>
               <View style={{ flexDirection: 'row' }}>
                 <Text style={{ marginTop: 25, fontSize: 18 }}>Posts : 5</Text>
-                <TouchableOpacity style={styles.loginBtn1}>
+                <TouchableOpacity style={styles.loginBtn1} onPress={()=>{ViewP(item.location)}}>
                   <Text>View Posts</Text>
                 </TouchableOpacity>
               </View>

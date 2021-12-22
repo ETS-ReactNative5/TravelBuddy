@@ -52,7 +52,13 @@ export default function Post({ route,navigation }) {
           uid: userId,
           budget:budget,
           description:descr,
-          postTime: Timestamp.now()
+          postTime: Timestamp.now(),
+          comments:[
+            {
+            comment_text:"",
+            uid:""
+          }
+        ]
         });
   
        }

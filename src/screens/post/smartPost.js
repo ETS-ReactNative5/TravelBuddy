@@ -2,24 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Button } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import CustomSide from './custom';
-import SignIn from '../login/signIn';
-import AddButton from './addButton';
-import ViewProfile from '../profile/viewProfile';
-import UpdateProfile from '../profile/updateProfile';
 import { StatusBar, FlatList, Image, Animated, Text, View, Dimensions, StyleSheet, TouchableOpacity, Easing, SafeAreaViewBase, SafeAreaView } from 'react-native';
 const { width, height } = Dimensions.get('screen');
 import faker from 'faker'
-import Post from '../post/post';
 import { auth } from "../../../firebase";
 import { db } from "../../../firebase-config"
 import { collection, doc, documentId, getDocs, addDoc, setDoc, updateDoc, query, deleteDoc, where, orderBy } from "firebase/firestore"
-import TabOneScreen from "./modal";
-import ReportProfile from "../profile/repProfile";
-import Report from "../profile/report";
-import Smart from "../post/smart";
-import CommentScreen from "../comment/comments"
-import SmartPost from "../post/smartPost";
 
 
 faker.seed(10);
@@ -46,10 +34,10 @@ const SPACING = 20;
 const AVATAR_SIZE = 50;
 
 
-function HomeScreen({ route, navigation }) {
+export default function SmartPost({ route, navigation }) {
 
-  const { userId } = route.params;
-  console.log("Params in Home:" + userId)
+  const { loc } = route.params;
+  console.log("Params in Smart Post:" + loc)
   const postCollectionRef = collection(db, "post");
   const [user, setUser] = useState([])
  
@@ -57,25 +45,26 @@ function HomeScreen({ route, navigation }) {
   useEffect(() => {
     const getPost = async () => {
       // var id;
-      const data = await getDocs(postCollectionRef);
-      // console.log(data1.data())
-      setUser(data.docs.map((doc) => (
-        {
-          ...doc.data(),
-          id: doc.id
-        })))
+      const q = query(postCollectionRef, where("location", "==",loc));
+       // console.log(post[0])
+        const getResult = await getDocs(q)
+        getResult.forEach((doc) => {
+          console.log(doc.id);
+          console.log(doc.data());
+          setUser(doc.data())
+        });
 
     }
 
-    //console.log(user[0].id)
+  //  console.log(user)
 
     getPost()
 
   }, [])
 
-  user.sort(function (x, y) {
-    return y.postTime - x.postTime;
-  })
+//   user.sort(function (x, y) {
+//     return y.postTime - x.postTime;
+//   })
 
 
 
@@ -144,33 +133,7 @@ function HomeScreen({ route, navigation }) {
           </View>
         }}
       />
-      <View style={{ position: 'relative', marginLeft: 180, paddingTop: 10 }}>
-        <AddButton />
-      </View>
     </View>
-  );
-}
-
-const Drawer = createDrawerNavigator();
-
-export default function drawNavg({ route, navigation }) {
-  const { userId } = route.params;
-  //console.log("Params in main:" + userId)
-  return (
-    <Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomSide {...props} />}
-    // initialParams={{userId}}
-    >
-      <Drawer.Screen name="home" component={HomeScreen} initialParams={{ userId }} />
-      <Drawer.Screen name="profile" component={ViewProfile} initialParams={{ userId }} />
-      <Drawer.Screen name="report" component={ReportProfile} />
-      <Drawer.Screen name="repdone" component={Report} />
-      <Drawer.Screen name="update_profile" component={UpdateProfile} initialParams={{ userId }} />
-      <Drawer.Screen name="post" component={Post} initialParams={{ userId }} />
-      <Drawer.Screen name="pop" component={TabOneScreen} initialParams={{ userId }} />
-      <Drawer.Screen name="smart" component={Smart} initialParams={{ userId }} />
-      <Drawer.Screen name="comment" component={CommentScreen} initialParams={{ userId }} />
-      <Drawer.Screen name="smart_post" component={SmartPost} initialParams={{ userId }} />
-    </Drawer.Navigator>
   );
 }
 
