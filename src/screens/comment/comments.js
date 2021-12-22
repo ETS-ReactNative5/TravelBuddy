@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, TextInput } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar, FlatList, Image, Animated, Text, View, Dimensions, StyleSheet, TouchableOpacity, Easing, SafeAreaViewBase, SafeAreaView } from 'react-native';
-const { width, height } = Dimensions.get('screen');
-import faker from 'faker'
+import {  TextInput } from 'react-native';
+import {  FlatList,  Text, View,  StyleSheet, TouchableOpacity,    } from 'react-native';
 import { db } from "../../../firebase-config";
-import { collection, doc, documentId, getDocs, addDoc, setDoc, updateDoc, query, deleteDoc, where, orderBy } from "firebase/firestore"
+import { collection, doc,  getDocs,   updateDoc, query,   } from "firebase/firestore"
 
 const SPACING = 20;
 const AVATAR_SIZE = 50;
@@ -48,8 +44,6 @@ export default function CommentScreen({ route, navigation }) {
 
         }
 
-        //console.log(user[0].id)
-
         getPost()
 
     }, [])
@@ -66,7 +60,6 @@ export default function CommentScreen({ route, navigation }) {
     const comFtn = async () => {
 
         console.log(postId)
-        // console.log(prevComment)
         const UpdateComment = async () => {
             
             let prevComment = comments
@@ -92,14 +85,6 @@ export default function CommentScreen({ route, navigation }) {
                 <Text style={{ fontSize: 20, opacity: .8, marginLeft: 25, color: '#DC143C' }}>{desc}</Text>
             </View>
             <Text style={{ marginLeft: 120, marginTop: -20, fontSize: 20, color: "#DC143C" }}>Comments:</Text>
-            {/* <View style={{ marginTop: 10, marginBottom: 20 }}>
-                {comments.map(value =>
-                    <View style={styles.loginBtn1}>
-                        <Text style={{ fontSize: 18, marginLeft: 10, marginTop: 5 }}>{value.uid}{"  "}:</Text>
-                        <Text style={{ fontSize: 18, marginLeft: 10, marginTop: 5 }}>{value.comment_text}</Text>
-                    </View>
-                )}
-            </View> */}
 
             <FlatList
                 data={comments}
@@ -125,7 +110,6 @@ export default function CommentScreen({ route, navigation }) {
                         :
                         <View>
                             <Text style={{ fontSize: 18, opacity: .7 }}> {"No Comments be the first..."} </Text>
-                            {/* <Text style={{ fontSize: 18, opacity: .7 }}>Said:{" "}{item.data.comment_text}</Text> */}
                         </View>
                         }
 
