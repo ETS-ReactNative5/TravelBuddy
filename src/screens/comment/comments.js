@@ -117,14 +117,17 @@ export default function CommentScreen({ route, navigation }) {
                         },
                         shadowOpacity: .5, shadowRadius: 20
                     }}>
-
+                        {comments.length>1 ?
                         <View>
-                            
-                            <Text style={{ fontSize: 18, opacity: .7 }}>Going to :{" "}{item.data.uid}</Text>
-                            <Text style={{ fontSize: 18, opacity: .7 }}>Trip Budget:{" "}{item.data.comment_text}</Text>
-                            
+                            <Text style={{ fontSize: 18, opacity: .7 }}>From :{" "}{item.data.uid}</Text>
+                            <Text style={{ fontSize: 18, opacity: .7 }}>Said:{" "}{item.data.comment_text}</Text>
                         </View>
-
+                        :
+                        <View>
+                            <Text style={{ fontSize: 18, opacity: .7 }}> {"No Comments be the first..."} </Text>
+                            {/* <Text style={{ fontSize: 18, opacity: .7 }}>Said:{" "}{item.data.comment_text}</Text> */}
+                        </View>
+                        }
 
                     </View>
                 }}
