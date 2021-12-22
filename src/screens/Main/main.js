@@ -118,7 +118,7 @@ export default function MainScreen({navigation}) {
               <Text style={{ color: '#fff', fontWeight: '800', fontSize: 28, marginBottom: 20 }}>{item.title}</Text>
               <Text style={{ fontWeight: '400', fontSize: 20 }}>{item.description}</Text>
               <View style={{display:'flex',flexDirection:"row"}}>
-              <TouchableOpacity style={{position:'relative',paddingVertical:30,paddingLeft:10}} onPress={() => navigation.navigate('/')}>
+              <TouchableOpacity style={{position:'relative',paddingVertical:30,paddingLeft:10}} onPress={() => navigation.navigate('image')}>
               <Text style={{color:'#FFB6C1',fontSize:25}}>{item.login}</Text>
               </TouchableOpacity>
               <Text>{"            "}</Text>
