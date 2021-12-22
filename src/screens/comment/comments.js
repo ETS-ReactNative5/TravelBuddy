@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {  TextInput } from 'react-native';
-import {  FlatList,  Text, View,  StyleSheet, TouchableOpacity,    } from 'react-native';
+import { TextInput } from 'react-native';
+import { FlatList, Text, View, StyleSheet, TouchableOpacity, } from 'react-native';
 import { db } from "../../../firebase-config";
-import { collection, doc,  getDocs,   updateDoc, query,   } from "firebase/firestore"
+import { collection, doc, getDocs, updateDoc, query, } from "firebase/firestore"
+import { useIsFocused } from "@react-navigation/native";
 
 const SPACING = 20;
 const AVATAR_SIZE = 50;
 
 export default function CommentScreen({ route, navigation }) {
-
+    const isFocused = useIsFocused(); //for update of state variables
     const { postId } = route.params;
     console.log("Params in Comment:" + postId)
     const postCollectionRef = collection(db, "post");
@@ -24,7 +25,7 @@ export default function CommentScreen({ route, navigation }) {
     useEffect(() => {
         const getPost = async () => {
 
-            const q = query(postCollectionRef);      
+            const q = query(postCollectionRef);
             const getResult = await getDocs(q)
             getResult.forEach((doc) => {
                 if (doc.id == postId) {
@@ -34,19 +35,19 @@ export default function CommentScreen({ route, navigation }) {
                     setDays(doc.data().days)
                     setDesc(doc.data().description)
                     setUid(doc.data().uid)
-                    let intermediateList=[]
-                    doc.data().comments.map((item,index)=>{
-                        intermediateList.push({"data":item,"id":index})
+                    let intermediateList = []
+                    doc.data().comments.map((item, index) => {
+                        intermediateList.push({ "data": item, "id": index })
                     })
-                    setComments(intermediateList); 
+                    setComments(intermediateList);
                 }
             });
-
         }
-
         getPost()
-
-    }, [])
+        if (isFocused) {
+            getPost()
+        }
+    }, [isFocused])
 
 
     function ViewP(id) {
@@ -61,7 +62,7 @@ export default function CommentScreen({ route, navigation }) {
 
         console.log(postId)
         const UpdateComment = async () => {
-            
+
             let prevComment = comments
             prevComment.push({ "comment_text": com, "uid": uid })
             await updateDoc(doc(db, "post", postId), {
@@ -70,7 +71,6 @@ export default function CommentScreen({ route, navigation }) {
         }
         UpdateComment()
     }
-
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -102,15 +102,15 @@ export default function CommentScreen({ route, navigation }) {
                         },
                         shadowOpacity: .5, shadowRadius: 20
                     }}>
-                        {comments.length>1 ?
-                        <View>
-                            <Text style={{ fontSize: 18, opacity: .7 }}>From :{" "}{item.data.uid}</Text>
-                            <Text style={{ fontSize: 18, opacity: .7 }}>Said:{" "}{item.data.comment_text}</Text>
-                        </View>
-                        :
-                        <View>
-                            <Text style={{ fontSize: 18, opacity: .7 }}> {"No Comments be the first..."} </Text>
-                        </View>
+                        {comments.length > 1 ?
+                            <View>
+                                <Text style={{ fontSize: 18, opacity: .7 }}>From :{" "}{item.data.uid}</Text>
+                                <Text style={{ fontSize: 18, opacity: .7 }}>Said:{" "}{item.data.comment_text}</Text>
+                            </View>
+                            :
+                            <View>
+                                <Text style={{ fontSize: 18, opacity: .7 }}> {"No Comments be the first..."} </Text>
+                            </View>
                         }
 
                     </View>
