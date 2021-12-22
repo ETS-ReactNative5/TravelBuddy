@@ -14,6 +14,9 @@ import TabOneScreen from "../screens/welcome/modal";
 import Smart from "../screens/post/smart";
 import CommentScreen from "../screens/comment/comments";
 import SmartPost from "../screens/post/smartPost";
+import GroupCreate from "../screens/group/create";
+import DisplayGroup from "../screens/group/displayGroup";
+import CreatedG from "../screens/group/createdGroups";
 
 
 
@@ -43,6 +46,9 @@ export default function AppNavigator() {
         <Stack.Screen name="smart" component={Smart} />
         <Stack.Screen name="comment" component={CommentScreen} />
         <Stack.Screen name="smart_post" component={SmartPost} />
+        <Stack.Screen name="create_group" component={GroupCreate} />
+        <Stack.Screen name="display_group" component={DisplayGroup} />
+        <Stack.Screen name="display_created" component={CreatedG} />
         
       </Stack.Navigator>
     </NavigationContainer>

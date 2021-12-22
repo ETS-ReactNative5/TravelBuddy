@@ -64,10 +64,12 @@ export default function CustomSide({route,navigation}) {
         </View>
       </TouchableOpacity>
       <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('display_group')}>
       <View style={{flexDirection:'row',marginTop:20}}>
       <MaterialIcons name="groups" size={24} color="black" style={{marginTop:10,paddingLeft:10}} />
         <Text style={{color:'white',fontSize:18,marginTop:10,paddingLeft:10}}>Groups</Text>
         </View>
+        </TouchableOpacity>
       </TouchableOpacity>
       <TouchableOpacity style={styles.loginBtn}>
          <Text style={{fontSize:15,color:'white'}}>Switch to Travel Guide</Text>

@@ -20,6 +20,9 @@ import Report from "../profile/report";
 import Smart from "../post/smart";
 import CommentScreen from "../comment/comments"
 import SmartPost from "../post/smartPost";
+import GroupCreate from "../group/create";
+import DisplayGroup from "../group/displayGroup";
+import CreatedG from "../group/createdGroups";
 
 
 faker.seed(10);
@@ -157,7 +160,7 @@ export default function drawNavg({ route, navigation }) {
   const { userId } = route.params;
   //console.log("Params in main:" + userId)
   return (
-    <Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomSide {...props} />}
+    <Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomSide {...props} initialParams={{ userId }} />}
     // initialParams={{userId}}
     >
       <Drawer.Screen name="home" component={HomeScreen} initialParams={{ userId }} />
@@ -170,6 +173,9 @@ export default function drawNavg({ route, navigation }) {
       <Drawer.Screen name="smart" component={Smart} initialParams={{ userId }} />
       <Drawer.Screen name="comment" component={CommentScreen} initialParams={{ userId }} />
       <Drawer.Screen name="smart_post" component={SmartPost} initialParams={{ userId }} />
+      <Drawer.Screen name="create_group" component={GroupCreate} initialParams={{ userId }} />
+      <Drawer.Screen name="display_group" component={DisplayGroup} initialParams={{ userId }} />
+      <Drawer.Screen name="display_created" component={CreatedG} initialParams={{ userId }} />
     </Drawer.Navigator>
   );
 }

@@ -84,7 +84,7 @@ export default function AddButton(){
                 </Animated.View>
                 <Animated.View style={{ position: "absolute", left: pulseX, top: pulseY }}>
                     <View style={styles.secondaryButton}>
-                    <TouchableOpacity onPress={() => navigation.navigate('pop')} >
+                    <TouchableOpacity onPress={() => navigation.navigate('create_group')} >
                     <FontAwesome name="group" size={24} color="black" />
                     </TouchableOpacity>
                     </View>
