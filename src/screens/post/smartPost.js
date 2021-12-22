@@ -8,7 +8,7 @@ import faker from 'faker'
 import { auth } from "../../../firebase";
 import { db } from "../../../firebase-config"
 import { collection, doc, documentId, getDocs, addDoc, setDoc, updateDoc, query, deleteDoc, where, orderBy } from "firebase/firestore"
-
+import { useIsFocused } from "@react-navigation/native";
 
 // faker.seed(10);
 
@@ -35,7 +35,7 @@ const AVATAR_SIZE = 50;
 
 
 export default function SmartPost({ route, navigation }) {
-
+  const isFocused = useIsFocused();
   const { loc } = route.params;
   console.log("Params in Smart Post:" + loc)
   const postCollectionRef = collection(db, "post");
@@ -60,8 +60,12 @@ export default function SmartPost({ route, navigation }) {
 
     }
     getPost()
+    if(isFocused){ 
+      getPost()
+      // getInitialData();
+  }
 
-  }, [])
+  }, [isFocused])
 
 
 
