@@ -20,6 +20,7 @@ import CreatedG from "../screens/group/createdGroups";
 import JoinG from "../screens/group/joinGroup";
 import InviteG from "../screens/group/inviteGroup";
 import InviteCreate from "../screens/group/createInvite";
+import InviteList from "../screens/welcome/inviteList";
 
 
 
@@ -55,6 +56,7 @@ export default function AppNavigator() {
         <Stack.Screen name="display_join" component={JoinG} />
         <Stack.Screen name="invite_group" component={InviteG} />
         <Stack.Screen name="invite_create" component={InviteCreate} />
+        <Stack.Screen name="display_invite" component={InviteList} />
       </Stack.Navigator>
     </NavigationContainer>
   )

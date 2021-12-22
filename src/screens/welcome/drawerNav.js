@@ -26,6 +26,7 @@ import CreatedG from "../group/createdGroups";
 import JoinG from "../group/joinGroup";
 import InviteG from "../group/inviteGroup";
 import InviteCreate from "../group/createInvite";
+import InviteList from "./inviteList";
 
 
 // faker.seed(10);
@@ -191,6 +192,7 @@ export default function drawNavg({ route, navigation }) {
       <Drawer.Screen name="display_join" component={JoinG} initialParams={{ userId }} />
       <Drawer.Screen name="invite_group" component={InviteG} initialParams={{ userId }} />
       <Drawer.Screen name="invite_create" component={InviteCreate} initialParams={{ userId }} />
+      <Drawer.Screen name="display_invite" component={InviteList} initialParams={{ userId }} />
     </Drawer.Navigator>
   );
 }
