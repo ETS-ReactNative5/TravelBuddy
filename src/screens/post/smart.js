@@ -122,9 +122,13 @@ export default function Smart({ route, navigation }) {
   //     console.log(location[i])
   // }
   function ViewP(location){
+    console.log(location)
     navigation.navigate('smart_post',{
       loc:location
     })
+
+
+
     // const getP = async () =>{
     //  const q = query(postCollectionRef, where("location", "==",loc));
     //    // console.log(post[0])
