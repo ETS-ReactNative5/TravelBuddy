@@ -118,10 +118,10 @@ export default function CreatedG({ route, navigation }) {
             },
             shadowOpacity: .5, shadowRadius: 10
           }}>
-            <View style={{ marginLeft: 10, height: 40 }}>
+            <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 22, opacity: .7 }}>Group Name :{" "}{item.data.group_name}</Text>
 
-              <Text>"Users of Group:-"</Text>
+              <Text>Users of Group:-</Text>
               {
               item.data.users.map((demo,index)=>
                 <Text>{demo}</Text>
