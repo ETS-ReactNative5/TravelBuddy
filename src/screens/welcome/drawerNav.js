@@ -23,27 +23,30 @@ import SmartPost from "../post/smartPost";
 import GroupCreate from "../group/create";
 import DisplayGroup from "../group/displayGroup";
 import CreatedG from "../group/createdGroups";
+import JoinG from "../group/joinGroup";
+import InviteG from "../group/inviteGroup";
+import InviteCreate from "../group/createInvite";
 
 
-faker.seed(10);
+// faker.seed(10);
 
 
 
 
-const DATA = [...Array(30).keys()].map((_, i) => {
-  return {
-    key: faker.random.uuid(),
-    image: `https://randomuser.me/api/portraits/${faker.helpers.randomize(['women', 'men'])}/${faker.random.number(60)}.jpg`,
-    name: faker.name.findName(),
-    jobTitle: faker.name.jobTitle(),
-    email: faker.internet.email(),
-    location: 'Muree',
-    budget: "10000",
-    days: "3",
-    status: 'individual',
-    uid: "saqib@test.com"
-  };
-});
+// const DATA = [...Array(30).keys()].map((_, i) => {
+//   return {
+//     key: faker.random.uuid(),
+//     image: `https://randomuser.me/api/portraits/${faker.helpers.randomize(['women', 'men'])}/${faker.random.number(60)}.jpg`,
+//     name: faker.name.findName(),
+//     jobTitle: faker.name.jobTitle(),
+//     email: faker.internet.email(),
+//     location: 'Muree',
+//     budget: "10000",
+//     days: "3",
+//     status: 'individual',
+//     uid: "saqib@test.com"
+//   };
+// });
 
 const SPACING = 20;
 const AVATAR_SIZE = 50;
@@ -86,6 +89,15 @@ function HomeScreen({ route, navigation }) {
     console.log("Post Id:"+id);
     navigation.navigate('comment',{
       postId:id
+    })
+  }
+
+  function invite(id,id1){
+    console.log("from Id:"+id);
+    console.log("to Id:"+id1);
+    navigation.navigate('invite_group',{
+      userId:id,
+      toId:id1
     })
   }
 
@@ -134,7 +146,7 @@ function HomeScreen({ route, navigation }) {
               <Text style={{ fontSize: 18, opacity: .7 }}>Trip Days:{" "}{item.days}</Text>
               <Text style={{ fontSize: 15,marginRight:10, opacity: .8, color: '#F08080' }}>{item.description}</Text>
               <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity style={styles.loginBtn}>
+                <TouchableOpacity style={styles.loginBtn} onPress={(()=>invite(userId,item.uid))}>
                   <Text>Invite</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.loginBtn1} onPress={(()=>comment(item.id))}>
@@ -176,6 +188,9 @@ export default function drawNavg({ route, navigation }) {
       <Drawer.Screen name="create_group" component={GroupCreate} initialParams={{ userId }} />
       <Drawer.Screen name="display_group" component={DisplayGroup} initialParams={{ userId }} />
       <Drawer.Screen name="display_created" component={CreatedG} initialParams={{ userId }} />
+      <Drawer.Screen name="display_join" component={JoinG} initialParams={{ userId }} />
+      <Drawer.Screen name="invite_group" component={InviteG} initialParams={{ userId }} />
+      <Drawer.Screen name="invite_create" component={InviteCreate} initialParams={{ userId }} />
     </Drawer.Navigator>
   );
 }

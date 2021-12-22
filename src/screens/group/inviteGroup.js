@@ -54,15 +54,17 @@ const SPACING = 20;
 const AVATAR_SIZE = 50;
 
 
-export default function CreatedG({ route, navigation }) {
+export default function InviteG({ route, navigation }) {
 
-    const { userId } = route.params;
+    const { userId,toId } = route.params;
 
     console.log("Created Groups---"+userId)
 
   const groupCollectionRef = collection(db, "groups");
+  const inviteCollectionRef = collection(db, "invite");
   const [location, setLocation] = useState([])
   const [user, setUser] = useState([])
+  const [gid, setGid] = useState("")
 
   useEffect(() => {
 
@@ -72,6 +74,7 @@ export default function CreatedG({ route, navigation }) {
          const getResult = await getDocs(q)
          getResult.forEach((doc) => {
           console.log(doc.data())
+          setGid(doc.data().groupId)
           intermediateList.push({
             "data":doc.data(),
             "id": doc.id
@@ -86,6 +89,20 @@ export default function CreatedG({ route, navigation }) {
 
 
   }, [])
+
+  function send() {
+      console.log(gid)
+    const sendInvitation = async () =>{  
+        await addDoc(inviteCollectionRef, {
+          groupId:gid,
+          fromId:userId,
+          toId:toId
+        });
+    }
+    sendInvitation().then(()=>{
+        navigation.navigate('home')
+    })
+  }
 
  
 
@@ -113,7 +130,7 @@ export default function CreatedG({ route, navigation }) {
       top:-50,
     }}></View>
 
-<Text style={{fontSize:30,color:'grey',marginTop:200,marginLeft:80,alignItems:'center',justifyContent:'center'}}>Groups Admin</Text>
+<Text style={{fontSize:30,color:'grey',marginTop:200,marginLeft:80,alignItems:'center',justifyContent:'center'}}>Invite to a Group</Text>
 
       <FlatList
         data={user}
@@ -132,21 +149,21 @@ export default function CreatedG({ route, navigation }) {
             },
             shadowOpacity: .5, shadowRadius: 10
           }}>
-            <View style={{ marginLeft: 10, height: 40}}>
+            <View style={{ marginLeft: 10, height: 55}}>
               <Text style={{ fontSize: 22, opacity: .7 }}>Group Name :{" "}{item.data.group_name}</Text>
-              {/* <View style={{ flexDirection: 'row' }}>
-              {comments.map(value =>
-                    <View style={styles.loginBtn1}>
-                        <Text style={{fontSize:18,marginLeft:10,marginTop:5}}>{value.uid}{"  "}:</Text>
-                        <Text style={{fontSize:18,marginLeft:10,marginTop:5}}>{value.comment_text}</Text>
-                    </View>
-                )}
-              </View> */}
+              <TouchableOpacity style={styles.loginBtn} onPress={send}>
+                  <Text>Invite</Text>
+                </TouchableOpacity>
             </View>
+            
 
           </View>
+          
         }}
       />
+        <TouchableOpacity style={styles.loginBtn1} onPress={() => navigation.navigate('invite_create')}>
+         <Text>Create</Text>
+       </TouchableOpacity>
     </View>
   );
 };
@@ -179,19 +196,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
+    marginLeft:90,
     backgroundColor: "#F08080",
 
   },
   loginBtn1: {
     borderWidth: 1,
     borderColor: 'rgba(0,0,0.2,0.2)',
-    width: "50%",
+    width: "25%",
     borderRadius: 45,
     height: 30,
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: 40,
-    marginTop: 20,
+    marginTop:5,
+    marginBottom:30,
+    marginLeft:120,
     backgroundColor: "#F08080",
 
   }

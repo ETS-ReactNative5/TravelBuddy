@@ -17,6 +17,9 @@ import SmartPost from "../screens/post/smartPost";
 import GroupCreate from "../screens/group/create";
 import DisplayGroup from "../screens/group/displayGroup";
 import CreatedG from "../screens/group/createdGroups";
+import JoinG from "../screens/group/joinGroup";
+import InviteG from "../screens/group/inviteGroup";
+import InviteCreate from "../screens/group/createInvite";
 
 
 
@@ -49,7 +52,9 @@ export default function AppNavigator() {
         <Stack.Screen name="create_group" component={GroupCreate} />
         <Stack.Screen name="display_group" component={DisplayGroup} />
         <Stack.Screen name="display_created" component={CreatedG} />
-        
+        <Stack.Screen name="display_join" component={JoinG} />
+        <Stack.Screen name="invite_group" component={InviteG} />
+        <Stack.Screen name="invite_create" component={InviteCreate} />
       </Stack.Navigator>
     </NavigationContainer>
   )

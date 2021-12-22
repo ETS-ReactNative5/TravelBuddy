@@ -23,7 +23,7 @@ if (Platform.OS === 'ios') {
 }
 
 
-export default function DisplayGroup({ route,navigation }) {
+export default function InviteCreate({ route,navigation }) {
 
 
     const { userId } = route.params;
@@ -37,20 +37,29 @@ export default function DisplayGroup({ route,navigation }) {
   const [budget, setBudget] = useState(0);
   const [days, setDays] = useState(0);
   const [groupname, setGname] = useState("");
-  const [groupList, setGroupList] = useState([]);
 
 
-  const created = () =>{
-        navigation.navigate('display_created',{
-            userId:userId
-        })
+  const add = () =>{
+      console.log(groupname)
+
+      const addGroup = async() =>{
+        const gid = Math.random().toString(36).substring(7)
+        //const dat = doc(db,"user","3Z18RxRIrC3gCpQ0JS9K")
+        await addDoc(groupCollectionRef, {
+            groupId:gid,
+            group_name:groupname,
+            uid:userId,
+            users:[
+                userId
+            ]
+        });
+       }
+
+       addGroup().then(()=>{
+        navigation.navigate('invite_group')
+       })
+
   }
-
-  const joined= () =>{
-    navigation.navigate('display_join',{
-        userId:userId
-    })
-}
 
 
 
@@ -78,16 +87,25 @@ return (
     }}></View>
 
     <View style={{paddingVertical:220}}>
-    <Text style={{fontSize:30,color:'grey',marginBottom:10,marginLeft:80}}>Groups Information</Text>
+    <Text style={{fontSize:30,color:'grey',marginBottom:60,marginLeft:100}}>Create Group</Text>
 
-       <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('create_group')}>
+<Input
+  placeholder='Enter your Group Name' 
+  leftIcon={
+    <Icon
+      name='user'
+      size={24}
+      color='black'
+    />
+  }
+  onChangeText={value=> setGname(value)}
+/>  
+       <TouchableOpacity style={styles.loginBtn} onPress={add}>
          <Text>Create</Text>
        </TouchableOpacity>
-       <TouchableOpacity style={styles.loginBtn} onPress={created}>
-         <Text>Groups Created</Text>
-       </TouchableOpacity>
-       <TouchableOpacity style={styles.loginBtn} onPress={joined}>
-         <Text>Joined Groups</Text>
+
+          <TouchableOpacity style={styles.loginBtn1} onPress={() => navigation.navigate('invite_group')}>
+         <Text>Back</Text>
        </TouchableOpacity>
 
     </View>
@@ -110,7 +128,7 @@ const styles = StyleSheet.create({
     marginLeft:100,
     borderColor:'rgba(0,0,0.2,0.2)',
     width: "40%",
-    borderRadius:85,
+    borderRadius:45,
     height: 50,
     alignItems: "center",
     justifyContent: "center",

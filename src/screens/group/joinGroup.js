@@ -54,11 +54,11 @@ const SPACING = 20;
 const AVATAR_SIZE = 50;
 
 
-export default function CreatedG({ route, navigation }) {
+export default function JoinG({ route, navigation }) {
 
     const { userId } = route.params;
 
-    console.log("Created Groups---"+userId)
+    console.log("Joined Groups---"+userId)
 
   const groupCollectionRef = collection(db, "groups");
   const [location, setLocation] = useState([])
@@ -67,15 +67,22 @@ export default function CreatedG({ route, navigation }) {
   useEffect(() => {
 
       const addGroup = async() =>{
-        const q = query(groupCollectionRef,where("uid", "==",userId));
+        const q = query(groupCollectionRef)
         let intermediateList=[];
          const getResult = await getDocs(q)
          getResult.forEach((doc) => {
           console.log(doc.data())
-          intermediateList.push({
+            for (var i =0;i<doc.data().users.length;i++) {
+            if (doc.data().users[i] == userId && doc.data().uid != userId) {
+             //console.log("joined Groups")
+            intermediateList.push({
             "data":doc.data(),
             "id": doc.id
           })
+          //.log(doc.data())
+            }
+          }
+
         });
         setUser(intermediateList)
        }
@@ -88,7 +95,9 @@ export default function CreatedG({ route, navigation }) {
   }, [])
 
  
-
+  for (var i =0;i<user.length;i++) {
+    console.log(user[i])  
+}
 
 
 
@@ -113,7 +122,7 @@ export default function CreatedG({ route, navigation }) {
       top:-50,
     }}></View>
 
-<Text style={{fontSize:30,color:'grey',marginTop:200,marginLeft:80,alignItems:'center',justifyContent:'center'}}>Groups Admin</Text>
+<Text style={{fontSize:30,color:'grey',marginTop:200,marginLeft:80,alignItems:'center',justifyContent:'center'}}>Groups Joined</Text>
 
       <FlatList
         data={user}
@@ -132,8 +141,8 @@ export default function CreatedG({ route, navigation }) {
             },
             shadowOpacity: .5, shadowRadius: 10
           }}>
-            <View style={{ marginLeft: 10, height: 40}}>
-              <Text style={{ fontSize: 22, opacity: .7 }}>Group Name :{" "}{item.data.group_name}</Text>
+            <View style={{ marginLeft: 60, height: 40}}>
+              <Text style={{ fontSize: 22, opacity: .7 }}>Group Name :{item.data.group_name}</Text>
               {/* <View style={{ flexDirection: 'row' }}>
               {comments.map(value =>
                     <View style={styles.loginBtn1}>
