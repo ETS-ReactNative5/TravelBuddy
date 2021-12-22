@@ -42,9 +42,7 @@ export default function AppNavigator() {
         <Stack.Screen name="pop" component={TabOneScreen} />
         <Stack.Screen name="smart" component={Smart} />
         <Stack.Screen name="comment" component={CommentScreen} />
-<<<<<<< Updated upstream
-        
-=======
+
         <Stack.Screen name="smart_post" component={SmartPost} />
         <Stack.Screen name="create_group" component={GroupCreate} />
         <Stack.Screen name="display_group" component={DisplayGroup} />
@@ -53,7 +51,7 @@ export default function AppNavigator() {
         <Stack.Screen name="invite_group" component={InviteG} />
         <Stack.Screen name="invite_create" component={InviteCreate} />
         <Stack.Screen name="image" component={ImagePickerExample} />
->>>>>>> Stashed changes
+
       </Stack.Navigator>
     </NavigationContainer>
   )
