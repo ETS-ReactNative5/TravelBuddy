@@ -11,7 +11,7 @@ import { collection, doc, documentId, getDocs, addDoc, setDoc, updateDoc, query,
 import { createIconSetFromFontello } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-
+import { useIsFocused } from "@react-navigation/native";
 faker.seed(5);
 
 
@@ -42,7 +42,7 @@ const AVATAR_SIZE = 50;
 
 
 export default function InviteList({ route, navigation }) {
-
+  const isFocused = useIsFocused(); //for update of state variables
   const { userId } = route.params;
 
   console.log("invitation list---" + userId)
@@ -70,9 +70,10 @@ export default function InviteList({ route, navigation }) {
       console.log(intermediateList)
     }
     getInvitation()
-
-
-  }, [])
+    if (isFocused) {
+      getInvitation()
+  }
+}, [isFocused])
 
 
   function deleteInv(id) {

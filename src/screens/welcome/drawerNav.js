@@ -27,39 +27,20 @@ import JoinG from "../group/joinGroup";
 import InviteG from "../group/inviteGroup";
 import InviteCreate from "../group/createInvite";
 import InviteList from "./inviteList";
+import { useIsFocused } from "@react-navigation/native";
 
-
-// faker.seed(10);
-
-
-
-
-// const DATA = [...Array(30).keys()].map((_, i) => {
-//   return {
-//     key: faker.random.uuid(),
-//     image: `https://randomuser.me/api/portraits/${faker.helpers.randomize(['women', 'men'])}/${faker.random.number(60)}.jpg`,
-//     name: faker.name.findName(),
-//     jobTitle: faker.name.jobTitle(),
-//     email: faker.internet.email(),
-//     location: 'Muree',
-//     budget: "10000",
-//     days: "3",
-//     status: 'individual',
-//     uid: "saqib@test.com"
-//   };
-// });
 
 const SPACING = 20;
 const AVATAR_SIZE = 50;
 
 
 function HomeScreen({ route, navigation }) {
-  
+  const isFocused = useIsFocused(); //for update of state variables
   const { userId } = route.params;
   console.log("Params in Home:" + userId)
   const postCollectionRef = collection(db, "post");
   const [user, setUser] = useState([])
- 
+
 
   useEffect(() => {
     const getPost = async () => {
@@ -77,8 +58,10 @@ function HomeScreen({ route, navigation }) {
     //console.log(user[0].id)
 
     getPost()
-
-  }, [])
+    if (isFocused) {
+      getPost()
+    }
+  }, [isFocused])
 
   user.sort(function (x, y) {
     return y.postTime - x.postTime;
@@ -86,28 +69,28 @@ function HomeScreen({ route, navigation }) {
 
 
 
-  function comment(id){
-    console.log("Post Id:"+id);
-    navigation.navigate('comment',{
-      postId:id
+  function comment(id) {
+    console.log("Post Id:" + id);
+    navigation.navigate('comment', {
+      postId: id
     })
   }
 
-  function invite(id,id1){
-    console.log("from Id:"+id);
-    console.log("to Id:"+id1);
-    navigation.navigate('invite_group',{
-      userId:id,
-      toId:id1
+  function invite(id, id1) {
+    console.log("from Id:" + id);
+    console.log("to Id:" + id1);
+    navigation.navigate('invite_group', {
+      userId: id,
+      toId: id1
     })
   }
 
 
-  function ViewP(id){
-      navigation.navigate('report',{
-          userId: userId,
-          repId:id
-      })
+  function ViewP(id) {
+    navigation.navigate('report', {
+      userId: userId,
+      repId: id
+    })
   }
 
 
@@ -133,24 +116,24 @@ function HomeScreen({ route, navigation }) {
               source={require("../../images/man.png")}
               style={{
                 width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE,
-                marginRight: SPACING / 2,marginTop:30
+                marginRight: SPACING / 2, marginTop: 30
               }}
             />
 
             <View>
-            <TouchableOpacity onPress={(()=>ViewP(item.uid))}>
-              <Text style={{ fontSize: 22, fontWeight: '600' }}>{item.uid}</Text>
+              <TouchableOpacity onPress={(() => ViewP(item.uid))}>
+                <Text style={{ fontSize: 22, fontWeight: '600' }}>{item.uid}</Text>
               </TouchableOpacity>
               <Text></Text>
               <Text style={{ fontSize: 18, opacity: .7 }}>Going to :{" "}{item.location}</Text>
               <Text style={{ fontSize: 18, opacity: .7 }}>Trip Budget:{" "}{item.budget}</Text>
               <Text style={{ fontSize: 18, opacity: .7 }}>Trip Days:{" "}{item.days}</Text>
-              <Text style={{ fontSize: 15,marginRight:10, opacity: .8, color: '#F08080' }}>{item.description}</Text>
+              <Text style={{ fontSize: 15, marginRight: 10, opacity: .8, color: '#F08080' }}>{item.description}</Text>
               <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity style={styles.loginBtn} onPress={(()=>invite(userId,item.uid))}>
+                <TouchableOpacity style={styles.loginBtn} onPress={(() => invite(userId, item.uid))}>
                   <Text>Invite</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.loginBtn1} onPress={(()=>comment(item.id))}>
+                <TouchableOpacity style={styles.loginBtn1} onPress={(() => comment(item.id))}>
                   <Text>Comments</Text>
                 </TouchableOpacity>
               </View>
