@@ -105,7 +105,7 @@ export default function CommentScreen({ route, navigation }) {
         // console.log(prevComment)
         const UpdateComment = async () => {
             // console.log("testo")
-            comments.shift()
+            // comments.shift()
             let prevComment = comments
             prevComment.push({ "comment_text": com, "uid": uid })
             await updateDoc(doc(db, "post", postId), {
