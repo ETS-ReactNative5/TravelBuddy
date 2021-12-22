@@ -22,27 +22,27 @@ export default function CommentScreen({ route, navigation }) {
     const [comments, setComments] = useState([])
     const [com, setCom] = useState("")
 
-    useEffect(() => {
-        const getPost = async () => {
+    const getPost = async () => {
 
-            const q = query(postCollectionRef);
-            const getResult = await getDocs(q)
-            getResult.forEach((doc) => {
-                if (doc.id == postId) {
-                    console.log(doc.data())
-                    setBudget(doc.data().budget)
-                    setLocation(doc.data().location)
-                    setDays(doc.data().days)
-                    setDesc(doc.data().description)
-                    setUid(doc.data().uid)
-                    let intermediateList = []
-                    doc.data().comments.map((item, index) => {
-                        intermediateList.push({ "data": item, "id": index })
-                    })
-                    setComments(intermediateList);
-                }
-            });
-        }
+        const q = query(postCollectionRef);
+        const getResult = await getDocs(q)
+        getResult.forEach((doc) => {
+            if (doc.id == postId) {
+                console.log(doc.data())
+                setBudget(doc.data().budget)
+                setLocation(doc.data().location)
+                setDays(doc.data().days)
+                setDesc(doc.data().description)
+                setUid(doc.data().uid)
+                let intermediateList = []
+                doc.data().comments.map((item, index) => {
+                    intermediateList.push({ "data": item, "id": index })
+                })
+                setComments(intermediateList);
+            }
+        });
+    }
+    useEffect(() => {
         getPost()
         if (isFocused) {
             getPost()
@@ -69,7 +69,8 @@ export default function CommentScreen({ route, navigation }) {
                 comments: prevComment
             });
         }
-        UpdateComment()
+        await UpdateComment()
+        getPost();
     }
 
     return (
