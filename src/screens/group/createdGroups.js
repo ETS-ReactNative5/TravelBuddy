@@ -35,20 +35,20 @@ function arrayToObject(arr) {
 }
 
 
-const DATA = [...Array(10).keys()].map((_, i) => {
-  return {
-    key: faker.random.uuid(),
-    image: `https://randomuser.me/api/portraits/${faker.helpers.randomize(['women', 'men'])}/${faker.random.number(60)}.jpg`,
-    name: faker.name.findName(),
-    jobTitle: faker.name.jobTitle(),
-    email: faker.internet.email(),
-    location: 'Muree',
-    budget: "10000",
-    days: "3",
-    status: 'individual',
-    uid: "saqib@test.com"
-  };
-});
+// const DATA = [...Array(10).keys()].map((_, i) => {
+//   return {
+//     key: faker.random.uuid(),
+//     image: `https://randomuser.me/api/portraits/${faker.helpers.randomize(['women', 'men'])}/${faker.random.number(60)}.jpg`,
+//     name: faker.name.findName(),
+//     jobTitle: faker.name.jobTitle(),
+//     email: faker.internet.email(),
+//     location: 'Muree',
+//     budget: "10000",
+//     days: "3",
+//     status: 'individual',
+//     uid: "saqib@test.com"
+//   };
+// });
 
 const SPACING = 20;
 const AVATAR_SIZE = 50;
@@ -67,14 +67,17 @@ export default function CreatedG({ route, navigation }) {
   useEffect(() => {
 
       const addGroup = async() =>{
-        const q = query(groupCollectionRef, where("uid", "==",userId));
-        // console.log(post[0])
+        const q = query(groupCollectionRef,where("uid", "==",userId));
+        let intermediateList=[];
          const getResult = await getDocs(q)
          getResult.forEach((doc) => {
-           console.log(doc.id);
-           console.log(doc.data());
-           setUser(doc.data())
-         });
+          console.log(doc.data())
+          intermediateList.push({
+            "data":doc.data(),
+            "id": doc.id
+          })
+        });
+        setUser(intermediateList)
        }
 
        
@@ -91,6 +94,28 @@ export default function CreatedG({ route, navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
+          <View style={{
+      backgroundColor:'#F08080',
+      position:'absolute',
+      width:400,
+      height:400,
+      borderRadius:200,
+      right:-100,
+      top:-200,
+    }}></View>
+    <View style={{
+      backgroundColor:'#FFB6C1',
+      position:'absolute',
+      width:200,
+      height:200,
+      borderRadius:100,
+      left:-50,
+      top:-50,
+    }}></View>
+
+  <View style={{paddingVertical:220,justifyContent:'center',alignItems:'center'}}>
+    <Text style={{fontSize:30,color:'grey',marginBottom:60}}>Welcome to Travel Mate</Text>
+
       <FlatList
         data={user}
         keyExtractor={item => item.id}
@@ -103,21 +128,28 @@ export default function CreatedG({ route, navigation }) {
           return <View style={{
             flexDirection: 'row', padding: SPACING, marginBottom: SPACING, backgroundColor: 'lightgrey',
             borderRadius: 26, shadowColor: 'lightgrey', shadowOffset: {
-              width: 0, height: 20
+              width: 0, height: 100
             },
             shadowOpacity: .5, shadowRadius: 10
           }}>
 
-            <View style={{ marginLeft: 60, height: 100 }}>
-              <Text></Text>
-              <Text style={{ fontSize: 22, opacity: .7 }}>Group Name :{item.group_name}</Text>
-              <View style={{ flexDirection: 'row' }}>
-              </View>
+            <View style={{ marginLeft: 60, height: 80 }}>
+              <Text>Admin of Groups</Text>
+              <Text style={{ fontSize: 22, opacity: .7 }}>Group Name :{item.data.group_name}</Text>
+              {/* <View style={{ flexDirection: 'row' }}>
+              {comments.map(value =>
+                    <View style={styles.loginBtn1}>
+                        <Text style={{fontSize:18,marginLeft:10,marginTop:5}}>{value.uid}{"  "}:</Text>
+                        <Text style={{fontSize:18,marginLeft:10,marginTop:5}}>{value.comment_text}</Text>
+                    </View>
+                )}
+              </View> */}
             </View>
 
           </View>
         }}
       />
+    </View>
     </View>
   );
 };

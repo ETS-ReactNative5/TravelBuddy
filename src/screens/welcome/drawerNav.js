@@ -50,7 +50,7 @@ const AVATAR_SIZE = 50;
 
 
 function HomeScreen({ route, navigation }) {
-
+  
   const { userId } = route.params;
   console.log("Params in Home:" + userId)
   const postCollectionRef = collection(db, "post");
@@ -132,7 +132,7 @@ function HomeScreen({ route, navigation }) {
               <Text style={{ fontSize: 18, opacity: .7 }}>Going to :{" "}{item.location}</Text>
               <Text style={{ fontSize: 18, opacity: .7 }}>Trip Budget:{" "}{item.budget}</Text>
               <Text style={{ fontSize: 18, opacity: .7 }}>Trip Days:{" "}{item.days}</Text>
-              <Text style={{ fontSize: 20, opacity: .8, color: '#F08080' }}>{item.description}</Text>
+              <Text style={{ fontSize: 15,marginRight:10, opacity: .8, color: '#F08080' }}>{item.description}</Text>
               <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity style={styles.loginBtn}>
                   <Text>Invite</Text>
