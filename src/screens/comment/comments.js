@@ -115,25 +115,27 @@ export default function CommentScreen({ route, navigation }) {
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
-            <View>
+            <View style={{borderWidth:1,borderRadius:10,marginTop:30,marginBottom:40,marginLeft:30,width:"80%",height:"28%",borderColor:"#F08080"}}>
                 <TouchableOpacity onPress={(() => ViewP(item.uid))}>
-                    <Text style={{ fontSize: 22, fontWeight: '600' }}>{uid}</Text>
+                    <Text style={{ fontSize: 22, fontWeight: '600',marginLeft:100,marginBottom:5 }}>{uid}</Text>
                 </TouchableOpacity>
 
-                <Text style={{ fontSize: 18, opacity: .7 }}>Going to :{" "}{location}</Text>
-                <Text style={{ fontSize: 18, opacity: .7 }}>Trip Budget:{" "}{budget}</Text>
-                <Text style={{ fontSize: 18, opacity: .7 }}>Trip Days:{" "}{days}</Text>
-                <Text style={{ fontSize: 20, opacity: .8, color: '#F08080' }}>{desc}</Text>
+                <Text style={{ fontSize: 18, opacity: .7,marginLeft:25,marginBottom:5 }}>Going to :{" "}{location}</Text>
+                <Text style={{ fontSize: 18, opacity: .7,marginLeft:25,marginBottom:5 }}>Trip Budget:{" "}{budget}</Text>
+                <Text style={{ fontSize: 18, opacity: .7,marginLeft:25,marginBottom:5 }}>Trip Days:{" "}{days}</Text>
+                <Text style={{ fontSize: 20, opacity: .8,marginLeft:25, color: '#F08081' }}>{desc}</Text>
             </View>
-            <View>
+            <Text style={{marginLeft:120,marginTop:-20,fontSize:20,color:"#F08080"}}>Comments:</Text>
+            <View style={{marginLeft:100,marginTop:10}}>
                 {comments.map(value =>
-                    <View>
-                        <Text>{value.comment_text}</Text>
-                        <TextInput placeholder="enter comment" onChangeText={value => setCom(value)}></TextInput>
-                        <Button title="comment" onPress={comFtn}></Button>
+                    <View style={{flexDirection:"row"}}>
+                        <Text style={{fontSize:18}}>{value.uid} :{"  "}</Text>
+                        <Text style={{fontSize:18}}>{value.comment_text}</Text>
                     </View>
                 )}
             </View>
+            <TextInput placeholder="enter comment" onChangeText={value => setCom(value)}></TextInput>
+                        <Button title="comment" onPress={comFtn}></Button>
 
         </View>
     );
