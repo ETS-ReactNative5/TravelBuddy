@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "fyp",
+    "slug": "fyp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/images/log4.png",
+    "splash": {
+      "image": "./src/images/log4.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/images/log4.png",
+        "backgroundColor": "white"
+      }
+    },
+    "web": {
+      "favicon": "./src/images/log4.png"
+    }
+  }
+}
