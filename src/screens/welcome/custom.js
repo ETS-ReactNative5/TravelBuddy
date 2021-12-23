@@ -63,20 +63,21 @@ export default function CustomSide({route,navigation}) {    //creating navbar to
         <Text style={{color:'white',fontSize:16,marginTop:10,paddingLeft:10}}>Smart Search</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
+     
       <TouchableOpacity onPress={() => navigation.navigate('display_group')}>
       <View style={{flexDirection:'row',marginTop:20}}>
       <MaterialIcons name="groups" size={24} color="black" style={{marginTop:10,paddingLeft:10}} />
         <Text style={{color:'white',fontSize:16,marginTop:10,paddingLeft:10}}>Groups</Text>
         </View>
         </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigation.navigate('display_invite')}>
       <View style={{flexDirection:'row',marginTop:20}}>
       <MaterialIcons name="groups" size={24} color="black" style={{marginTop:10,paddingLeft:10}} />
         <Text style={{color:'white',fontSize:16,marginTop:10,paddingLeft:10}}>Invitation</Text>
         </View>
         </TouchableOpacity>
-      </TouchableOpacity>
+
       <TouchableOpacity style={styles.loginBtn}>
          <Text style={{fontSize:15,color:'white'}}>Switch to Travel Guide</Text>
        </TouchableOpacity>

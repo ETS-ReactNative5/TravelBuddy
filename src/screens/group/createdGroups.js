@@ -10,7 +10,7 @@ import { db } from "../../../firebase-config"
 import { collection, doc, documentId, getDocs, addDoc, setDoc, updateDoc, query, deleteDoc, where, Firestore } from "firebase/firestore"
 import { createIconSetFromFontello } from "@expo/vector-icons";
 
-faker.seed(5);
+
 
 
 function getUnique(array) {
@@ -35,20 +35,6 @@ function arrayToObject(arr) {
 }
 
 
-// const DATA = [...Array(10).keys()].map((_, i) => {
-//   return {
-//     key: faker.random.uuid(),
-//     image: `https://randomuser.me/api/portraits/${faker.helpers.randomize(['women', 'men'])}/${faker.random.number(60)}.jpg`,
-//     name: faker.name.findName(),
-//     jobTitle: faker.name.jobTitle(),
-//     email: faker.internet.email(),
-//     location: 'Muree',
-//     budget: "10000",
-//     days: "3",
-//     status: 'individual',
-//     uid: "saqib@test.com"
-//   };
-// });
 
 const SPACING = 20;
 const AVATAR_SIZE = 50;
@@ -56,9 +42,9 @@ const AVATAR_SIZE = 50;
 
 export default function CreatedG({ route, navigation }) {
 
-    const { userId } = route.params;
+  const { userId } = route.params;
 
-    console.log("Created Groups---"+userId)
+  console.log("Created Groups---" + userId)
 
   const groupCollectionRef = collection(db, "groups");
   const [location, setLocation] = useState([])
@@ -66,61 +52,61 @@ export default function CreatedG({ route, navigation }) {
 
   useEffect(() => {
 
-      const addGroup = async() =>{
-        const q = query(groupCollectionRef,where("uid", "==",userId));
-        let intermediateList=[];
-         const getResult = await getDocs(q)
-         getResult.forEach((doc) => {
-          console.log(doc.data())
-          intermediateList.push({
-            "data":doc.data(),
-            "id": doc.id
-          })
-        });
-        setUser(intermediateList)
-       }
+    const addGroup = async () => {
+      const q = query(groupCollectionRef, where("uid", "==", userId));
+      let intermediateList = [];
+      const getResult = await getDocs(q)
+      getResult.forEach((doc) => {
+        console.log(doc.data())
+        intermediateList.push({
+          "data": doc.data(),
+          "id": doc.id
+        })
+      });
+      setUser(intermediateList)
+    }
 
-       
 
-        addGroup()
+
+    addGroup()
 
 
   }, [])
 
- 
+
 
 
 
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-          <View style={{
-      backgroundColor:'#F08080',
-      position:'absolute',
-      width:400,
-      height:400,
-      borderRadius:200,
-      right:-100,
-      top:-200,
-    }}></View>
-    <View style={{
-      backgroundColor:'#FFB6C1',
-      position:'absolute',
-      width:200,
-      height:200,
-      borderRadius:100,
-      left:-50,
-      top:-50,
-    }}></View>
+      <View style={{
+        backgroundColor: '#F08080',
+        position: 'absolute',
+        width: 400,
+        height: 400,
+        borderRadius: 200,
+        right: -100,
+        top: -200,
+      }}></View>
+      <View style={{
+        backgroundColor: '#FFB6C1',
+        position: 'absolute',
+        width: 200,
+        height: 200,
+        borderRadius: 100,
+        left: -50,
+        top: -50,
+      }}></View>
 
-<Text style={{fontSize:30,color:'grey',marginTop:200,marginLeft:80,alignItems:'center',justifyContent:'center'}}>Groups Admin</Text>
+      <Text style={{ fontSize: 30, color: 'grey', marginTop: 200, marginLeft: 80, alignItems: 'center', justifyContent: 'center' }}>Groups Admin</Text>
 
       <FlatList
         data={user}
         keyExtractor={item => item.id}
         contentContainerStyle={{
           padding: SPACING,
-          marginTop:10
+          marginTop: 10
         }}
 
 
@@ -128,20 +114,20 @@ export default function CreatedG({ route, navigation }) {
           return <View style={{
             flexDirection: 'row', padding: SPACING, marginBottom: SPACING, backgroundColor: 'lightgrey',
             borderRadius: 26, shadowColor: 'lightgrey', shadowOffset: {
-              width: 0, height: 50
+              width: 0, minHeight: 50
             },
             shadowOpacity: .5, shadowRadius: 10
           }}>
-            <View style={{ marginLeft: 10, height: 40}}>
+            <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 22, opacity: .7 }}>Group Name :{" "}{item.data.group_name}</Text>
-              {/* <View style={{ flexDirection: 'row' }}>
-              {comments.map(value =>
-                    <View style={styles.loginBtn1}>
-                        <Text style={{fontSize:18,marginLeft:10,marginTop:5}}>{value.uid}{"  "}:</Text>
-                        <Text style={{fontSize:18,marginLeft:10,marginTop:5}}>{value.comment_text}</Text>
-                    </View>
-                )}
-              </View> */}
+
+              <Text>Users of Group:-</Text>
+              {
+              item.data.users.map((demo,index)=>
+                <Text>{demo}</Text>
+              )}
+             
+
             </View>
 
           </View>
