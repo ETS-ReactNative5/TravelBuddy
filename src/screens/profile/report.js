@@ -32,7 +32,7 @@ if (Platform.OS === 'ios') {
 
 
 
-export default function Report({ route,navigation }) {
+export default function Report({ route,navigation }) {    //this component helps to report the user
 
   const [refreshing, setRefreshing] = React.useState(false);
 

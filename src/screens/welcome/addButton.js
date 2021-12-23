@@ -4,12 +4,12 @@ import { FontAwesome5,FontAwesome, Feather } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
 
-export default function AddButton(){
+export default function AddButton(){        //this button is displayed on home screen to create group and add post
     mode = new Animated.Value(0);
     buttonSize = new Animated.Value(1);
     const navigation = useNavigation();
 
-    const handlePress = () => {
+    const handlePress = () => {     //on press this button the animation of the button will work
         Animated.sequence([
             Animated.timing(buttonSize, {
                 toValue: 0.95,
@@ -101,8 +101,8 @@ export default function AddButton(){
     
 }
 
-const styles = StyleSheet.create({
-    button: {
+const styles = StyleSheet.create({          //this is styling object
+    button: {       
         alignItems: "center",
         justifyContent: "center",
         width: 72,

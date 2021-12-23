@@ -29,31 +29,12 @@ import InviteCreate from "../group/createInvite";
 import InviteList from "./inviteList";
 
 
-// faker.seed(10);
-
-
-
-
-// const DATA = [...Array(30).keys()].map((_, i) => {
-//   return {
-//     key: faker.random.uuid(),
-//     image: `https://randomuser.me/api/portraits/${faker.helpers.randomize(['women', 'men'])}/${faker.random.number(60)}.jpg`,
-//     name: faker.name.findName(),
-//     jobTitle: faker.name.jobTitle(),
-//     email: faker.internet.email(),
-//     location: 'Muree',
-//     budget: "10000",
-//     days: "3",
-//     status: 'individual',
-//     uid: "saqib@test.com"
-//   };
-// });
 
 const SPACING = 20;
 const AVATAR_SIZE = 50;
 
 
-function HomeScreen({ route, navigation }) {
+function HomeScreen({ route, navigation }) {  //displaying the post on ome screen after login
   
   const { userId } = route.params;
   console.log("Params in Home:" + userId)
@@ -169,7 +150,7 @@ function HomeScreen({ route, navigation }) {
 
 const Drawer = createDrawerNavigator();
 
-export default function drawNavg({ route, navigation }) {
+export default function drawNavg({ route, navigation }) {   //this component helps to navigate between screens in navbar
   const { userId } = route.params;
   //console.log("Params in main:" + userId)
   return (

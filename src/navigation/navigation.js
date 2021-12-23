@@ -26,8 +26,8 @@ import InviteList from "../screens/welcome/inviteList";
 
 const Stack = createNativeStackNavigator();
 
-export default function AppNavigator() {
-
+export default function AppNavigator() {    //this component is managaing routes between multiple screens
+  
   return (
       <NavigationContainer independent={true}>
       <Stack.Navigator   screenOptions={{

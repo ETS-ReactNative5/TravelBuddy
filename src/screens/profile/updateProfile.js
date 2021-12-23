@@ -30,7 +30,7 @@ if (Platform.OS === 'ios') {
 
 
 
-export default function UpdateProfile({ route,navigation }) {
+export default function UpdateProfile({ route,navigation }) {   //user can update its profile
 
 
 

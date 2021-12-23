@@ -45,32 +45,6 @@ const DATA = [
 ]
 
 
-// const Indicator = ({ scrollX }) => {
-
-//   return <View style={{ position: 'relative', bottom: 100, flexDirection: 'row' }}>
-//     {DATA.map((_, i) => {
-//       // console.log("!21212+"+i)
-//       // const inputRange = [(i-1)*width,i*width,(i+1)*width];
-//       //   const scale= scrollX.interpolate({
-//       //     inputRange,
-//       //     outputRange,
-//       //     extrapolate:'clamp'
-//       // })
-//       return <Animated.View
-//         key={`indicator-${i}`}
-//         style={{
-//           height: 10,
-//           width: 10,
-//           borderRadius: 5,
-//           backgroundColor: '#333',
-//           margin: 5,
-
-//         }}
-//       />
-//     }
-//     )}
-//   </View>
-// }
 
 const Backdrop = ({ scrollX }) => {
 
@@ -91,13 +65,13 @@ const Backdrop = ({ scrollX }) => {
 
 
 
-export default function MainScreen({navigation}) {
+export default function MainScreen({navigation}) {      //creating app intro slider containg screens to register and login
   const scrollX = React.useRef(new Animated.Value(0)).current;
   return (
     <View style={styles.container}>
       <StatusBar hidden />
       <Backdrop scrollX={scrollX} />
-      <Animated.FlatList
+      <Animated.FlatList                //flat list moving horizontally
         data={DATA}
         keyExtractor={item => item.key}
         horizontal
@@ -137,7 +111,7 @@ export default function MainScreen({navigation}) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({      //style object
   container: {
     flex: 1,
     backgroundColor: '#fff',

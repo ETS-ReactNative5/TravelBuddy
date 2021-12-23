@@ -9,7 +9,7 @@ import { Entypo } from '@expo/vector-icons';
 
 
 
-export default function CustomSide({route,navigation}) {
+export default function CustomSide({route,navigation}) {    //creating navbar to left side of the home screen
 
   // const { userId } = route.params;
   // console.log("Params in Custom Side:"+userId)

@@ -41,7 +41,7 @@ const SPACING = 20;
 const AVATAR_SIZE = 50;
 
 
-export default function InviteList({ route, navigation }) {
+export default function InviteList({ route, navigation }) { //this component display all the invitations inbox to a user
 
     const { userId } = route.params;
 

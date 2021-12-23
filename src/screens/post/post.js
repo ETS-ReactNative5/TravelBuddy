@@ -23,7 +23,7 @@ if (Platform.OS === 'ios') {
 }
 
 
-export default function Post({ route,navigation }) {
+export default function Post({ route,navigation }) {  //create post by callig this component
 
 
     const { userId } = route.params;

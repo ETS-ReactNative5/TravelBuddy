@@ -32,7 +32,7 @@ if (Platform.OS === 'ios') {
 
 
 
-export default function ViewProfile({ route,navigation }) {
+export default function ViewProfile({ route,navigation }) {   //user can view its profile
 
   const [refreshing, setRefreshing] = React.useState(false);
 

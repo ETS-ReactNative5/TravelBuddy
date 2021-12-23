@@ -8,7 +8,7 @@ import { useIsFocused } from "@react-navigation/native";
 const SPACING = 20;
 const AVATAR_SIZE = 50;
 
-export default function CommentScreen({ route, navigation }) {
+export default function CommentScreen({ route, navigation }) {   //display comments
     const isFocused = useIsFocused(); //for update of state variables
     const { postId } = route.params;
     console.log("Params in Comment:" + postId)
