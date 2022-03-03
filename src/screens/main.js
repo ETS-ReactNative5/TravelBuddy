@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View,TouchableOpacity,Text,KeyboardAvoidingView } from 'react-native'
 import { Video } from 'expo-av'
 import { Entypo,AntDesign } from '@expo/vector-icons'; 
-import {signInWithGoogleAsync,signInWithFacebookAsync} from '../../firebase/authentication'
+
 export default function LoginScreen({navigation}) {
 
     return (
@@ -18,7 +18,24 @@ export default function LoginScreen({navigation}) {
       muted={true}
       resizeMode="cover"
       />
-      
+      {/* <View style={{
+      backgroundColor:'#6c63ff',
+      position:'absolute',
+      width:400,
+      height:400,
+      borderRadius:200,
+      right:-100,
+      top:-200,
+    }}></View>
+    <View style={{
+      backgroundColor:'#e5e5e5',
+      position:'absolute',
+      width:200,
+      height:200,
+      borderRadius:100,
+      left:-50,
+      top:-50,
+    }}></View> */}
 
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={{flexDirection:'row',padding:90}}>
@@ -26,23 +43,23 @@ export default function LoginScreen({navigation}) {
       <Text style={{alignItems:'center',justifyContent:'center',color:'#6c63ff',fontFamily:'Trebuchet MS',fontSize:40,fontWeight:'bold'}}>Buddy</Text>
       </View>
       <View>
-      <TouchableOpacity style={styles.loginBtn} onPress={() => signInWithFacebookAsync().then(() => console.log('Signed in with Facebook!'))}>
+      <TouchableOpacity style={styles.loginBtn}>
       <View style={{flexDirection:'row'}}>
       <Entypo name="facebook" size={24} color="blue" />
-         <Text style={{padding:5}}>Continue with Facebook</Text>
+         <Text style={{paddingLeft:10,marginTop:3}}>Continue with Facebook</Text>
          </View>
        </TouchableOpacity>
-       <TouchableOpacity style={styles.loginBtn} onPress={() => signInWithGoogleAsync().then(() => console.log('Signed in with Google!'))}>
+       <TouchableOpacity style={styles.loginBtn}>
        <View style={{flexDirection:'row'}}>
        <AntDesign name="google" size={24} color="darkorange" />
-         <Text style={{padding:5}}>Continue with Google</Text>
+         <Text style={{paddingLeft:10,marginTop:3}}>Continue with Google</Text>
          </View>
        </TouchableOpacity>
-       <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('signin')}>
-         <Text>SignIn with Email</Text>
+       <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('register')}>
+         <Text>Sign Up with Email</Text>
        </TouchableOpacity>
-       <TouchableOpacity style={{paddingTop:100,marginLeft:120}} onPress={() => navigation.navigate('signup')}  >
-         <Text style={{color:'#e5e5e5',fontSize:20,fontWeight:'bold'}}>Create new account</Text>
+       <TouchableOpacity style={{paddingTop:100,marginLeft:110}} onPress={() => navigation.navigate('login')}>
+         <Text style={{color:'#e5e5e5',fontSize:25,paddingRight:40,fontWeight:'bold'}}>Login with Email</Text>
        </TouchableOpacity>
        </View>
       </KeyboardAvoidingView>

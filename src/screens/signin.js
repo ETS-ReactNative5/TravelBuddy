@@ -1,120 +1,85 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator, Header } from '@react-navigation/native-stack';
+import { createNativeStackNavigator,Header } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, Button, } from 'react-native-elements';
+import { Input,Button, } from 'react-native-elements';
 import {
   View,
-  TouchableOpacity, Animated, Text, Image, FlatList, StyleSheet, Dimensions, KeyboardAvoidingView, ScrollView
+   TouchableOpacity,Text, Image, FlatList, StyleSheet, Dimensions, KeyboardAvoidingView,ScrollView
 } from "react-native";
-import { authUpdate } from "../../firebase/config";
-import { SignInWithFirebase,PasswordResetFirebaseUser } from "../../firebase/authentication";
-import { onAuthStateChanged } from "firebase/auth";
-import { useIsFocused } from "@react-navigation/native";
 
-var keyboardH = 0
+
+var keyboardH=0
 
 if (Platform.OS === 'ios') {
   keyboardH = 1
 } else {
-  keyboardH = -400
+  keyboardH= -400
 }
 
 
 export default function SignIn({ navigation }) {
 
-  const isFocused = useIsFocused(); //for update of state variables
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  onAuthStateChanged(authUpdate, (user) => {
-    if (user) {
-        console.log(`${user.uid} is signed in`);
-        navigation.navigate('registerinfo')
-    } else {
-        console.log("user is signout from observer of user")
-    }
-  });
+return (
+      <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset = {keyboardH}> 
+    <ScrollView style={{backgroundColor:'white'}}>
+  <View>
+    <View style={{
+      backgroundColor:'#6c63ff',
+      position:'absolute',
+      width:400,
+      height:400,
+      borderRadius:200,
+      right:-100,
+      top:-200,
+    }}></View>
+    <View style={{
+      backgroundColor:'#e5e5e5',
+      position:'absolute',
+      width:200,
+      height:200,
+      borderRadius:100,
+      left:-50,
+      top:-50,
+    }}></View>
 
-  useEffect(() => {
-    setEmail("")
-    setPassword("")
-    if (isFocused) {
-      setEmail("")
-      setPassword("")
-    }
-  }, [isFocused])
+    <View style={{paddingVertical:220,justifyContent:'center',alignItems:'center'}}>
+    <Text style={{fontSize:30,color:'#3f3d56',marginBottom:60,fontWeight:'bold'}}>TravelBuddy</Text>
 
-
-  return (
-    <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={keyboardH}>
-      <ScrollView style={{ backgroundColor: 'white' }}>
-        <View>
-          <View style={{
-            backgroundColor: '#6c63ff',
-            position: 'absolute',
-            width: 400,
-            height: 400,
-            borderRadius: 200,
-            right: -100,
-            top: -200,
-          }}></View>
-          <View style={{
-            backgroundColor: '#e5e5e5',
-            position: 'absolute',
-            width: 200,
-            height: 200,
-            borderRadius: 100,
-            left: -50,
-            top: -50,
-          }}></View>
-
-          <View style={{ paddingVertical: 220, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ fontSize: 30, color: '#2f2e41', marginBottom: 60, fontWeight: 'bold' }}>Welcome to TravelBuddy</Text>
-
-            <Input
-              placeholder='Enter your Email'
-              leftIcon={
-                <Icon
-                  name='user'
-                  size={24}
-                  color='black'
-                />
-              }
-              value={email}
-              onChangeText={value => setEmail(value)}
-            />
-            <Input placeholder="Password"
-              leftIcon={
-                <Icon
-                  name='lock'
-                  size={24}
-                  color='black'
-                />
-              }
-              value={password}
-              onChangeText={value => setPassword(value)}
-              secureTextEntry={true}
-            />
+<Input
+  placeholder='Enter your Email' 
+  leftIcon={
+    <Icon
+      name='user'
+      size={24}
+      color='black'
+    />
+  }
+/>  
+<Input placeholder="Password"
+  leftIcon={
+    <Icon
+      name='lock'
+      size={24}
+      color='black'
+    />
+  }
+secureTextEntry={true} />
 
 
-            <TouchableOpacity style={styles.loginBtn} onPress={() => { SignInWithFirebase(email, password); }}>
-              <Text style={{ fontWeight: 'bold', fontSize: 18, color: '#e5e5e5' }}>Sign In</Text>
-            </TouchableOpacity>
+       <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('home')}>
+         <Text style={{fontWeight:'bold',fontSize:18,color:'#e5e5e5'}}>Sign In</Text>
+       </TouchableOpacity>
 
-            <TouchableOpacity style={styles.loginBtn} onPress={() => { PasswordResetFirebaseUser(email) }}>
-              <Text style={{ fontWeight: 'bold', fontSize: 18, color: '#e5e5e5' }}>Forget Password</Text>
-            </TouchableOpacity>
+    </View>
 
-          </View>
-
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
-  )
+   </View>
+   </ScrollView>
+   </KeyboardAvoidingView>
+)
 }
-
 
 
 const styles = StyleSheet.create({
@@ -125,10 +90,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   loginBtn: {
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0.2,0.2)',
+    borderWidth:1,
+    borderColor:'rgba(0,0,0.2,0.2)',
     width: "40%",
-    borderRadius: 45,
+    borderRadius:45,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
