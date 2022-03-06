@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input,Button, } from 'react-native-elements';
 import {
   View,
-   TouchableOpacity, Animated, Text, Image, FlatList, StyleSheet, Dimensions, KeyboardAvoidingView,ScrollView
+   TouchableOpacity, Animated, Text,TextInput, Image, FlatList, StyleSheet, Dimensions, KeyboardAvoidingView,ScrollView
 } from "react-native";
 
 
@@ -88,6 +88,12 @@ return (
   }
 secureTextEntry={true} />
 
+<TextInput
+        style={styles.input}
+        keyboardType="numeric"
+        placeholder="PhoneNumber"
+      />
+
 
        <TouchableOpacity style={styles.loginBtn}>
          <Text style={{fontWeight:'bold',fontSize:18,color:'#e5e5e5'}}>SIGN UP</Text>
@@ -103,6 +109,12 @@ secureTextEntry={true} />
 
 
 const styles = StyleSheet.create({
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
   container: {
     flex: 1,
     backgroundColor: "white",
