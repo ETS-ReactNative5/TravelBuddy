@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { Divider } from 'react-native-elements'
 import { iconsDataSet } from '../data/posts'
-import {getFormattedDateForPost} from "../UtilPackages/Date";
+import { getFormattedDateForPost } from "../UtilPackages/Date";
 
 const Post = ({ post }) => {
   return (
@@ -20,22 +20,26 @@ const Post = ({ post }) => {
 const PostHeader = ({ post }) => {
 
   return (
-    <View style={
-      {
-        flexDirection: 'row',
-        margin: 5,
-        alignItems: 'center'
-      }
-    }>
-      <Image source={{ uri: post.profile_pictures }} style={styles.story} ></Image>
-      <View style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
-        <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.user}</Text>
-        <Text style={{ color: "black", marginLeft: 5, fontWeight: '400' }}>{"is at"}</Text>
-        <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.locationName}</Text>
-        {post.locationDesc == null | "" ? <View></View> :
-          <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{"- "}{post.locationDesc} {"asdasdasdasdasdaaaa"}</Text>
+    <View>
+
+      <View style={
+        {
+          flexDirection: 'row',
+          margin: 5,
+          alignItems: 'center'
         }
+      }>
+        <Image source={{ uri: post.profile_pictures }} style={styles.story} ></Image>
+        <View style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
+          <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.user}</Text>
+          <Text style={{ color: "black", marginLeft: 5, fontWeight: '400' }}>{"is at"}</Text>
+          <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.locationName}</Text>
+          {post.locationDesc == null | "" ? <View></View> :
+            <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{"- "}{post.locationDesc} {"asdasdasdasdasdaaaa"}</Text>
+          }
+        </View>
       </View>
+      <Text style={{paddingLeft:10,fontSize:11,color:"grey"}}>{"Posted on "}{getFormattedDateForPost(post.timestamp)}</Text>
     </View>
   )
 }
