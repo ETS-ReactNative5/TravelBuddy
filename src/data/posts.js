@@ -2,7 +2,7 @@ export const POSTS = [
   {
     likedByUser: false,
     timestamp: "date from db",
-    imageUrl: 'https://i.ibb.co/182bP1y/4k.png',
+    imageUrl: 'https://picsum.photos/id/10/2500/1667',
     user: 'Jane Doe',
     likes: 7879,
     captions: 'Train rides to hogart',
@@ -17,7 +17,7 @@ export const POSTS = [
   {
     likedByUser: false,
     timestamp: "date from db",
-    imageUrl: 'https://i.ibb.co/182bP1y/4k.png',
+    imageUrl: 'https://picsum.photos/id/100/500/500',
     user: 'Jane Doe',
     likes: 7879,
     captions: 'Train rides to hogart',
@@ -32,7 +32,7 @@ export const POSTS = [
   {
     likedByUser: false,
     timestamp: "date from db",
-    imageUrl: 'https://i.ibb.co/182bP1y/4k.png',
+    imageUrl: 'https://picsum.photos/id/10/2500/1667',
     user: 'Jane Doe',
     likes: 7879,
     captions: 'Train rides to hogart',
@@ -44,6 +44,17 @@ export const POSTS = [
       }
     ]
   }
+]
+
+export const iconsDataSet=[
+  {
+    imageUrl:'https://img.icons8.com/small/64/000000/facebook-like.png',
+    imageName:'like'
+  },
+  {
+    imageUrl:'https://img.icons8.com/fluency-systems-regular/96/000000/comments--v2.png',
+    imageName:'comment'
+  },
 ]
 
 // // const localImageSource = require('../assets/images/empty-state.jpg'); // eslint-disable-line
