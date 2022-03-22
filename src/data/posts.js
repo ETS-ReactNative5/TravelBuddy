@@ -49,11 +49,11 @@ export const POSTS = [
 export const iconsDataSet=[
   {
     imageUrl:'https://img.icons8.com/small/64/000000/facebook-like.png',
-    imageName:'like'
+    imageName:'Interesting'
   },
   {
     imageUrl:'https://img.icons8.com/fluency-systems-regular/96/000000/comments--v2.png',
-    imageName:'comment'
+    imageName:'Comment'
   },
 ]
 
