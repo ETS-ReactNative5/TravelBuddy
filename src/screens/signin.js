@@ -2,8 +2,9 @@ import React from 'react'
 import { View, Text, SafeAreaView,StyleSheet } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 
-import Post from "./Post";
-import {POSTS} from "../data/posts"
+import Post from "./Post";  //Post component
+import {POSTS} from "../data/posts"  //data component
+
 
 const signin = () => {
   return (

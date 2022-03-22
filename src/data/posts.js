@@ -1,3 +1,6 @@
+let testDate=new Date()
+testDate=testDate.toString();
+
 export const POSTS = [
   {
     numberOfComments:25,
@@ -5,7 +8,7 @@ export const POSTS = [
     locationName:"Layyah",
     locationDesc:"The house of desert",
     likedByUser: false,
-    timestamp: "date from db",
+    timestamp: testDate,
     imageUrl: 'https://picsum.photos/id/10/2500/1667',
     user: 'Jane Doe',
     likes: 7879,

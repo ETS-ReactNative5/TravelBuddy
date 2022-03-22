@@ -1,8 +1,10 @@
 import React from 'react'
-import { Divider } from 'react-native-elements'
 import { View, Text, SafeAreaView, StyleSheet, Image } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+
+import { Divider } from 'react-native-elements'
 import { iconsDataSet } from '../data/posts'
+import {getFormattedDateForPost} from "../UtilPackages/Date";
 
 const Post = ({ post }) => {
   return (
