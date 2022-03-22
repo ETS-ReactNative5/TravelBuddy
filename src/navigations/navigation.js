@@ -6,7 +6,8 @@ import SignIn from "../screens/signin";
 import SignUp from "../screens/signup";
 import Home from "../screens/home";
 import ViewP from "../screens/viewP";
-
+import CardsScreen from "../screens/signin";
+import signin from "../screens/signin";
 
 
 const Stack = createNativeStackNavigator();
@@ -22,12 +23,12 @@ export default function AppNavigator() {    //this component is managaing routes
     }
   }}
   >
-        
-        <Stack.Screen name="main" component={LoginScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="login" component={SignIn} options={{headerShown: false}}/>
-        <Stack.Screen name="register" component={SignUp} options={{headerShown: false}}/>
-        <Stack.Screen name="home" component={Home} options={{headerShown: false}}/>
-        <Stack.Screen name="Profile" component={ViewP} options={{headerShown: false}}/>
+        <Stack.Screen name="main" component={signin} options={{headerShown: false}}/>
+        {/* <Stack.Screen name="main" component={LoginScreen} options={{headerShown: false}}/> */}
+        {/* <Stack.Screen name="login" component={CardsScreen} options={{headerShown: false}}/> */}
+        {/* <Stack.Screen name="register" component={SignUp} options={{headerShown: false}}/> */}
+        {/* <Stack.Screen name="home" component={Home} options={{headerShown: false}}/> */}
+        {/* <Stack.Screen name="Profile" component={ViewP} options={{headerShown: false}}/> */}
       </Stack.Navigator>
     </NavigationContainer>
   )
