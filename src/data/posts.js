@@ -1,5 +1,7 @@
 export const POSTS = [
   {
+    numberOfComments:25,
+    numberOfLikes:25,
     locationName:"Layyah",
     locationDesc:"The house of desert",
     likedByUser: false,
@@ -17,6 +19,8 @@ export const POSTS = [
     ]
   },
   {
+    numberOfComments:25,
+    numberOfLikes:25,
     locationName:"Layyah",
     locationDesc:"The house of desert",
     likedByUser: false,
@@ -34,6 +38,8 @@ export const POSTS = [
     ]
   },
   {
+    numberOfComments:25,
+    numberOfLikes:25,
     locationName:"Layyah",
     // locationDesc:"The house of desert",
     likedByUser: false,

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, SafeAreaView,StyleSheet } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 
-import SPost from "./SPost";
+import Post from "./Post";
 import {POSTS} from "../data/posts"
 
 const signin = () => {
@@ -10,7 +10,7 @@ const signin = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         {POSTS.map((post,index)=> (
-            <SPost post={post} key={index}></SPost>
+            <Post post={post} key={index}></Post>
         ))}
       </ScrollView>
     </SafeAreaView>
