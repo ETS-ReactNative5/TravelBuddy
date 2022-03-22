@@ -11,7 +11,7 @@ const Post = ({ post }) => {
     <View style={{ marginBottom: 30 }}>
       <Divider style={{ color: "black", paddingBottom: 2 }} width={1} orientation='vertical'></Divider>
       <PostHeader post={post}></PostHeader>
-      <PostImage post={post} ></PostImage>
+      <PostBody post={post}></PostBody>
       <PostFooter post={post} />
     </View>
   )
@@ -44,8 +44,25 @@ const PostHeader = ({ post }) => {
   )
 }
 
+const PostBody=({post})=>{
+  return (
+    <View style={{paddingLeft:10}}>
+      <PostContent post={post}></PostContent>
+      <PostImage post={post} ></PostImage>
+    </View>
+  )
+}
+
+const PostContent=({post})=>{
+  return (
+    <Text>
+      {"Life is always fun when enjoy together #United"}
+    </Text>
+  )
+}
+
 const PostImage = ({ post }) => (
-  <View style={{ width: '100%', height: 200, margin: 5 }}>
+  <View style={{ width: '100%', height: 200, marginTop: 5,marginBottom: 5,marginRight: 5 }}>
     <Image
       source={{ uri: post.imageUrl }}
       style={{ height: '100%', resizeMode: 'cover' }}
