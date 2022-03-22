@@ -28,6 +28,21 @@ export const POSTS = [
         comment: 'Wow working on the react native'
       }
     ]
+  },
+  {
+    likedByUser: false,
+    timestamp: "date from db",
+    imageUrl: 'https://i.ibb.co/182bP1y/4k.png',
+    user: 'Jane Doe',
+    likes: 7879,
+    captions: 'Train rides to hogart',
+    profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
+    comments: [
+      {
+        user: 'jane doe',
+        comment: 'Wow working on the react native'
+      }
+    ]
   }
 ]
 
