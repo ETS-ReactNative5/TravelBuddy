@@ -16,20 +16,42 @@ const SPost = ({ post }) => {
 }
 
 const PostHeader = ({ post }) => {
+  // 
+//   <View style={
+//     {
+//       flexDirection: 'row',
+//       justifyContent: 'space-between',
+//       margin: 5,
+//       alignItems: 'center'
+//     }
+//   }>
+//     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+//       <Image source={{ uri: post.profile_pictures }} style={styles.story} ></Image>
+//       <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.user}</Text>
+//     </View>
+//     <Text style={{ color: 'black', fontWeight: '900' }}>...</Text>
+//   </View>
+// )
+  // 
+
   return (
     <View style={
       {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
         margin: 5,
         alignItems: 'center'
       }
     }>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image source={{ uri: post.profile_pictures }} style={styles.story} ></Image>
-        <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.user} is at CityName</Text>
+      <Image source={{ uri: post.profile_pictures }} style={styles.story} ></Image>
+      <View style={{ flexDirection: 'row', alignItems: 'center',flexWrap:'wrap' }}>
+        <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.user}</Text>
+        <Text style={{ color: "black", marginLeft: 5, fontWeight: '400' }}>{"is at"}</Text>
+        <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.locationName}</Text>
+        {post.locationDesc==null | "" ? <View></View> :
+        <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{"- "}{post.locationDesc} {"asdasdasdasdasdaaaa"}</Text>
+        }
       </View>
-      <Text style={{ color: 'black', fontWeight: '900' }}>...</Text>
     </View>
   )
 }
@@ -56,14 +78,16 @@ const PostFooter = () => {
   )
 }
 
-const Icon = ({ imgStyle, imgUrl,imageName }) => (
-  <View style={{flexDirection: 'row',
-  margin: 5,
-  alignItems: 'center'}}>
-  <TouchableOpacity>
-    <Image style={imgStyle} source={{ uri: imgUrl }} />
-  </TouchableOpacity>
-  <Text style={{fontSize:15}}>{imageName}</Text>
+const Icon = ({ imgStyle, imgUrl, imageName }) => (
+  <View style={{
+    flexDirection: 'row',
+    margin: 5,
+    alignItems: 'center'
+  }}>
+    <TouchableOpacity>
+      <Image style={imgStyle} source={{ uri: imgUrl }} />
+    </TouchableOpacity>
+    <Text style={{ fontSize: 15 }}>{imageName}</Text>
   </View>
 )
 
@@ -72,7 +96,7 @@ const styles = StyleSheet.create({
   story: {
     width: 35,
     height: 35,
-    borderRadius: 50,
+    borderRadius: 10,
     marginLeft: 6,
     borderWidth: 1.6,
     borderColor: '#ff8501'

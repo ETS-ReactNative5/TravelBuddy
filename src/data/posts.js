@@ -1,5 +1,7 @@
 export const POSTS = [
   {
+    locationName:"Layyah",
+    locationDesc:"The house of desert",
     likedByUser: false,
     timestamp: "date from db",
     imageUrl: 'https://picsum.photos/id/10/2500/1667',
@@ -15,6 +17,8 @@ export const POSTS = [
     ]
   },
   {
+    locationName:"Layyah",
+    locationDesc:"The house of desert",
     likedByUser: false,
     timestamp: "date from db",
     imageUrl: 'https://picsum.photos/id/100/500/500',
@@ -30,6 +34,8 @@ export const POSTS = [
     ]
   },
   {
+    locationName:"Layyah",
+    // locationDesc:"The house of desert",
     likedByUser: false,
     timestamp: "date from db",
     imageUrl: 'https://picsum.photos/id/10/2500/1667',
@@ -53,7 +59,7 @@ export const iconsDataSet=[
   },
   {
     imageUrl:'https://img.icons8.com/fluency-systems-regular/96/000000/comments--v2.png',
-    imageName:'Comment'
+    imageName:'Comments'
   },
 ]
 
