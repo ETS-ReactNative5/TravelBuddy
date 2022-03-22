@@ -7,7 +7,7 @@ import { iconsDataSet } from '../data/posts'
 const Post = ({ post }) => {
   return (
     <View style={{ marginBottom: 30 }}>
-      <Divider width={1} orientation='vertical'></Divider>
+      <Divider style={{ color: "black", paddingBottom: 2 }} width={1} orientation='vertical'></Divider>
       <PostHeader post={post}></PostHeader>
       <PostImage post={post} ></PostImage>
       <PostFooter post={post} />
@@ -21,18 +21,17 @@ const PostHeader = ({ post }) => {
     <View style={
       {
         flexDirection: 'row',
-        // justifyContent: 'space-between',
         margin: 5,
         alignItems: 'center'
       }
     }>
       <Image source={{ uri: post.profile_pictures }} style={styles.story} ></Image>
-      <View style={{ flexDirection: 'row', alignItems: 'center',flexWrap:'wrap' }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
         <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.user}</Text>
         <Text style={{ color: "black", marginLeft: 5, fontWeight: '400' }}>{"is at"}</Text>
         <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.locationName}</Text>
-        {post.locationDesc==null | "" ? <View></View> :
-        <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{"- "}{post.locationDesc} {"asdasdasdasdasdaaaa"}</Text>
+        {post.locationDesc == null | "" ? <View></View> :
+          <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{"- "}{post.locationDesc} {"asdasdasdasdasdaaaa"}</Text>
         }
       </View>
     </View>
@@ -48,36 +47,37 @@ const PostImage = ({ post }) => (
   </View>
 )
 
-const PostFooter = ({post}) => {
+const PostFooter = ({ post }) => {
   return (
     <View>
-
-    <View style={{
-      flexDirection: 'row',
-      margin: 5,
-      alignItems: 'center',
-      justifyContent:'space-between',
-    }}>
-      <Text style={{fontSize:10}}>{post.numberOfLikes} {"Likes"}</Text>
-      <Text style={{fontSize:10}}>{post.numberOfComments} {"Comments"}</Text>
-    </View>
-    <View style={{
-      flexDirection: 'row',
-      margin: 5,
-      alignItems: 'center',
-      justifyContent:'space-between',
-    }}>
-      <Icon imgStyle={styles.footerIcon} imgUrl={iconsDataSet[0].imageUrl} imageName={iconsDataSet[0].imageName}></Icon>
-      <Icon imgStyle={styles.footerIcon} imgUrl={iconsDataSet[1].imageUrl} imageName={iconsDataSet[1].imageName}></Icon>
-    </View>
+      <View style={{
+        flexDirection: 'row',
+        marginLeft: 20,
+        marginRight: 20,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}>
+        <Text style={{ fontSize: 10 }}>{post.numberOfLikes} {"Likes"}</Text>
+        <Text style={{ fontSize: 10 }}>{post.numberOfComments} {"Comments"}</Text>
       </View>
+      <View style={{
+        flexDirection: 'row',
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 5,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}>
+        <Icon imgStyle={styles.footerIcon} imgUrl={iconsDataSet[0].imageUrl} imageName={iconsDataSet[0].imageName}></Icon>
+        <Icon imgStyle={styles.footerIcon} imgUrl={iconsDataSet[1].imageUrl} imageName={iconsDataSet[1].imageName}></Icon>
+      </View>
+    </View>
   )
 }
 
 const Icon = ({ imgStyle, imgUrl, imageName }) => (
   <View style={{
     flexDirection: 'row',
-    margin: 5,
     alignItems: 'center'
   }}>
     <TouchableOpacity>
