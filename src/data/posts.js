@@ -3,6 +3,7 @@ testDate=testDate.toString();
 
 export const POSTS = [
   {
+    bodyContent:"hello this is the best \n in the world, \"feeling\" ",
     numberOfComments:25,
     numberOfLikes:25,
     locationName:"Layyah",

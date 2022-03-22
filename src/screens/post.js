@@ -54,8 +54,19 @@ const PostBody=({post})=>{
 }
 
 const PostContent=({post})=>{
+  const hashTagsDetector=(bodyContent)=>{
+    let content=bodyContent
+    content.split(' ').filter(v=> v.startsWith('#'))
+    return content;
+  }
+// detect and then replace that string with blue color
+//replace quoted area inside with underline or bold format.
+
+  
+
   return (
     <Text>
+      {post.bodyContent}
       {"Life is always fun when enjoy together #United"}
     </Text>
   )
