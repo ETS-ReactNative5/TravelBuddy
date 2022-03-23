@@ -8,22 +8,24 @@ import Home from "../screens/home";
 import ViewP from "../screens/viewP";
 import CardsScreen from "../screens/signin";
 import signin from "../screens/signin";
+import Comments from "../screens/Comments";
 
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {    //this component is managaing routes between multiple screens
-  
+
   return (
-      <NavigationContainer independent={true}>
-      <Stack.Navigator   screenOptions={{
-    headerShown: false,
-    contentStyle:{
-      backgroundColor:'#FFFFFF'
-    }
-  }}
-  >
-        <Stack.Screen name="main" component={signin} options={{headerShown: false}}/>
+    <NavigationContainer independent={true}>
+      <Stack.Navigator screenOptions={{
+        headerShown: false,
+        contentStyle: {
+          backgroundColor: '#FFFFFF'
+        }
+      }}
+      >
+        <Stack.Screen name="comments" component={Comments} options={{ headerShown: false }} />
+        <Stack.Screen name="main" component={signin} options={{ headerShown: false }} />
         {/* <Stack.Screen name="main" component={LoginScreen} options={{headerShown: false}}/> */}
         {/* <Stack.Screen name="login" component={CardsScreen} options={{headerShown: false}}/> */}
         {/* <Stack.Screen name="register" component={SignUp} options={{headerShown: false}}/> */}
