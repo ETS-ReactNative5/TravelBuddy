@@ -57,7 +57,7 @@ const PostBody = ({ post }) => {
 const PostContent = ({ post }) => {
   // detect and then replace that string with blue color
   //replace quoted area inside with underline or bold format.
-  const _style = [{ color: "black" }, { color: "blue", fontSize: 15 }, { color: "black", fontWeight: 'bold' }]
+  const _style = [{ color: "black" }, { color: "#3281a8", fontSize: 15 }, { color: "black", fontWeight: 'bold' }]
 
 
   return (

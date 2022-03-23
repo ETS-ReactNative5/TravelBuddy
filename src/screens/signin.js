@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, SafeAreaView,StyleSheet } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 
-import Post from "./Post";  //Post component
+import Post from './post';  //Post component
 import { POSTS } from '../data/posts'; //Post data
 
 
