@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Divider } from 'react-native-elements'
 import { iconsDataSet } from '../data/posts'
 import { getFormattedDateForPost } from "../UtilPackages/Date";
+import {getTokenizeContent} from "../UtilPackages/String"
 
 const Post = ({ post }) => {
   return (
@@ -47,28 +48,32 @@ const PostHeader = ({ post }) => {
 const PostBody=({post})=>{
   return (
     <View style={{paddingLeft:10}}>
-      <PostContent post={post}></PostContent>
+      <PostContent post={getTokenizeContent(post.bodyContent)}></PostContent>
       <PostImage post={post} ></PostImage>
     </View>
   )
 }
 
 const PostContent=({post})=>{
-  const hashTagsDetector=(bodyContent)=>{
-    let content=bodyContent
-    content.split(' ').filter(v=> v.startsWith('#'))
-    return content;
-  }
 // detect and then replace that string with blue color
 //replace quoted area inside with underline or bold format.
-
+  const _style=[{color:"black"},{color:"blue",fontSize:15},{color:"black",fontWeight: 'bold'}]
   
 
   return (
-    <Text>
-      {post.bodyContent}
-      {"Life is always fun when enjoy together #United"}
-    </Text>
+    <View style={
+      {
+        flexDirection: 'row',
+        margin: 5,
+        alignItems: 'center'
+      }}>
+      {/* {post.bodyContent}
+      {"Life is always fun when enjoy together #United"} */}
+      {post.map((element,index)=>(
+        <Text key={index} style={_style[element[0]]}>{element[1]}{" "}</Text>
+      ))
+      }
+    </View>
   )
 }
 
