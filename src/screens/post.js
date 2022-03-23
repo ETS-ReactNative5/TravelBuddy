@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Divider } from 'react-native-elements'
 import { iconsDataSet } from '../data/posts'
 import { getFormattedDateForPost } from "../UtilPackages/Date";
-import {getTokenizeContent} from "../UtilPackages/String"
+import { getTokenizeContent } from "../UtilPackages/String"
 
 const Post = ({ post }) => {
   return (
@@ -40,45 +40,48 @@ const PostHeader = ({ post }) => {
           }
         </View>
       </View>
-      <Text style={{paddingLeft:10,fontSize:11,color:"grey"}}>{"Posted on "}{getFormattedDateForPost(post.timestamp)}</Text>
+      <Text style={{ paddingLeft: 10, fontSize: 11, color: "grey" }}>{"Posted on "}{getFormattedDateForPost(post.timestamp)}</Text>
     </View>
   )
 }
 
-const PostBody=({post})=>{
+const PostBody = ({ post }) => {
   return (
-    <View style={{paddingLeft:10}}>
+    <View style={{ paddingLeft: 10 }}>
       <PostContent post={getTokenizeContent(post.bodyContent)}></PostContent>
       <PostImage post={post} ></PostImage>
     </View>
   )
 }
 
-const PostContent=({post})=>{
-// detect and then replace that string with blue color
-//replace quoted area inside with underline or bold format.
-  const _style=[{color:"black"},{color:"blue",fontSize:15},{color:"black",fontWeight: 'bold'}]
-  
+const PostContent = ({ post }) => {
+  // detect and then replace that string with blue color
+  //replace quoted area inside with underline or bold format.
+  const _style = [{ color: "black" }, { color: "blue", fontSize: 15 }, { color: "black", fontWeight: 'bold' }]
+
 
   return (
-    <View style={
-      {
-        flexDirection: 'row',
-        margin: 5,
-        alignItems: 'center'
-      }}>
-      {/* {post.bodyContent}
-      {"Life is always fun when enjoy together #United"} */}
-      {post.map((element,index)=>(
-        <Text key={index} style={_style[element[0]]}>{element[1]}{" "}</Text>
-      ))
-      }
+    <View>
+      {post.map((element1,index1)=>
+      (
+        <View key={index1} style={
+          {
+            flexDirection: 'row',
+            margin: 5,
+            alignItems: 'center'
+          }}>
+          {element1.map((element2, index2) => (
+            <Text key={index2} style={_style[element2[0]]}>{element2[1]}{" "}</Text>
+          ))
+          }
+        </View>
+      ))}
     </View>
   )
 }
 
 const PostImage = ({ post }) => (
-  <View style={{ width: '100%', height: 200, marginTop: 5,marginBottom: 5,marginRight: 5 }}>
+  <View style={{ width: '100%', height: 200, marginTop: 5, marginBottom: 5, marginRight: 5 }}>
     <Image
       source={{ uri: post.imageUrl }}
       style={{ height: '100%', resizeMode: 'cover' }}

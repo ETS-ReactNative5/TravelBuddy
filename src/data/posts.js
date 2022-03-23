@@ -23,7 +23,7 @@ export const POSTS = [
     ]
   },
   {
-    bodyContent:"This is the \n #hash \"apple in\" the world ",
+    bodyContent:"This is the \n #hash \"apple in\" the world \n#layyah #multan",
     numberOfComments:25,
     numberOfLikes:25,
     locationName:"Layyah",
