@@ -6,12 +6,12 @@ import Post from './post';  //Post component
 import { POSTS } from '../data/posts'; //Post data
 
 
-const signin = () => {
+const signin = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
        {POSTS.map((element,index)=>(
-         <Post post={element} key={index}></Post>
+         <Post navigation={navigation} post={element} key={index} ></Post>
        ))} 
       </ScrollView>
     </SafeAreaView>

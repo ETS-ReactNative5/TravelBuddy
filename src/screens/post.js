@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Text, SafeAreaView, StyleSheet, Image } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View, Text, SafeAreaView, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { iconsDataSet } from '../data/posts'
 import { getFormattedDateForPost } from "../UtilPackages/Date";
 import { getTokenizeContent } from "../UtilPackages/String"
@@ -9,13 +8,13 @@ import { Divider } from 'react-native-elements'
 import { useFonts } from 'expo-font';
 
 
-const Post = ({ post }) => {
+const Post = ({ navigation, post }) => {
   return (
     <View style={{ marginBottom: 30 }}>
       <Divider style={{ color: "black", paddingBottom: 2 }} width={1} orientation='vertical'></Divider>
       <PostHeader post={post}></PostHeader>
       <PostBody post={post}></PostBody>
-      <PostFooter post={post} />
+      <PostFooter navigation={navigation} post={post} />
     </View>
   )
 }
@@ -63,9 +62,9 @@ const PostContent = ({ post }) => {
   })
 
   const _style = [//style schemes for fonts in postContent
-    { color: "black", fontFamily: "EBGaramond" ,fontSize:18},
+    { color: "black", fontFamily: "EBGaramond", fontSize: 18 },
     { color: "#3281a8", fontSize: 17, fontFamily: "EBGaramond" },
-    { color: "black", fontFamily: "EBGaramond-B",fontSize:18 }
+    { color: "black", fontFamily: "EBGaramond-B", fontSize: 18 }
   ]
 
   if (!fontsLoaded) {//if fonts not loaded properly
@@ -75,7 +74,7 @@ const PostContent = ({ post }) => {
   }
 
   return (
-    <View style={{margin: 5}}>
+    <View style={{ margin: 5 }}>
       {post.map((element1, index1) =>
       (
         <View key={index1} style={
@@ -103,9 +102,9 @@ const PostImage = ({ post }) => (
   </View>
 )
 
-const PostFooter = ({ post }) => {
+const PostFooter = ({ navigation, post }) => {
   return (
-    <View style={{backgroundColor:'#f0f2f0',borderRadius:10,marginLeft:10,marginRight:10}}>
+    <View style={{ backgroundColor: '#f0f2f0', borderRadius: 10, marginLeft: 10, marginRight: 10 }}>
       <View style={{
         flexDirection: 'row',
         marginLeft: 20,
@@ -124,22 +123,25 @@ const PostFooter = ({ post }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        <Icon imgStyle={styles.footerIcon} imgUrl={iconsDataSet[0].imageUrl} imageName={iconsDataSet[0].imageName}></Icon>
-        <Icon imgStyle={styles.footerIcon} imgUrl={iconsDataSet[1].imageUrl} imageName={iconsDataSet[1].imageName}></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[0].imageUrl} imageName={iconsDataSet[0].imageName} links="like"></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[1].imageUrl} imageName={iconsDataSet[1].imageName} links="comments"></Icon>
       </View>
     </View>
   )
 }
 
-const Icon = ({ imgStyle, imgUrl, imageName }) => (
-  <View style={{
-    flexDirection: 'row',
-    alignItems: 'center'
-  }}>
-    <TouchableOpacity>
+const Icon = ({ navigation, imgStyle, imgUrl, imageName, links }) => (
+  <View >
+    <TouchableOpacity
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center'
+      }}
+      onPress={() => navigation.navigate(links)}
+    >
       <Image style={imgStyle} source={{ uri: imgUrl }} />
+      <Text style={{ fontSize: 15 }}>{imageName}</Text>
     </TouchableOpacity>
-    <Text style={{ fontSize: 15 }}>{imageName}</Text>
   </View>
 )
 
