@@ -1,11 +1,13 @@
 import React from 'react'
 import { View, Text, SafeAreaView, StyleSheet, Image } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-
-import { Divider } from 'react-native-elements'
 import { iconsDataSet } from '../data/posts'
 import { getFormattedDateForPost } from "../UtilPackages/Date";
 import { getTokenizeContent } from "../UtilPackages/String"
+
+import { Divider } from 'react-native-elements'
+import { useFonts } from 'expo-font';
+
 
 const Post = ({ post }) => {
   return (
@@ -55,14 +57,26 @@ const PostBody = ({ post }) => {
 }
 
 const PostContent = ({ post }) => {
-  // detect and then replace that string with blue color
-  //replace quoted area inside with underline or bold format.
-  const _style = [{ color: "black" }, { color: "#3281a8", fontSize: 15 }, { color: "black", fontWeight: 'bold' }]
+  let [fontsLoaded, error] = useFonts({
+    'EBGaramond': require("../../assets/fonts/EBGaramond-Regular.ttf"),
+    'EBGaramond-B': require("../../assets/fonts/EBGaramond-Bold.ttf")
+  })
 
+  const _style = [//style schemes for fonts in postContent
+    { color: "black", fontFamily: "EBGaramond" },
+    { color: "#3281a8", fontSize: 15, fontFamily: "EBGaramond" },
+    { color: "black", fontFamily: "EBGaramond-B" }
+  ]
+
+  if (!fontsLoaded) {//if fonts not loaded properly
+    return ( //@use a app loader component instead of Empty view
+      <View></View>
+    )
+  }
 
   return (
     <View>
-      {post.map((element1,index1)=>
+      {post.map((element1, index1) =>
       (
         <View key={index1} style={
           {
