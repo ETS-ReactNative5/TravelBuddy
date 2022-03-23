@@ -24,8 +24,8 @@ export default function AppNavigator() {    //this component is managaing routes
         }
       }}
       >
-        <Stack.Screen name="comments" component={Comments} options={{ headerShown: false }} />
         <Stack.Screen name="main" component={signin} options={{ headerShown: false }} />
+        <Stack.Screen name="comments" component={Comments} options={{ headerShown: false }} />
         {/* <Stack.Screen name="main" component={LoginScreen} options={{headerShown: false}}/> */}
         {/* <Stack.Screen name="login" component={CardsScreen} options={{headerShown: false}}/> */}
         {/* <Stack.Screen name="register" component={SignUp} options={{headerShown: false}}/> */}

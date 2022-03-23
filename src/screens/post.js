@@ -123,21 +123,21 @@ const PostFooter = ({ navigation, post }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[0].imageUrl} imageName={iconsDataSet[0].imageName} links="like"></Icon>
-        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[1].imageUrl} imageName={iconsDataSet[1].imageName} links="comments"></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[0].imageUrl} imageName={iconsDataSet[0].imageName} links="like" postID={post.postID}></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[1].imageUrl} imageName={iconsDataSet[1].imageName} links="comments" postID={post.postID}></Icon>
       </View>
     </View>
   )
 }
 
-const Icon = ({ navigation, imgStyle, imgUrl, imageName, links }) => (
+const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID }) => (
   <View >
     <TouchableOpacity
       style={{
         flexDirection: 'row',
         alignItems: 'center'
       }}
-      onPress={() => navigation.navigate(links)}
+      onPress={() => navigation.navigate(links,{_postID:postID})}
     >
       <Image style={imgStyle} source={{ uri: imgUrl }} />
       <Text style={{ fontSize: 15 }}>{imageName}</Text>
