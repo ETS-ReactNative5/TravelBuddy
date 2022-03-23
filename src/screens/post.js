@@ -105,7 +105,7 @@ const PostImage = ({ post }) => (
 
 const PostFooter = ({ post }) => {
   return (
-    <View>
+    <View style={{backgroundColor:'#f0f2f0',borderRadius:10,marginLeft:10,marginRight:10}}>
       <View style={{
         flexDirection: 'row',
         marginLeft: 20,
