@@ -10,7 +10,9 @@ export const POSTS = [
     locationDesc:"The house of desert",
     likedByUser: false,
     timestamp: testDate,
-    imageUrl: 'https://picsum.photos/id/10/2500/1667',
+    assets:[
+      // {imageUrl: 'https://picsum.photos/id/10/2500/1667'},
+    ],
     user: 'Jane Doe',
     likes: 7879,
     captions: 'Train rides to hogart',
@@ -30,7 +32,9 @@ export const POSTS = [
     locationDesc:"The house of desert",
     likedByUser: false,
     timestamp: "date from db",
-    imageUrl: 'https://picsum.photos/id/100/500/500',
+    assets:[
+      {imageUrl: 'https://picsum.photos/id/100/500/500'},
+    ],
     user: 'Jane Doe',
     likes: 7879,
     captions: 'Train rides to hogart',
@@ -49,7 +53,9 @@ export const POSTS = [
     // locationDesc:"The house of desert",
     likedByUser: false,
     timestamp: "date from db",
-    imageUrl: 'https://picsum.photos/id/10/2500/1667',
+    assets:[
+      {imageUrl:'https://picsum.photos/id/10/2500/1667'},
+    ],
     user: 'Jane Doe',
     likes: 7879,
     captions: 'Train rides to hogart',

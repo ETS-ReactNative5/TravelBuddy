@@ -51,7 +51,7 @@ const PostBody = ({ post }) => {
   return (
     <View style={{ paddingLeft: 10 }}>
       <PostContent post={getTokenizeContent(post.bodyContent)}></PostContent>
-      <PostImage post={post} ></PostImage>
+      {post.assets.length > 0 ? <PostImage post={post} ></PostImage> : <View></View>}
     </View>
   )
 }
@@ -97,7 +97,7 @@ const PostContent = ({ post }) => {
 const PostImage = ({ post }) => (
   <View style={{ width: '100%', height: 200, marginTop: 5, marginBottom: 5, marginRight: 5 }}>
     <Image
-      source={{ uri: post.imageUrl }}
+      source={{ uri: post.assets[0].imageUrl }}
       style={{ height: '100%', resizeMode: 'cover' }}
     />
   </View>
