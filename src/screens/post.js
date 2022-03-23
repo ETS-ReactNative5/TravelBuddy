@@ -63,9 +63,9 @@ const PostContent = ({ post }) => {
   })
 
   const _style = [//style schemes for fonts in postContent
-    { color: "black", fontFamily: "EBGaramond" },
-    { color: "#3281a8", fontSize: 15, fontFamily: "EBGaramond" },
-    { color: "black", fontFamily: "EBGaramond-B" }
+    { color: "black", fontFamily: "EBGaramond" ,fontSize:18},
+    { color: "#3281a8", fontSize: 17, fontFamily: "EBGaramond" },
+    { color: "black", fontFamily: "EBGaramond-B",fontSize:18 }
   ]
 
   if (!fontsLoaded) {//if fonts not loaded properly
@@ -75,13 +75,13 @@ const PostContent = ({ post }) => {
   }
 
   return (
-    <View>
+    <View style={{margin: 5}}>
       {post.map((element1, index1) =>
       (
         <View key={index1} style={
           {
             flexDirection: 'row',
-            margin: 5,
+            // margin: 5,
             alignItems: 'center'
           }}>
           {element1.map((element2, index2) => (
