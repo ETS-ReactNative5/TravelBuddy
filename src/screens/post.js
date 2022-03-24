@@ -103,6 +103,16 @@ const PostImage = ({ post }) => (
 )
 
 const PostFooter = ({ navigation, post }) => {
+  const [UserID, setUserID] = useState("user1");
+  const [LikedFlag, setLikedFlag] = useState(false);
+  const [Likes, setLikes] = useState(post.likes.length);
+  const handleLike=()=>{
+    console.log("for likes")
+  }
+
+  useEffect(() => {
+    
+  }, []);
 
   return (
     <View style={{ backgroundColor: '#f0f2f0', borderRadius: 10, marginLeft: 10, marginRight: 10 }}>
@@ -113,7 +123,7 @@ const PostFooter = ({ navigation, post }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        <Text style={{ fontSize: 10 }}>{post.likes.length} {"Likes"}</Text>
+        <Text style={{ fontSize: 10 }}>{Likes} {"Likes"}</Text>
         <Text style={{ fontSize: 10 }}>{post.numberOfComments} {"Comments"}</Text>
       </View>
       <View style={{
@@ -124,24 +134,16 @@ const PostFooter = ({ navigation, post }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[0].imageUrl} imageName={iconsDataSet[0].imageName} links="like" postID={post.postID}></Icon>
-        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[1].imageUrl} imageName={iconsDataSet[1].imageName} links="comments" postID={post.postID}></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[0].imageUrl} imageName={iconsDataSet[0].imageName} links="like" postID={post.postID} handleLike={handleLike}></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[1].imageUrl} imageName={iconsDataSet[1].imageName} links="comments" postID={post.postID} handleLike={null}></Icon>
       </View>
     </View>
   )
 }
 
-const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID }) => {
-  const [UserID, setUserID] = useState("user1");
+const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID,handleLike }) => {
   const [LikedFlag, setLikedFlag] = useState(false);
   
-  const handleLike=()=>{
-    console.log("for likes")
-  }
-
-  useEffect(() => {
-    
-  }, []);
 
   return (
     <View >
