@@ -69,17 +69,6 @@ export const POSTS = [
   }
 ]
 
-// export const iconsDataSet=[
-//   {
-//     imageUrl:'https://img.icons8.com/small/64/000000/facebook-like.png',
-//     imageName:'Interesting'
-//   },
-//   {
-//     imageUrl:'https://img.icons8.com/fluency-systems-regular/96/000000/comments--v2.png',
-//     imageName:'Comments'
-//   },
-// ]
-
 
 export const getCommentsFunction=(postID)=>{
   for(let i=0;i<POSTS.length;i++){
@@ -100,3 +89,14 @@ export const UserActivityData=[ //contain likes and other(not decided yet) activ
     referenceID:"post_1"
   }
 ]
+
+// export const iconsDataSet=[
+//   {
+//     imageUrl:'https://img.icons8.com/small/64/000000/facebook-like.png',
+//     imageName:'Interesting'
+//   },
+//   {
+//     imageUrl:'https://img.icons8.com/fluency-systems-regular/96/000000/comments--v2.png',
+//     imageName:'Comments'
+//   },
+// ]
