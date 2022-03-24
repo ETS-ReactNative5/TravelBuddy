@@ -12,6 +12,7 @@ const Comments = ({route,navigation}) => {
     }
 
     const makeComment=(postID,userID,Content)=>{
+        //add comment to post and also increment number of posts
         //to store comment on the comment data
         //here use hash function to generate postID
     }

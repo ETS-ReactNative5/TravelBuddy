@@ -96,7 +96,7 @@ export const CommentsData=[
   },
   {
     timeStamp:"Mon Jan 25 2016 07:01:16 GMT+0500 (Pakistan Standard Time)", //sort on the basis of time
-    userID:"user2", //this will get me useravatar and name
+    userID:"user3", //this will get me useravatar and name
     content:"content of the comment2",
     referenceID:"post_1",
     commentID:"c2"
@@ -117,12 +117,29 @@ export const UserData=[
   },
 ]
 
-
+export const getUserNameAv=(userID)=>{//fetch userName and avatar
+  try{
+    let data=UserData.find((element)=>element.userID==userID)
+    return {name:data.user,av:data.profile_pictures}
+  }
+  catch(e){
+    return null;
+  }
+}
 
 export const getCommentsFunction=(postID)=>{
   //it will return comment along with additional check (selfFlag=true currentUser typed/currentUser dont type)
   let filterArr=CommentsData.filter((input)=>input.referenceID==postID)
   filterArr.sort(commentDateSorter)
+  filterArr=filterArr.map((element)=> {
+    return {
+      content:element.content,
+      userID:element.userID,
+      timeStamp:element.timeStamp,
+      userData:getUserNameAv(element.userID)
+    }
+  })
+  console.log(filterArr)
   return filterArr;
 }
 
