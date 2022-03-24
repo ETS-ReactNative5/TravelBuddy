@@ -82,18 +82,27 @@ export const CommentsData=[
     timeStamp:"string format time", //sort on the basis of time
     userID:"user1", //this will get me useravatar and name
     content:"content of the comment",
-    referenceID:"id of post or id of group",
-    commentID:"id of comment h(first 10|timestamp)"
+    referenceID:"post_1",
+    commentID:"c1"
   },
   {
     timeStamp:"string format time", //sort on the basis of time
-    userID:"user1", //this will get me useravatar and name
+    userID:"user2", //this will get me useravatar and name
     content:"content of the comment",
-    referenceID:"id of post or id of group",
-    commentID:"id of comment h(first 10|timestamp)"
+    referenceID:"post_1",
+    commentID:"c2"
+  },
+  {
+    timeStamp:"string format time", //sort on the basis of time
+    userID:"user2", //this will get me useravatar and name
+    content:"content of the comment",
+    referenceID:"post_1",
+    commentID:"c3"
   },
 
 ]
+
+
 
 export const getCommentsFunction=(postID)=>{
   for(let i=0;i<POSTS.length;i++){

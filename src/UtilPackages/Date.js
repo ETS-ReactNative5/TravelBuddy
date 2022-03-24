@@ -31,3 +31,15 @@ export const getFormattedDateForPost=(inputString)=>{
     let templateString=`${monthName} ${inputDate.getDate()} at ${TimeString}`
     return templateString;
 }
+
+export const dateSorter=(a,b)=>{ //sort string of timestamp
+    let d1=new Date(a);
+    let d2=new Date(b);
+    return d2-d1;
+}
+
+export const commentDateSorter=(a,b)=>{  //specific function for comments
+    return dateSorter(a.timeStamp,b.timeStamp)
+}
+
+
