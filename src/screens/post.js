@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { iconsDataSet } from '../data/posts'
 import { getFormattedDateForPost } from "../UtilPackages/Date";
 import { getTokenizeContent } from "../UtilPackages/String"
 
 import { Divider } from 'react-native-elements'
 import { useFonts } from 'expo-font';
-
+import like1 from "../assets/like/like1.png"
+import like2 from "../assets/like/like2.png"
+import comment1 from "../assets/like/comments1.png" 
 
 const Post = ({ navigation, post }) => {
   return (
@@ -134,8 +135,8 @@ const PostFooter = ({ navigation, post }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[0].imageUrl} imageName={iconsDataSet[0].imageName} links="like" postID={post.postID} handleLike={handleLike}></Icon>
-        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={iconsDataSet[1].imageUrl} imageName={iconsDataSet[1].imageName} links="comments" postID={post.postID} handleLike={null}></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[like1,like2]} imageName={"interesting"} links="like" postID={post.postID} handleLike={handleLike}></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[comment1]} imageName={"comments"} links="comments" postID={post.postID} handleLike={null}></Icon>
       </View>
     </View>
   )
@@ -155,11 +156,15 @@ const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID,handleLik
         onPress={() => {
           if(links=="comments")
           navigation.navigate(links, { _postID: postID })
-          else
-          handleLike()
+          else{
+            handleLike()
+            setLikedFlag(!LikedFlag)
+          }
         }}
       >
-        <Image style={imgStyle} source={{ uri: imgUrl }} />
+        {imageName=="interesting" ? <Image style={imgStyle} source={LikedFlag ? imgUrl[1] : imgUrl[0]} />
+        : <Image style={imgStyle} source={imgUrl[0]} />
+        }
         <Text style={{ fontSize: 15 }}>{imageName}</Text>
       </TouchableOpacity>
     </View>
