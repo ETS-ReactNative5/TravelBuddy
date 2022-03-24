@@ -119,9 +119,7 @@ const PostFooter = ({ navigation, post }) => {
     })
   }
 
-  useEffect(() => {
-    setUserID("user1")
-  }, [UserID]);
+  
 
   return (
     <View style={{ backgroundColor: '#f0f2f0', borderRadius: 10, marginLeft: 10, marginRight: 10 }}>
