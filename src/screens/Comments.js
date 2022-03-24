@@ -13,6 +13,7 @@ const Comments = ({route,navigation}) => {
 
     const makeComment=(postID,userID,Content)=>{
         //to store comment on the comment data
+        //here use hash function to generate postID
     }
 
     useEffect(()=>{
