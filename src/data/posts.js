@@ -1,3 +1,5 @@
+import {commentDateSorter} from "../UtilPackages/Date"
+
 let testDate=new Date()
 testDate=testDate.toString();
 
@@ -79,38 +81,49 @@ export const CommentsData=[
   //   commentID:"id of comment h(first 10|timestamp)"
   // },
   {
-    timeStamp:"string format time", //sort on the basis of time
+    timeStamp:"Fri Apr 08 2016 17:59:33 GMT+0500 (Pakistan Standard Time)", //sort on the basis of time
     userID:"user1", //this will get me useravatar and name
-    content:"content of the comment",
+    content:"content of the comment3",
+    referenceID:"post_1",
+    commentID:"c3"
+  },
+  {
+    timeStamp:"Wed May 15 2013 07:30:58 GMT+0500 (Pakistan Standard Time)", //sort on the basis of time
+    userID:"user2", //this will get me useravatar and name
+    content:"content of the comment1",
     referenceID:"post_1",
     commentID:"c1"
   },
   {
-    timeStamp:"string format time", //sort on the basis of time
+    timeStamp:"Mon Jan 25 2016 07:01:16 GMT+0500 (Pakistan Standard Time)", //sort on the basis of time
     userID:"user2", //this will get me useravatar and name
-    content:"content of the comment",
+    content:"content of the comment2",
     referenceID:"post_1",
     commentID:"c2"
   },
-  {
-    timeStamp:"string format time", //sort on the basis of time
-    userID:"user2", //this will get me useravatar and name
-    content:"content of the comment",
-    referenceID:"post_1",
-    commentID:"c3"
-  },
 
+]
+
+export const UserData=[
+  {
+    userID:"user1",
+    user: 'Jane Doe', //these 2 will be colleced from through userID
+    profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
+  },
+  {
+    userID:"user2",
+    user: 'Jane Doe2', //these 2 will be colleced from through userID
+    profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
+  },
 ]
 
 
 
 export const getCommentsFunction=(postID)=>{
-  for(let i=0;i<POSTS.length;i++){
-   if(POSTS[i].postID==postID){
-     return POSTS[i].comments
-   } 
-  }
-  return []
+  //it will return comment along with additional check (selfFlag=true currentUser typed/currentUser dont type)
+  let filterArr=CommentsData.filter((input)=>input.referenceID==postID)
+  filterArr.sort(commentDateSorter)
+  return filterArr;
 }
 
 
@@ -125,3 +138,11 @@ export const getCommentsFunction=(postID)=>{
 //     imageName:'Comments'
 //   },
 // ]
+
+
+//random time generator sample
+// function randomDate(start, end) {
+//   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+// }
+
+// console.log(randomDate(new Date(2012, 0, 1), new Date()));

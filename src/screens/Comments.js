@@ -18,7 +18,7 @@ const Comments = ({route,navigation}) => {
 
     useEffect(()=>{
         fetchComments(_postID)
-    },[Comments])
+    },[])
 
     return (
         <View>
@@ -29,7 +29,7 @@ const Comments = ({route,navigation}) => {
             <Text>{_postID}</Text>
             <View>
                 {Comments.map((elem,index)=>
-                <Text>{elem.comment}</Text>
+                <Text key={index}>{elem.content}</Text>
                 )}
             </View>
         </View>
