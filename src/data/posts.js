@@ -36,7 +36,7 @@ export const POSTS = [
       {imageUrl: 'https://picsum.photos/id/100/500/500'},
     ],
     user: 'Jane Doe',
-    likes: ["user5","user6","user7"],
+    likes: ["user5","user6","user1","user7"],
     captions: 'Train rides to hogart',
     profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
     comments: [

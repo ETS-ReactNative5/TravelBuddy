@@ -105,15 +105,23 @@ const PostImage = ({ post }) => (
 
 const PostFooter = ({ navigation, post }) => {
   const [UserID, setUserID] = useState("user1");
-  const [LikedFlag, setLikedFlag] = useState(false);
+  const [LikedFlag, setLikedFlag] = useState(post.likes.includes(UserID));
   const [Likes, setLikes] = useState(post.likes.length);
   const handleLike = () => {
-    console.log("for likes")
+    setLikedFlag((prevLikedFlag)=>{
+      if(prevLikedFlag==false){
+        setLikes(prev=>prev+1);
+      }else{
+        setLikes(prev=>prev-1);
+      }
+      return !prevLikedFlag
+
+    })
   }
 
   useEffect(() => {
-
-  }, []);
+    setUserID("user1")
+  }, [UserID]);
 
   return (
     <View style={{ backgroundColor: '#f0f2f0', borderRadius: 10, marginLeft: 10, marginRight: 10 }}>
@@ -135,15 +143,15 @@ const PostFooter = ({ navigation, post }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[like1, like2]} imageName={"interesting"} links="like" postID={post.postID} handleLike={handleLike}></Icon>
-        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[comment1]} imageName={"comments"} links="comments" postID={post.postID} handleLike={null}></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[like1, like2]} imageName={"interesting"} links="like" postID={post.postID} handleLike={handleLike} likeStatus={LikedFlag}></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[comment1]} imageName={"comments"} links="comments" postID={post.postID} handleLike={null} likeStatus={LikedFlag}></Icon>
       </View>
     </View>
   )
 }
 
-const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID, handleLike }) => {
-  const [LikedFlag, setLikedFlag] = useState(false);
+const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID, handleLike,likeStatus }) => {
+  const [LikedFlag, setLikedFlag] = useState(likeStatus);
 
 
   return (
@@ -158,7 +166,7 @@ const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID, handleLi
             navigation.navigate(links, { _postID: postID })
           else {
             handleLike()
-            setLikedFlag(!LikedFlag)
+            setLikedFlag(currentFlag => !currentFlag)
           }
         }}
       >
