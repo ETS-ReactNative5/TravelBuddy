@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { iconsDataSet } from '../data/posts'
 import { getFormattedDateForPost } from "../UtilPackages/Date";
@@ -103,6 +103,7 @@ const PostImage = ({ post }) => (
 )
 
 const PostFooter = ({ navigation, post }) => {
+
   return (
     <View style={{ backgroundColor: '#f0f2f0', borderRadius: 10, marginLeft: 10, marginRight: 10 }}>
       <View style={{
@@ -130,20 +131,38 @@ const PostFooter = ({ navigation, post }) => {
   )
 }
 
-const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID }) => (
-  <View >
-    <TouchableOpacity
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center'
-      }}
-      onPress={() => navigation.navigate(links,{_postID:postID})}
-    >
-      <Image style={imgStyle} source={{ uri: imgUrl }} />
-      <Text style={{ fontSize: 15 }}>{imageName}</Text>
-    </TouchableOpacity>
-  </View>
-)
+const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID }) => {
+  const [UserID, setUserID] = useState("user1");
+  const [LikedFlag, setLikedFlag] = useState(false);
+  
+  const handleLike=()=>{
+    console.log("for likes")
+  }
+
+  useEffect(() => {
+    
+  }, []);
+
+  return (
+    <View >
+      <TouchableOpacity
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center'
+        }}
+        onPress={() => {
+          if(links=="comments")
+          navigation.navigate(links, { _postID: postID })
+          else
+          handleLike()
+        }}
+      >
+        <Image style={imgStyle} source={{ uri: imgUrl }} />
+        <Text style={{ fontSize: 15 }}>{imageName}</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   story: {
