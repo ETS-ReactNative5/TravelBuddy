@@ -112,7 +112,7 @@ const PostFooter = ({ navigation, post }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        <Text style={{ fontSize: 10 }}>{post.numberOfLikes} {"Likes"}</Text>
+        <Text style={{ fontSize: 10 }}>{post.likes.length} {"Likes"}</Text>
         <Text style={{ fontSize: 10 }}>{post.numberOfComments} {"Comments"}</Text>
       </View>
       <View style={{

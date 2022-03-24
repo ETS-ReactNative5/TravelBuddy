@@ -6,7 +6,6 @@ export const POSTS = [
     postID:"post_1",
     bodyContent:"hello this is the best \n in the world, \"feeling\" ",
     numberOfComments:25,
-    numberOfLikes:25,
     locationName:"Layyah",
     locationDesc:"The house of desert",
     likedByUser: false,
@@ -15,7 +14,7 @@ export const POSTS = [
       // {imageUrl: 'https://picsum.photos/id/10/2500/1667'},
     ],
     user: 'Jane Doe',
-    likes: 7879,
+    likes: ["user5","user6","user7"],
     captions: 'Train rides to hogart',
     profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
     comments: [
@@ -29,7 +28,6 @@ export const POSTS = [
     postID:"post_2",
     bodyContent:"This is the \n #hash \"apple in\" the world \n#layyah #multan",
     numberOfComments:25,
-    numberOfLikes:25,
     locationName:"Layyah",
     locationDesc:"The house of desert",
     likedByUser: false,
@@ -38,7 +36,7 @@ export const POSTS = [
       {imageUrl: 'https://picsum.photos/id/100/500/500'},
     ],
     user: 'Jane Doe',
-    likes: 7879,
+    likes: ["user5","user6","user7"],
     captions: 'Train rides to hogart',
     profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
     comments: [
@@ -51,7 +49,6 @@ export const POSTS = [
   {
     postID:"post_3",
     numberOfComments:25,
-    numberOfLikes:25,
     locationName:"Layyah",
     // locationDesc:"The house of desert",
     likedByUser: false,
@@ -60,7 +57,7 @@ export const POSTS = [
       {imageUrl:'https://picsum.photos/id/10/2500/1667'},
     ],
     user: 'Jane Doe',
-    likes: 7879,
+    likes: ["user5","user6","user7"],
     captions: 'Train rides to hogart',
     profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
     comments: [
@@ -93,3 +90,13 @@ export const getCommentsFunction=(postID)=>{
   return []
 }
 
+export const UserActivityData=[ //contain likes and other(not decided yet) activity of user.
+  {
+    name:"Comment",
+    referenceID:"",
+  },
+  {
+    name:"Post",
+    referenceID:"post_1"
+  }
+]
