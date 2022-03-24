@@ -10,7 +10,11 @@ import like2 from "../assets/like/like2.png"
 import comment1 from "../assets/like/comments1.png"
 
 const Post = ({ navigation, post }) => {
-  return (
+  const isLoadingComplete=true;
+  if(!isLoadingComplete){
+    return <View><Text>{"Empty text"}</Text></View>
+  }
+  else return (
     <View style={{ marginBottom: 30 }}>
       <Divider style={{ color: "black", paddingBottom: 2 }} width={1} orientation='vertical'></Divider>
       <PostHeader post={post}></PostHeader>
