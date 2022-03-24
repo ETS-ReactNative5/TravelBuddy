@@ -7,7 +7,7 @@ import { Divider } from 'react-native-elements'
 import { useFonts } from 'expo-font';
 import like1 from "../assets/like/like1.png"
 import like2 from "../assets/like/like2.png"
-import comment1 from "../assets/like/comments1.png" 
+import comment1 from "../assets/like/comments1.png"
 
 const Post = ({ navigation, post }) => {
   return (
@@ -107,12 +107,12 @@ const PostFooter = ({ navigation, post }) => {
   const [UserID, setUserID] = useState("user1");
   const [LikedFlag, setLikedFlag] = useState(false);
   const [Likes, setLikes] = useState(post.likes.length);
-  const handleLike=()=>{
+  const handleLike = () => {
     console.log("for likes")
   }
 
   useEffect(() => {
-    
+
   }, []);
 
   return (
@@ -135,16 +135,16 @@ const PostFooter = ({ navigation, post }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[like1,like2]} imageName={"interesting"} links="like" postID={post.postID} handleLike={handleLike}></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[like1, like2]} imageName={"interesting"} links="like" postID={post.postID} handleLike={handleLike}></Icon>
         <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[comment1]} imageName={"comments"} links="comments" postID={post.postID} handleLike={null}></Icon>
       </View>
     </View>
   )
 }
 
-const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID,handleLike }) => {
+const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID, handleLike }) => {
   const [LikedFlag, setLikedFlag] = useState(false);
-  
+
 
   return (
     <View >
@@ -154,16 +154,16 @@ const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID,handleLik
           alignItems: 'center'
         }}
         onPress={() => {
-          if(links=="comments")
-          navigation.navigate(links, { _postID: postID })
-          else{
+          if (links == "comments")
+            navigation.navigate(links, { _postID: postID })
+          else {
             handleLike()
             setLikedFlag(!LikedFlag)
           }
         }}
       >
-        {imageName=="interesting" ? <Image style={imgStyle} source={LikedFlag ? imgUrl[1] : imgUrl[0]} />
-        : <Image style={imgStyle} source={imgUrl[0]} />
+        {imageName == "interesting" ? <Image style={imgStyle} source={LikedFlag ? imgUrl[1] : imgUrl[0]} />
+          : <Image style={imgStyle} source={imgUrl[0]} />
         }
         <Text style={{ fontSize: 15 }}>{imageName}</Text>
       </TouchableOpacity>
