@@ -13,10 +13,10 @@ export const POSTS = [
     assets:[
       // {imageUrl: 'https://picsum.photos/id/10/2500/1667'},
     ],
-    user: 'Jane Doe',
+    user: 'Jane Doe', //these 2 will be colleced from through userID
+    profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
     likes: ["user5","user6","user7"],
     captions: 'Train rides to hogart',
-    profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
     comments: [
       {
         user: 'jane doe',
@@ -70,6 +70,31 @@ export const POSTS = [
 ]
 
 
+export const CommentsData=[
+  // {
+  //   timeStamp:"string format time", //sort on the basis of time
+  //   userID:"user1", //this will get me useravatar and name
+  //   content:"content of the comment",
+  //   referenceID:"id of post or id of group",
+  //   commentID:"id of comment h(first 10|timestamp)"
+  // },
+  {
+    timeStamp:"string format time", //sort on the basis of time
+    userID:"user1", //this will get me useravatar and name
+    content:"content of the comment",
+    referenceID:"id of post or id of group",
+    commentID:"id of comment h(first 10|timestamp)"
+  },
+  {
+    timeStamp:"string format time", //sort on the basis of time
+    userID:"user1", //this will get me useravatar and name
+    content:"content of the comment",
+    referenceID:"id of post or id of group",
+    commentID:"id of comment h(first 10|timestamp)"
+  },
+
+]
+
 export const getCommentsFunction=(postID)=>{
   for(let i=0;i<POSTS.length;i++){
    if(POSTS[i].postID==postID){
@@ -79,16 +104,7 @@ export const getCommentsFunction=(postID)=>{
   return []
 }
 
-export const UserActivityData=[ //contain likes and other(not decided yet) activity of user.
-  {
-    name:"Comment",
-    referenceID:"",
-  },
-  {
-    name:"Post",
-    referenceID:"post_1"
-  }
-]
+
 
 // export const iconsDataSet=[
 //   {
