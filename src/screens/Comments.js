@@ -39,11 +39,12 @@ const CommentBody =({content})=>{
 }
 
 const Comment = ({ commentData }) => {
+    const sampleData="asdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdad"
     return (
         <View>
             <Divider></Divider>
             <CommentHeader imgUrl={commentData.userData.av} userName={commentData.userData.name} />
-            <CommentBody content={"asdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdad"}/>
+            <CommentBody content={commentData.content}/>
             <Text style={{ fontSize: 11, color: "grey",paddingLeft:10 }}>{"Commented on "}{getFormattedDateForPost(commentData.timeStamp)}</Text>
         </View>
     )
