@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text,Image, FlatList } from 'react-native';
+import { View, StyleSheet, Text, Image, FlatList } from 'react-native';
 
 import Header from './Appbar';
 import { getCommentsFunction } from '../data/posts';
@@ -8,9 +8,11 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Divider } from 'react-native-elements';
 import { getFormattedDateForPost } from '../UtilPackages/Date';
 
-const CommentHeader = ({ imgUrl,timeStamp,userName }) => {
+const CommentHeader = ({ imgUrl, userName }) => {
     return (
-        <View style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
+        <View
+        // style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
+        >
             <View style={
                 {
                     flexDirection: 'row',
@@ -23,8 +25,16 @@ const CommentHeader = ({ imgUrl,timeStamp,userName }) => {
                     <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{userName}</Text>
                 </View>
             </View>
-            <Text style={{ paddingLeft: 10, fontSize: 11, color: "grey" }}>{"Commented on "}{getFormattedDateForPost(timeStamp)}</Text>
+
         </View>
+    )
+}
+
+const CommentBody =({content})=>{
+    return (
+        <Text style={{backgroundColor:"#f5f3f0",borderRadius:10,marginLeft:10,marginRight:10,padding:5}}>
+            {content}
+        </Text>
     )
 }
 
@@ -32,8 +42,9 @@ const Comment = ({ commentData }) => {
     return (
         <View>
             <Divider></Divider>
-            <CommentHeader imgUrl={commentData.userData.av} timeStamp={commentData.timeStamp } userName={commentData.userData.name}  />
-            
+            <CommentHeader imgUrl={commentData.userData.av} userName={commentData.userData.name} />
+            <CommentBody content={"asdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdad"}/>
+            <Text style={{ fontSize: 11, color: "grey",paddingLeft:10 }}>{"Commented on "}{getFormattedDateForPost(commentData.timeStamp)}</Text>
         </View>
     )
 }
@@ -77,7 +88,7 @@ const styles = StyleSheet.create({
         marginLeft: 6,
         borderWidth: 1.6,
         borderColor: '#ff8501'
-      },
+    },
 })
 
 export default Comments;
