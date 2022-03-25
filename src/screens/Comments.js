@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from 'react';
 import {View, StyleSheet,Text,TouchableOpacity} from 'react-native';
 
+import Header from './Appbar';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { getCommentsFunction } from '../data/posts';
 
 const Comments = ({route,navigation}) => {
@@ -23,16 +25,8 @@ const Comments = ({route,navigation}) => {
 
     return (
         <View>
-            <Text>{"Comments component"}</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate("main")}> 
-                <Text>{"Click me"}</Text>
-            </TouchableOpacity>
-            <Text>{_postID}</Text>
-            <View>
-                {Comments.map((elem,index)=>
-                <Text key={index}>{elem.content}</Text>
-                )}
-            </View>
+            <Header title={"comments"}></Header>
+            <Text>{"Comments component"}</Text> 
         </View>
     );
 }
