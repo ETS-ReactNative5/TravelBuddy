@@ -10,7 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 const signin = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Header title={"comments"}></Header>
+      <Header title={"Posts"}></Header>
       <ScrollView>
         {POSTS.map((element, index) => (
           <Post navigation={navigation} post={element} key={index} ></Post>
