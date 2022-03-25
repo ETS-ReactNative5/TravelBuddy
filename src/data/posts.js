@@ -115,6 +115,11 @@ export const UserData=[
     user: 'Jane Doe2', //these 2 will be colleced from through userID
     profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
   },
+  {
+    userID:"user3",
+    user: 'Jane Doe3 _deelete this user', //these 2 will be colleced from through userID
+    profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
+  },
 ]
 
 export const getUserNameAv=(userID)=>{//fetch userName and avatar
