@@ -2,8 +2,8 @@ import React,{useState,useEffect} from 'react';
 import {View, StyleSheet,Text,TouchableOpacity} from 'react-native';
 
 import Header from './Appbar';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { getCommentsFunction } from '../data/posts';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Comments = ({route,navigation}) => {
     const {_postID} =route.params;  //fetching param from parent elements

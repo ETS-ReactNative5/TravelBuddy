@@ -1,28 +1,30 @@
 import React from 'react'
-import { View, Text, SafeAreaView,StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 
 import Post from './post';  //Post component
 import { POSTS } from '../data/posts'; //Post data
+import Header from "./Appbar"
+import { SafeAreaView } from "react-native-safe-area-context"
 
-
-const signin = ({navigation}) => {
+const signin = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <Header title={"comments"}></Header>
       <ScrollView>
-       {POSTS.map((element,index)=>(
-         <Post navigation={navigation} post={element} key={index} ></Post>
-       ))} 
+        {POSTS.map((element, index) => (
+          <Post navigation={navigation} post={element} key={index} ></Post>
+        ))}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 
 export default signin
 
-const styles=StyleSheet.create({
-  container:{
-    backgroundColor:'white',
-    flex:1,
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    flex: 1,
   },
 })

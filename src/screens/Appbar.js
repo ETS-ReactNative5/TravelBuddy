@@ -10,7 +10,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { Header as HeaderRNE, Icon, } from 'react-native-elements';
-// import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Header = ({title}) => {
 
