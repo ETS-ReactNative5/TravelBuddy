@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Image, FlatList,Platform,KeyboardAvoidingView,SafeAreaView } from 'react-native';
+import {
+    View, StyleSheet, Text, Image, FlatList, Platform, KeyboardAvoidingView, SafeAreaView,
+    TextInput, TouchableWithoutFeedback, Button, Keyboard
+} from 'react-native';
 
 import Header from './Appbar';
 import { getCommentsFunction } from '../data/posts';
@@ -31,22 +34,22 @@ const CommentHeader = ({ imgUrl, userName }) => {
     )
 }
 
-const CommentBody =({content})=>{
+const CommentBody = ({ content }) => {
     return (
-        <Text style={{backgroundColor:"#f5f3f0",borderRadius:10,marginLeft:10,marginRight:10,padding:5}}>
+        <Text style={{ backgroundColor: "#f5f3f0", borderRadius: 10, marginLeft: 10, marginRight: 10, padding: 5 }}>
             {content}
         </Text>
     )
 }
 
 const Comment = ({ commentData }) => {
-    const sampleData="asdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdad"
+    const sampleData = "asdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdad"
     return (
         <View>
             <Divider></Divider>
             <CommentHeader imgUrl={commentData.userData.av} userName={commentData.userData.name} />
-            <CommentBody content={commentData.content}/>
-            <Text style={{ fontSize: 11, color: "grey",paddingLeft:10 }}>{"Commented on "}{getFormattedDateForPost(commentData.timeStamp)}</Text>
+            <CommentBody content={commentData.content} />
+            <Text style={{ fontSize: 11, color: "grey", paddingLeft: 10 }}>{"Commented on "}{getFormattedDateForPost(commentData.timeStamp)}</Text>
         </View>
     )
 }
@@ -70,44 +73,30 @@ const Comments = ({ route, navigation }) => {
         console.log("working")
     }, [])
 
-    const chat2=<GiftedChat messages={
-        [
-        {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ]} onSend={()=>console.log("sender")} user />
 
-    if(Platform.OS==="android"){
-        return (
-            <KeyboardAvoidingView style={{flex:2}} behavior="padding" keyboardVerticalOffset={30} enabled >
-                <Header title={"comments"}></Header>
-            <ScrollView>
-                {Comments.map((element, index) => (
-                    <Comment key={index} commentData={element} />
-                ))}
-            </ScrollView>
-            <Divider></Divider>
-            </KeyboardAvoidingView>
-        )
-    }
-    else return (
-        <SafeAreaView>
+    return (
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.keyboardContainer}
+        >
             <Header title={"comments"}></Header>
-            <ScrollView>
-                {Comments.map((element, index) => (
-                    <Comment key={index} commentData={element} />
-                ))}
-            </ScrollView>
-            <Divider></Divider>
-        </SafeAreaView>
-    );
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.inner}>
+                    <ScrollView>
+                        {Comments.map((element, index) => (
+                            <Comment key={index} commentData={element} />
+                        ))}
+                    </ScrollView>
+                    <TextInput placeholder="write comment" style={styles.textInput} />
+                    <View style={styles.btnContainer}>
+                        <Button title="Send" onPress={() => null} />
+                    </View>
+
+                </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+    )
+
 }
 
 const styles = StyleSheet.create({
@@ -119,6 +108,30 @@ const styles = StyleSheet.create({
         borderWidth: 1.6,
         borderColor: '#ff8501'
     },
+    keyboardContainer: {
+        flex: 1
+    },
+    inner: {
+        // padding: 24,
+        flex: 1,
+        justifyContent: "space-around"
+    },
+    header: {
+        fontSize: 36,
+        marginBottom: 48
+    },
+    textInput: {
+        height: 40,
+        borderColor: "#000000",
+        borderBottomWidth: 1,
+        marginBottom: 36
+    },
+    btnContainer: {
+        // marginLeft:"25%",
+        // width:"50%",
+        backgroundColor: "red",
+        color: "red"
+    }
 })
 
 export default Comments;
