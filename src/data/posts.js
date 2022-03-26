@@ -101,8 +101,47 @@ export const CommentsData=[
     referenceID:"post_1",
     commentID:"c2"
   },
+  {
+    timeStamp:"Fri Apr 08 2016 17:59:33 GMT+0500 (Pakistan Standard Time)", //sort on the basis of time
+    userID:"user1", //this will get me useravatar and name
+    content:"content of the comment3",
+    referenceID:"Group1",
+    commentID:"c6"
+  },
+  {
+    timeStamp:"Wed May 15 2013 07:30:58 GMT+0500 (Pakistan Standard Time)", //sort on the basis of time
+    userID:"user2", //this will get me useravatar and name
+    content:"content of the comment1",
+    referenceID:"Group1",
+    commentID:"c4"
+  },
+  {
+    timeStamp:"Mon Jan 25 2016 07:01:16 GMT+0500 (Pakistan Standard Time)", //sort on the basis of time
+    userID:"user3", //this will get me useravatar and name
+    content:"content of the comment2",
+    referenceID:"Group1",
+    commentID:"c5"
+  },
 
 ]
+
+export const GroupsData=[
+  {
+    groupID:"Group1",
+    name:"TesterGroup",
+    members:3,
+    timeStamp:"Mon Jan 25 2016 07:01:16 GMT+0500 (Pakistan Standard Time)",
+    admin:"user1"
+  },
+  {
+    groupID:"Group2",
+    name:"TesterGroup2",
+    members:3,
+    timeStamp:"Mon Jan 25 2016 07:01:16 GMT+0500 (Pakistan Standard Time)",
+    admin:"user1",
+  }
+]
+
 
 export const UserData=[
   {
@@ -168,6 +207,9 @@ export const updateCommentCount=(_PostID,_count)=>{
   })
 }
 
+export const getGroupList=()=>{
+  return GroupsData;
+}
 // export const iconsDataSet=[
 //   {
 //     imageUrl:'https://img.icons8.com/small/64/000000/facebook-like.png',
