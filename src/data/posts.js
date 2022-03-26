@@ -3,7 +3,7 @@ import {commentDateSorter} from "../UtilPackages/Date"
 let testDate=new Date()
 testDate=testDate.toString();
 
-export const POSTS = [
+export let POSTS = [
   {
     postID:"post_1",
     bodyContent:"hello this is the best \n in the world, \"feeling\" ",
@@ -148,7 +148,25 @@ export const getCommentsFunction=(postID)=>{
   return filterArr;
 }
 
+export const addComment=(_timeStamp,_userID,_content,_referenceID,_commentID)=>{
+  let obj={
+    timeStamp:_timeStamp,
+    userID:_userID,
+    content:_content,
+    referenceID:_referenceID,
+    commentID:_commentID
+  }
+  CommentsData.push(obj)
+}
 
+export const updateCommentCount=(_PostID,_count)=>{
+  //update with firebase check
+  POSTS=POSTS.map((element)=>{
+    if(element.postID==_PostID)
+      element.numberOfComments=element.numberOfComments+_count;
+    return element;
+  })
+}
 
 // export const iconsDataSet=[
 //   {

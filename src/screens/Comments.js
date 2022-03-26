@@ -1,14 +1,14 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     View, StyleSheet, Text, Image, FlatList, Platform, KeyboardAvoidingView, SafeAreaView,
     TextInput, TouchableWithoutFeedback, Button, Keyboard
 } from 'react-native';
 
 import Header from './Appbar';
-import { getCommentsFunction } from '../data/posts';
+import { addComment, getCommentsFunction, updateCommentCount } from '../data/posts';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Divider } from 'react-native-elements';
+import { Divider, Input } from 'react-native-elements';
 import { getFormattedDateForPost } from '../UtilPackages/Date';
 import { Icon } from 'react-native-elements';
 
@@ -56,24 +56,59 @@ const Comment = ({ commentData }) => {
 }
 
 const Comments = ({ route, navigation }) => {
-    const { _postID,/*_userID */ } = route.params;  //fetching param from parent elements 
+    const { _postID } = route.params;  //fetching param from parent elements 
     const [Comments, setComments] = useState([]);
-    const [InputValue, setInputValue] = useState(""); 
+    const [InputValue, setInputValue] = useState("");
+    const [UserID, setUserID] = useState("");
 
     const fetchComments = (postID) => {
         setComments(getCommentsFunction(postID))
     }
 
-    const makeComment = () => {
-        console.log(_postID,"|",InputValue);
-        //perform posting task
+    const updateMakeCommentView = (_userID, _content, _timeStamp) => {
+        //update comment view here
+        setComments(prev => {
+            return [...prev,
+            {
+                content: _content,
+                userID: _userID,
+                timeStamp: _timeStamp,
+                userData: {
+                    name: "currentUser",
+                    av: "https://i.ibb.co/182bP1y/4k.png"
+                }
+            }
+            ]
+        })
+    }
+
+    const updateMakeCommentStorage = (_postID, _inputValue, _UserID, _timeStamp, _commentID) => {
+        //updateMakeComment 
+        addComment(_timeStamp, _UserID, _inputValue, _postID, _commentID)
+        updateCommentCount(_postID, 1);
+    }
+
+    const makeComment = () => { //triggered function
+        console.log(_postID, "|", InputValue, "|", UserID);
+        let _timeStamp = new Date()
+        _timeStamp = _timeStamp.toString();
+        let _commentID = _timeStamp  //h(comment[1.10]|randomString|user)
+        updateMakeCommentStorage(_postID, InputValue, UserID, _timeStamp, _commentID)
+        updateMakeCommentView(UserID, InputValue, _timeStamp)
         setInputValue("")
+
         //add comment to post and also increment number of posts
         //to store comment on the comment data
         //here use hash function to generate postID
     }
 
+    const fetchUserDetails = () => {
+        //fetch from firebase
+        setUserID("user1")
+    }
+
     useEffect(() => {
+        fetchUserDetails();
         fetchComments(_postID)
         console.log("working")
     }, [])
@@ -89,8 +124,8 @@ const Comments = ({ route, navigation }) => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.inner}>
                     <ScrollView
-                    ref={scrollViewRef}
-                    onContentSizeChange={() => scrollViewRef.current.scrollToEnd({animated: true})}
+                        ref={scrollViewRef}
+                        onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
                     >
                         {Comments.map((element, index) => (
                             <Comment key={index} commentData={element} />
@@ -99,13 +134,13 @@ const Comments = ({ route, navigation }) => {
 
                     <View style={styles.textInput}>
                         <View style={{ display: "flex", flexDirection: "row" }}>
-                            <TextInput value={InputValue} onChange={(e)=>setInputValue(e.target.value)} placeholder="write comment" style={{ flex: 100,display:"flex" }} />
+                            <TextInput value={InputValue} onChange={(e) => setInputValue(e.nativeEvent.text)} placeholder="write comment" style={{ flex: 100, display: "flex" }} />
                             <Icon
                                 // reverse
                                 name='send'
                                 type='ion-icon'
                                 color='#517fa4'
-                                onPress={()=>makeComment()}
+                                onPress={() => makeComment()}
                             />
                         </View>
                     </View>
