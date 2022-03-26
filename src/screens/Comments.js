@@ -10,7 +10,7 @@ import { getCommentsFunction } from '../data/posts';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Divider } from 'react-native-elements';
 import { getFormattedDateForPost } from '../UtilPackages/Date';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { Icon } from 'react-native-elements';
 
 const CommentHeader = ({ imgUrl, userName }) => {
     return (
@@ -89,13 +89,16 @@ const Comments = ({ route, navigation }) => {
                     </ScrollView>
 
                     <View style={styles.textInput}>
-                        <View style={{display:"flex",flexDirection:"row"}}>
-                        <TextInput placeholder="write comment" style={{flex:100}} />
-                        <Button title="Send" onPress={() => null} style={{flex:1}} />
+                        <View style={{ display: "flex", flexDirection: "row" }}>
+                            <TextInput placeholder="write comment" style={{ flex: 100,display:"flex" }} />
+                            <Icon
+                                // reverse
+                                name='send'
+                                type='ion-icon'
+                                color='#517fa4'
+                                onPress={()=>console.log("make comment")}
+                            />
                         </View>
-                        {/* <View style={styles.btnContainer}>
-                            <Button title="Send" onPress={() => null} />
-                        </View> */}
                     </View>
 
                 </View>
