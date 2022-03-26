@@ -13,11 +13,12 @@ import { Icon } from 'react-native-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { JSHash, CONSTANTS } from 'react-native-hash';
 
-const Chat = ({navigation,gTitle}) => {
+const Chat = ({route,navigation}) => {
+    const {_groupID,_groupName}= route.params;
   return (
     <View>
-        <Header title={"chat"}></Header>
-      <Text>Chat</Text>
+        <Header title={_groupName}></Header>
+      <Text>{_groupID}</Text>
     </View>
   )
 }

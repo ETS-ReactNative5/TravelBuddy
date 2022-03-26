@@ -23,7 +23,15 @@ const Group = ({ navigation }) => {
         return (
             <View style={styles.container}>
                 <Header title={"Group"}></Header>
-                <TouchableOpacity onPress={() => navigation.navigate("chat")}><Text>{"clicked"}</Text></TouchableOpacity>
+                {GroupList.map((element,index)=>{
+                return (
+                    <View key={index}>
+                        <TouchableOpacity onPress={() => navigation.navigate("chat",{_groupID:element.groupID,_groupName:element.name})}><Text>{element.name}</Text></TouchableOpacity>    
+                    </View>
+                ) 
+                
+                })}
+                
             </View>
         )
     }else{
