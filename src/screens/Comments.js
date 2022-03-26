@@ -11,6 +11,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Divider, Input } from 'react-native-elements';
 import { getFormattedDateForPost } from '../UtilPackages/Date';
 import { Icon } from 'react-native-elements';
+import { useIsFocused } from '@react-navigation/native';
 
 const CommentHeader = ({ imgUrl, userName }) => {
     return (
@@ -56,6 +57,8 @@ const Comment = ({ commentData }) => {
 }
 
 const Comments = ({ route, navigation }) => {
+    const scrollViewRef = useRef();
+    const isFocused=useIsFocused();
     const { _postID } = route.params;  //fetching param from parent elements 
     const [Comments, setComments] = useState([]);
     const [InputValue, setInputValue] = useState("");
@@ -108,12 +111,15 @@ const Comments = ({ route, navigation }) => {
     }
 
     useEffect(() => {
-        fetchUserDetails();
-        fetchComments(_postID)
         console.log("working")
-    }, [])
+        if(isFocused){
+            fetchUserDetails();
+            fetchComments(_postID)
+            console.log("isFocusedCalled")
+        }
+    }, [isFocused])
 
-    const scrollViewRef = useRef();
+    
 
     return (
         <KeyboardAvoidingView
