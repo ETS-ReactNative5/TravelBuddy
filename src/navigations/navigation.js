@@ -9,6 +9,8 @@ import ViewP from "../screens/viewP";
 import CardsScreen from "../screens/signin";
 import signin from "../screens/signin";
 import Comments from "../screens/Comments";
+import Chat from "../screens/Chat";
+import Group from "../screens/Group";
 
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +26,8 @@ export default function AppNavigator() {    //this component is managaing routes
         }
       }}
       >
+        <Stack.Screen name="groups" component={Group} options={{ headerShown: false }} />
+        <Stack.Screen name="chat" component={Chat} options={{ headerShown: false }} />
         <Stack.Screen name="main" component={signin} options={{ headerShown: false }} />
         <Stack.Screen name="comments" component={Comments} options={{ headerShown: false }} />
         {/* <Stack.Screen name="main" component={LoginScreen} options={{headerShown: false}}/> */}
