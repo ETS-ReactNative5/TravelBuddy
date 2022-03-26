@@ -140,7 +140,7 @@ const Comments = ({ route, navigation }) => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.keyboardContainer}
         >
-            <Header title={"comments"}></Header>
+            <Header title={"Comments"}></Header>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.inner}>
                     <ScrollView
