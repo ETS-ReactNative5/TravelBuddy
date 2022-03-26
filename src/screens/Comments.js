@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import {
     View, StyleSheet, Text, Image, FlatList, Platform, KeyboardAvoidingView, SafeAreaView,
     TextInput, TouchableWithoutFeedback, Button, Keyboard
@@ -56,14 +56,18 @@ const Comment = ({ commentData }) => {
 }
 
 const Comments = ({ route, navigation }) => {
-    const { _postID } = route.params;  //fetching param from parent elements
+    const { _postID,/*_userID */ } = route.params;  //fetching param from parent elements 
     const [Comments, setComments] = useState([]);
+    const [InputValue, setInputValue] = useState(""); 
 
     const fetchComments = (postID) => {
         setComments(getCommentsFunction(postID))
     }
 
-    const makeComment = (postID, userID, Content) => {
+    const makeComment = () => {
+        console.log(_postID,"|",InputValue);
+        //perform posting task
+        setInputValue("")
         //add comment to post and also increment number of posts
         //to store comment on the comment data
         //here use hash function to generate postID
@@ -74,6 +78,7 @@ const Comments = ({ route, navigation }) => {
         console.log("working")
     }, [])
 
+    const scrollViewRef = useRef();
 
     return (
         <KeyboardAvoidingView
@@ -83,7 +88,10 @@ const Comments = ({ route, navigation }) => {
             <Header title={"comments"}></Header>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.inner}>
-                    <ScrollView>
+                    <ScrollView
+                    ref={scrollViewRef}
+                    onContentSizeChange={() => scrollViewRef.current.scrollToEnd({animated: true})}
+                    >
                         {Comments.map((element, index) => (
                             <Comment key={index} commentData={element} />
                         ))}
@@ -91,13 +99,13 @@ const Comments = ({ route, navigation }) => {
 
                     <View style={styles.textInput}>
                         <View style={{ display: "flex", flexDirection: "row" }}>
-                            <TextInput placeholder="write comment" style={{ flex: 100,display:"flex" }} />
+                            <TextInput value={InputValue} onChange={(e)=>setInputValue(e.target.value)} placeholder="write comment" style={{ flex: 100,display:"flex" }} />
                             <Icon
                                 // reverse
                                 name='send'
                                 type='ion-icon'
                                 color='#517fa4'
-                                onPress={()=>console.log("make comment")}
+                                onPress={()=>makeComment()}
                             />
                         </View>
                     </View>
@@ -136,7 +144,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderWidth: 1,
         padding: 10,
-        marginBottom: 36
+        marginBottom: 3
     },
     btnContainer: {
         backgroundColor: "red",
