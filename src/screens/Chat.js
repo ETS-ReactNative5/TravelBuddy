@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 import Header from './Appbar';
-import { getChatData} from '../data/posts';
+import { getChatData } from '../data/posts';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Divider, Input } from 'react-native-elements';
 import { getFormattedDateForPost } from '../UtilPackages/Date';
@@ -14,53 +14,53 @@ import { useIsFocused } from '@react-navigation/native';
 import { JSHash, CONSTANTS } from 'react-native-hash';
 import { GiftedChat } from 'react-native-gifted-chat';
 
-const Chat = ({route,navigation}) => {
-    const {_groupID,_groupName}= route.params;
+const Chat = ({ route, navigation }) => {
+    const { _groupID, _groupName } = route.params;
 
     const [messages, setMessages] = useState(null);
     const isFocused = useIsFocused();
 
-    const currUser={
-        _id:"user1",
-        name:"Jane Doe",
-        avatar:'https://i.ibb.co/182bP1y/4k.png'
+    const currUser = {
+        _id: "user1",
+        name: "Jane Doe",
+        avatar: 'https://i.ibb.co/182bP1y/4k.png'
     }
 
-    const loadCommentList=()=>{
+    const loadCommentList = () => {
         setMessages(getChatData(_groupID))
-        
+
     }
 
-    const sendMessage=()=>{
+    const sendMessage = () => {
         console.log("sendMessage")
     }
 
-    const chat=<GiftedChat messages={messages} onSend={sendMessage} user={currUser} />
+    const chat = <GiftedChat messages={messages} onSend={sendMessage} user={currUser} />
 
     useEffect(() => {
-       if(isFocused){
-        loadCommentList()
-       }
+        if (isFocused) {
+            loadCommentList()
+        }
     }, [isFocused]);
 
 
-  if(messages) return (
-    <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? "padding" : "height"}
-    style={styles.keyboardContainer}
->
-<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
- {chat}
-</TouchableWithoutFeedback>
-</KeyboardAvoidingView>
-    
-  )
-  else return (
-    <View>
-        <Header title={_groupName}></Header>
-      <Text>{"Loading"}</Text>
-    </View>
-  )
+    if (messages) return (
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.keyboardContainer}
+        >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                {chat}
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+
+    )
+    else return (
+        <View>
+            <Header title={_groupName}></Header>
+            <Text>{"Loading"}</Text>
+        </View>
+    )
 }
 
 
