@@ -171,6 +171,32 @@ export const getUserNameAv=(userID)=>{//fetch userName and avatar
   }
 }
 
+export const getChatUserData=(userID)=>{//designed for chat 
+  try{
+    let data=UserData.find((element)=>element.userID==userID)
+    return {_id:userID,avatar:data.profile_pictures,name:data.user}
+  }
+  catch(e){
+    return {_id:null,avatar:null,name:null};
+  }
+}
+
+export const getChatData=(postID)=>{
+  //return chat content of user
+  let filterArr=CommentsData.filter((input)=>input.referenceID==postID)
+  filterArr.sort(commentDateSorter)
+  filterArr=filterArr.map((element)=> {
+    return {
+      _id:element.commentID,
+      createdAt:element.timeStamp,
+      text:element.content,
+      user:getChatUserData(element.userID)
+    }
+  })
+  console.log(filterArr)
+  return filterArr;
+}
+
 export const getCommentsFunction=(postID)=>{
   //it will return comment along with additional check (selfFlag=true currentUser typed/currentUser dont type)
   let filterArr=CommentsData.filter((input)=>input.referenceID==postID)
