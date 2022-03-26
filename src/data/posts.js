@@ -7,7 +7,7 @@ export let POSTS = [
   {
     postID:"post_1",
     bodyContent:"hello this is the best \n in the world, \"feeling\" ",
-    numberOfComments:25,
+    numberOfComments:3,
     locationName:"Layyah",
     locationDesc:"The house of desert",
     likedByUser: false,
@@ -29,7 +29,7 @@ export let POSTS = [
   {
     postID:"post_2",
     bodyContent:"This is the \n #hash \"apple in\" the world \n#layyah #multan",
-    numberOfComments:25,
+    numberOfComments:0,
     locationName:"Layyah",
     locationDesc:"The house of desert",
     likedByUser: false,
@@ -50,7 +50,7 @@ export let POSTS = [
   },
   {
     postID:"post_3",
-    numberOfComments:25,
+    numberOfComments:0,
     locationName:"Layyah",
     // locationDesc:"The house of desert",
     likedByUser: false,
