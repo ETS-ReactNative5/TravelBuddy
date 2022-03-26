@@ -35,7 +35,7 @@ export const getFormattedDateForPost=(inputString)=>{
 export const dateSorter=(a,b)=>{ //sort string of timestamp
     let d1=new Date(a);
     let d2=new Date(b);
-    return d2-d1;
+    return d1-d2;
 }
 
 export const commentDateSorter=(a,b)=>{  //specific function for comments
