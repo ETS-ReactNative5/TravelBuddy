@@ -49,11 +49,11 @@ const Chat = ({ route, navigation }) => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.keyboardContainer}
         >
+            <Header title={_groupName}></Header>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 {chat}
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
-
     )
     else return (
         <View>
