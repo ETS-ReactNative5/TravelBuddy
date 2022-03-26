@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Image, FlatList } from 'react-native';
+import { View, StyleSheet, Text, Image, FlatList,Platform,KeyboardAvoidingView,SafeAreaView } from 'react-native';
 
 import Header from './Appbar';
 import { getCommentsFunction } from '../data/posts';
-import { SafeAreaView } from 'react-native-safe-area-context';
+// import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Divider } from 'react-native-elements';
 import { getFormattedDateForPost } from '../UtilPackages/Date';
+import { GiftedChat } from 'react-native-gifted-chat';
 
 const CommentHeader = ({ imgUrl, userName }) => {
     return (
@@ -66,10 +67,38 @@ const Comments = ({ route, navigation }) => {
 
     useEffect(() => {
         fetchComments(_postID)
+        console.log("working")
     }, [])
 
-    return (
-        <View>
+    const chat2=<GiftedChat messages={
+        [
+        {
+        _id: 1,
+        text: 'Hello developer',
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'React Native',
+          avatar: 'https://placeimg.com/140/140/any',
+        },
+      },
+    ]} onSend={()=>console.log("sender")} user />
+
+    if(Platform.OS==="android"){
+        return (
+            <KeyboardAvoidingView style={{flex:2}} behavior="padding" keyboardVerticalOffset={30} enabled >
+                <Header title={"comments"}></Header>
+            <ScrollView>
+                {Comments.map((element, index) => (
+                    <Comment key={index} commentData={element} />
+                ))}
+            </ScrollView>
+            <Divider></Divider>
+            </KeyboardAvoidingView>
+        )
+    }
+    else return (
+        <SafeAreaView>
             <Header title={"comments"}></Header>
             <ScrollView>
                 {Comments.map((element, index) => (
@@ -77,7 +106,7 @@ const Comments = ({ route, navigation }) => {
                 ))}
             </ScrollView>
             <Divider></Divider>
-        </View>
+        </SafeAreaView>
     );
 }
 
