@@ -87,9 +87,15 @@ const Comments = ({ route, navigation }) => {
                             <Comment key={index} commentData={element} />
                         ))}
                     </ScrollView>
-                    <TextInput placeholder="write comment" style={styles.textInput} />
-                    <View style={styles.btnContainer}>
-                        <Button title="Send" onPress={() => null} />
+
+                    <View style={styles.textInput}>
+                        <View style={{display:"flex",flexDirection:"row"}}>
+                        <TextInput placeholder="write comment" style={{flex:100}} />
+                        <Button title="Send" onPress={() => null} style={{flex:1}} />
+                        </View>
+                        {/* <View style={styles.btnContainer}>
+                            <Button title="Send" onPress={() => null} />
+                        </View> */}
                     </View>
 
                 </View>
@@ -121,14 +127,15 @@ const styles = StyleSheet.create({
         marginBottom: 48
     },
     textInput: {
-        height: 40,
+        // height: 40,
         borderColor: "#000000",
-        borderBottomWidth: 1,
+        margin: 1,
+        borderRadius: 15,
+        borderWidth: 1,
+        padding: 10,
         marginBottom: 36
     },
     btnContainer: {
-        // marginLeft:"25%",
-        // width:"50%",
         backgroundColor: "red",
         color: "red"
     }
