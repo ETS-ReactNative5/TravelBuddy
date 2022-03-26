@@ -12,6 +12,7 @@ import { Divider, Input } from 'react-native-elements';
 import { getFormattedDateForPost } from '../UtilPackages/Date';
 import { Icon } from 'react-native-elements';
 import { useIsFocused } from '@react-navigation/native';
+import { JSHash, CONSTANTS } from 'react-native-hash';
 
 const CommentHeader = ({ imgUrl, userName }) => {
     return (
@@ -58,7 +59,7 @@ const Comment = ({ commentData }) => {
 
 const Comments = ({ route, navigation }) => {
     const scrollViewRef = useRef();
-    const isFocused=useIsFocused();
+    const isFocused = useIsFocused();
     const { _postID } = route.params;  //fetching param from parent elements 
     const [Comments, setComments] = useState([]);
     const [InputValue, setInputValue] = useState("");
@@ -91,18 +92,31 @@ const Comments = ({ route, navigation }) => {
         updateCommentCount(_postID, 1);
     }
 
-    const makeComment = () => { //triggered function
-        console.log(_postID, "|", InputValue, "|", UserID);
+    const generateCommentID=async (_timeStamp,_postID,_comment)=>{
+        hashTarget=_timeStamp+_postID
+        try{
+            _comment.length>10 ? hashTarget=hashTarget+_comment.slice(0,10) : hashTarget=hashTarget+_comment
+            let retCommentID = await JSHash(hashTarget, CONSTANTS.HashAlgorithms.sha256)  //h(comment[1.10]|timestamp|user)
+            return retCommentID;
+        }catch(e){
+            console.log(e)
+            let ret=new Date().toString();
+            return ret;
+        } 
+    }
+
+    const makeComment = async () => { //triggered function
+        // console.log(_postID, "|", InputValue, "|", UserID);
         let _timeStamp = new Date()
         _timeStamp = _timeStamp.toString();
-        let _commentID = _timeStamp  //h(comment[1.10]|randomString|user)
+        let _commentID=await generateCommentID(_timeStamp,_postID,InputValue)
         updateMakeCommentStorage(_postID, InputValue, UserID, _timeStamp, _commentID)
         updateMakeCommentView(UserID, InputValue, _timeStamp)
-        setInputValue("")
+        setInputValue("") //reset input for textbox
 
         //add comment to post and also increment number of posts
         //to store comment on the comment data
-        //here use hash function to generate postID
+        //here use hash function to generate commentID
     }
 
     const fetchUserDetails = () => {
@@ -112,14 +126,14 @@ const Comments = ({ route, navigation }) => {
 
     useEffect(() => {
         console.log("working")
-        if(isFocused){
+        if (isFocused) {
             fetchUserDetails();
             fetchComments(_postID)
             console.log("isFocusedCalled")
         }
     }, [isFocused])
 
-    
+
 
     return (
         <KeyboardAvoidingView
