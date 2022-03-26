@@ -50,6 +50,7 @@ const Comment = ({ commentData }) => {
             <CommentHeader imgUrl={commentData.userData.av} userName={commentData.userData.name} />
             <CommentBody content={commentData.content} />
             <Text style={{ fontSize: 11, color: "grey", paddingLeft: 10 }}>{"Commented on "}{getFormattedDateForPost(commentData.timeStamp)}</Text>
+            <Divider></Divider>
         </View>
     )
 }
@@ -121,7 +122,6 @@ const styles = StyleSheet.create({
         flex: 1
     },
     inner: {
-        // padding: 24,
         flex: 1,
         justifyContent: "space-around"
     },
