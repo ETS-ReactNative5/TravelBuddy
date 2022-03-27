@@ -50,18 +50,24 @@ export default function ImageUpload({_firstButtonContent,_secondButtonContent,_p
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-                <View style={{marginTop:5}}>
+                <View style={{marginTop:5,flexDirection:"row"}}>
                     <TouchableOpacity style={styles.ButtonElement} onPress={() => handlePickedImage()}>
                         <Text style={styles.ButtonFont}>{_secondButtonContent}</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.ButtonElementBack} onPress={() => setImage(null)}>
+                    <Text style={styles.ButtonFont}>{"Cancel"}</Text>
+                </TouchableOpacity>
                 </View>
             </View>
         );
     } else {//image is still not picked
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',flexDirection:"row" }}>
                 <TouchableOpacity style={styles.ButtonElement} onPress={() => pickImage()}>
                     <Text style={styles.ButtonFont}>{_firstButtonContent}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.ButtonElementBack} onPress={() => _toggleButton()}>
+                    <Text style={styles.ButtonFont}>{"Back"}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -74,6 +80,16 @@ const styles = StyleSheet.create({
         backgroundColor: "#55a7fa",
         padding: 8,
         borderRadius: 5,
+        marginLeft:5,
+    },
+    ButtonElementBack: {
+        backgroundColor: "#55a7fa",
+        padding: 8,
+        paddingLeft:15,
+        alignContent:"center",
+        borderRadius: 5,
+        marginLeft:5,
+        width:70
     },
     ButtonFont: {
         color: "white"
