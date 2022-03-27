@@ -11,8 +11,8 @@ import signin from "../screens/signin";
 import Comments from "../screens/Comments";
 import Chat from "../screens/Chat";
 import Group from "../screens/Group";
-import Camera from "../screens/Camera";
-
+import ImageUpload from "../screens/ImageUpload";
+import ImageUploadTestParent from "../screens/ImageUploadTestParent";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +27,8 @@ export default function AppNavigator() {    //this component is managaing routes
         }
       }}
       >
-        <Stack.Screen name="camera" component={Camera} options={{ headerShown: false }} />
+        <Stack.Screen name="imageuploadtestparent" component={ImageUploadTestParent} options={{ headerShown: false }} />
+        <Stack.Screen name="imageupload" component={ImageUpload} options={{ headerShown: false }} />
         <Stack.Screen name="groups" component={Group} options={{ headerShown: false }} />
         <Stack.Screen name="chat" component={Chat} options={{ headerShown: false }} />
         <Stack.Screen name="main" component={signin} options={{ headerShown: false }} />

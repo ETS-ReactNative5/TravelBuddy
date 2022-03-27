@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Image, View, Platform, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';  //replace with ImagePicker
 
-export default function Camera({navigation}) {
+export default function ImageUpload({route,navigation,_firstButtonContent,_secondButtonContent,_parentImageSetter,_toggleButton}) {
     const [image, setImage] = useState(null);
 
     const permissionTrigger = () => {//ask permission for imagelibrary
@@ -35,6 +35,8 @@ export default function Camera({navigation}) {
 
     const handlePickedImage = () => {
         //pass parent function here ,to change state of parent component. setImageB64(image)
+        _parentImageSetter(image) //passed base64Url encoded to parent
+        _toggleButton();
         console.log("handle picked image")
     }
 
@@ -50,7 +52,7 @@ export default function Camera({navigation}) {
                 {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
                 <View style={{marginTop:5}}>
                     <TouchableOpacity style={styles.ButtonElement} onPress={() => handlePickedImage()}>
-                        <Text style={styles.ButtonFont}>{"POST IMAGE"}</Text>
+                        <Text style={styles.ButtonFont}>{_secondButtonContent}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -59,7 +61,7 @@ export default function Camera({navigation}) {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <TouchableOpacity style={styles.ButtonElement} onPress={() => pickImage()}>
-                    <Text style={styles.ButtonFont}>{"UPLOAD IMAGE"}</Text>
+                    <Text style={styles.ButtonFont}>{_firstButtonContent}</Text>
                 </TouchableOpacity>
             </View>
         );
