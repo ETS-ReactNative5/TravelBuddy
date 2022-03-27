@@ -27,11 +27,11 @@ export default function AppNavigator() {    //this component is managaing routes
         }
       }}
       >
+        <Stack.Screen name="main" component={signin} options={{ headerShown: false }} />
         <Stack.Screen name="imageuploadtestparent" component={ImageUploadTestParent} options={{ headerShown: false }} />
         <Stack.Screen name="imageupload" component={ImageUpload} options={{ headerShown: false }} />
         <Stack.Screen name="groups" component={Group} options={{ headerShown: false }} />
         <Stack.Screen name="chat" component={Chat} options={{ headerShown: false }} />
-        <Stack.Screen name="main" component={signin} options={{ headerShown: false }} />
         <Stack.Screen name="comments" component={Comments} options={{ headerShown: false }} />
         {/* <Stack.Screen name="main" component={LoginScreen} options={{headerShown: false}}/> */}
         {/* <Stack.Screen name="login" component={CardsScreen} options={{headerShown: false}}/> */}

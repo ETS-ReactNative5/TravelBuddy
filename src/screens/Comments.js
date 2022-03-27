@@ -154,7 +154,7 @@ const Comments = ({ route, navigation }) => {
 
                     <View style={styles.textInput}>
                         <View style={{ display: "flex", flexDirection: "row" }}>
-                            <TextInput value={InputValue} onChange={(e) => setInputValue(e.nativeEvent.text)} placeholder="write comment" style={{ flex: 100, display: "flex" }} />
+                            <TextInput value={InputValue} multiline={true} onChange={(e) => setInputValue(e.nativeEvent.text)} placeholder="write comment" style={{ flex: 100, display: "flex" }} />
                             <Icon
                                 // reverse
                                 name='send'
