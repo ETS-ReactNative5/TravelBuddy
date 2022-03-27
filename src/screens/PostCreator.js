@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity,StyleSheet,TextInput, } from 'react-native'
 import Header from './Appbar'
 import ImageUpload from './ImageUpload'
+import { Icon } from 'react-native-elements';
+
+//changing dependancies
+import { PostBody } from './post'  //this path will be changed
+
 const PostCreator = ({ navigation }) => {
     const [Image, setImage] = useState(null);
     const [uploadFlag, setuploadFlag] = useState(false);
+    const [TextValue, setTextValue] = useState("");
+    const [PostData, setPostData] = useState({bodyContent:TextValue,assets:[]});
 
     const displayImage = () => {
         console.log(Image)
@@ -29,6 +36,32 @@ const PostCreator = ({ navigation }) => {
                 <TouchableOpacity onPress={()=>displayImage()}>
                     <Text>{"Second"}</Text>
                 </TouchableOpacity>
+                <PostBody post={PostData} />
+
+                <View style={styles.textInput}>
+                        <View style={{ display: "flex", flexDirection: "row" }}>
+                            <TextInput value={TextValue} multiline={true} 
+                            onChange={(e) =>{
+                                let tempo=e.nativeEvent.text
+                                setTextValue(tempo)
+                                setPostData(prev=>{
+                                    prev.bodyContent=tempo  
+                                    return prev;
+                                })
+                                
+                                // setTextValue(e.nativeEvent.text)
+                            }
+                            } 
+                             placeholder="share your thoughts..." style={{ flex: 100, display: "flex" }} />
+                            <Icon
+                                // reverse
+                                name='send'
+                                type='ion-icon'
+                                color='#517fa4'
+                                onPress={() => makeComment()}
+                            />
+                        </View>
+                    </View>
             </View>
         )
     } else {
@@ -38,5 +71,41 @@ const PostCreator = ({ navigation }) => {
     }
     
 }
+
+
+const styles = StyleSheet.create({
+    story: {
+        width: 35,
+        height: 35,
+        borderRadius: 50,
+        marginLeft: 6,
+        borderWidth: 1.6,
+        borderColor: '#ff8501'
+    },
+    keyboardContainer: {
+        flex: 1
+    },
+    inner: {
+        flex: 1,
+        justifyContent: "space-around"
+    },
+    header: {
+        fontSize: 36,
+        marginBottom: 48
+    },
+    textInput: {
+        // height: 40,
+        borderColor: "#000000",
+        margin: 1,
+        borderRadius: 15,
+        borderWidth: 1,
+        padding: 10,
+        marginBottom: 3
+    },
+    btnContainer: {
+        backgroundColor: "red",
+        color: "red"
+    }
+})
 
 export default PostCreator
