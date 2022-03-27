@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import Header from './Appbar'
 import ImageUpload from './ImageUpload'
-const ImageUploadTestParent = ({ navigation }) => {
+const PostCreator = ({ navigation }) => {
     const [Image, setImage] = useState(null);
     const [uploadFlag, setuploadFlag] = useState(false);
 
@@ -39,4 +39,4 @@ const ImageUploadTestParent = ({ navigation }) => {
     
 }
 
-export default ImageUploadTestParent
+export default PostCreator
