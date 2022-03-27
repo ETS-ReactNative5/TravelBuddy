@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 import Header from './Appbar';
-import { getChatData } from '../data/posts';
+import { getChatData,addComment } from '../data/posts';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Divider, Input } from 'react-native-elements';
 import { getFormattedDateForPost } from '../UtilPackages/Date';
@@ -31,11 +31,21 @@ const Chat = ({ route, navigation }) => {
 
     }
 
-    const sendMessage = () => {
-        console.log("sendMessage")
+    const saveMessageDB=(_messages)=>{
+       try{
+           let currMsg=_messages[0]
+           addComment(currMsg.createdAt,currMsg.user._id,currMsg.text,_groupID,currMsg._id)
+       }catch(e){
+           console.log(e)
+       }
+    }    
+
+    const onSend = (_messages) => {
+        saveMessageDB(_messages);
+        setMessages(previousMessages => GiftedChat.append(previousMessages, _messages))
     }
 
-    const chat = <GiftedChat messages={messages} onSend={sendMessage} user={currUser} />
+    const chat = <GiftedChat messages={messages} onSend={onSend} user={currUser} />
 
     useEffect(() => {
         if (isFocused) {
