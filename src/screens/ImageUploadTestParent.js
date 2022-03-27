@@ -10,13 +10,11 @@ const ImageUploadTestParent = ({ navigation }) => {
         console.log(Image)
     }
 
-    const uploadImage = (image) => {
-        // console.log("custom:",image)
+    const uploadImage = (image) => {//pass to ImageUpload as prop to handle imageSet.
         setImage(image);
-        // displayImage()
     }
 
-    const toggleUploadFlag=()=>{
+    const toggleUploadFlag=()=>{//pass to ImageUpload as prop to handle toggle for display.
         setuploadFlag(prev=> !prev)
     }
 

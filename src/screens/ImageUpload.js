@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Image, View, Platform, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';  //replace with ImagePicker
 
-export default function ImageUpload({route,navigation,_firstButtonContent,_secondButtonContent,_parentImageSetter,_toggleButton}) {
+export default function ImageUpload({_firstButtonContent,_secondButtonContent,_parentImageSetter,_toggleButton}) {
     const [image, setImage] = useState(null);
 
     const permissionTrigger = () => {//ask permission for imagelibrary
