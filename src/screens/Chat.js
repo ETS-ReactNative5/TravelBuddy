@@ -5,14 +5,14 @@ import {
 } from 'react-native';
 
 import Header from './Appbar';
-import { getChatData,addComment } from '../data/posts';
+import { getChatData, addComment } from '../data/posts';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Divider, Input } from 'react-native-elements';
 import { getFormattedDateForPost } from '../UtilPackages/Date';
 import { Icon } from 'react-native-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { JSHash, CONSTANTS } from 'react-native-hash';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat,Send } from 'react-native-gifted-chat';
 
 const Chat = ({ route, navigation }) => {
     const { _groupID, _groupName } = route.params;
@@ -31,21 +31,39 @@ const Chat = ({ route, navigation }) => {
 
     }
 
-    const saveMessageDB=(_messages)=>{
-       try{
-           let currMsg=_messages[0]
-           addComment(currMsg.createdAt,currMsg.user._id,currMsg.text,_groupID,currMsg._id)
-       }catch(e){
-           console.log(e)
-       }
-    }    
+    const saveMessageDB = (_messages) => {
+        try {
+            let currMsg = _messages[0]
+            addComment(currMsg.createdAt, currMsg.user._id, currMsg.text, _groupID, currMsg._id)
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
-    const onSend = (_messages) => {
+    const onSend = (_messages) => { //callback function for send
         saveMessageDB(_messages);
         setMessages(previousMessages => GiftedChat.append(previousMessages, _messages))
     }
 
-    const chat = <GiftedChat messages={messages} onSend={onSend} user={currUser} />
+    const customSendButton = (props) => {
+        return (
+            <Send
+                {...props}
+            >
+                <Icon style={{paddingBottom:10,paddingRight:8}}
+                    name='send'
+                    type='ion-icon'
+                    color='#517fa4'
+                />
+
+            </Send>
+        )
+    }
+
+    const chat = <GiftedChat
+        messages={messages} onSend={onSend} user={currUser} renderSend={customSendButton}
+        alwaysShowSend={true}
+    />
 
     useEffect(() => {
         if (isFocused) {
