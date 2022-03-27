@@ -1,27 +1,47 @@
-import React from 'react'
-import { View, Text,TouchableOpacity, Touchable } from 'react-native'
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
-import Header from './Appbar';
+import React, { useState, useEffect } from 'react';
+import { Button, Image, View, Platform } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';  //replace with ImagePicker
 
-const Camera = () => {
-    const testCamera=async ()=>{
-        const result = await launchCamera({cameraType:"back"});
+export default function Camera() {
+  const [image, setImage] = useState(null);
+
+  const permissionTrigger=()=>{//ask permission for imagelibrary
+    (async () => {
+        if (Platform.OS !== 'web') {
+          const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (status !== 'granted') {
+            alert('Sorry, we need camera roll permissions to make this work!');
+          }
+        }
+      })();
+  }
+
+  useEffect(() => {
+    permissionTrigger()
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+      base64:true
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+        let imageString='data:image/png;base64,'+result.base64
+        console.log(imageString)
+      setImage(imageString);
     }
+  };
 
-    const testImagePicker=async ()=>{
-        const result = await launchCamera();
-    }
-
-    return (
-        <View>
-            <Header title="ImageTesting"></Header>
-            <TouchableOpacity onPress={()=>{
-                testCamera()
-            }}>
-            <Text>{"OpenCamera"}</Text>
-            </TouchableOpacity>
-        </View>
-    )
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button title="Upload Image" onPress={pickImage} />
+      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+    </View>
+  );
 }
-
-export default Camera
