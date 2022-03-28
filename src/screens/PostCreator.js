@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity,StyleSheet,TextInput, } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, } from 'react-native'
 import Header from './Appbar'
 import ImageUpload from './ImageUpload'
 import { Icon } from 'react-native-elements';
@@ -11,7 +11,7 @@ const PostCreator = ({ navigation }) => {
     const [Image, setImage] = useState(null);
     const [uploadFlag, setuploadFlag] = useState(false);
     const [TextValue, setTextValue] = useState("");
-    const [PostData, setPostData] = useState({bodyContent:TextValue,assets:[]});
+    const [PostData, setPostData] = useState({ bodyContent: TextValue, assets: [] });
 
     const displayImage = () => {
         console.log(Image)
@@ -21,40 +21,38 @@ const PostCreator = ({ navigation }) => {
         setImage(image);
     }
 
-    const toggleUploadFlag=()=>{//pass to ImageUpload as prop to handle toggle for display.
-        setuploadFlag(prev=> !prev)
+    const toggleUploadFlag = () => {//pass to ImageUpload as prop to handle toggle for display.
+        setuploadFlag(prev => !prev)
     }
 
     if (!uploadFlag) {//show parent
         return (
             <View>
-                <Header title={"testComponent"}></Header>
-                
-                <TouchableOpacity onPress={()=>toggleUploadFlag()}>
+                <Header title={"CreatePost"}></Header>
+
+                <TouchableOpacity onPress={() => toggleUploadFlag()}>
                     <Text>{"Click"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>displayImage()}>
+                <TouchableOpacity onPress={() => displayImage()}>
                     <Text>{"Second"}</Text>
                 </TouchableOpacity>
-                <PostBody post={PostData} />
 
-                <View style={styles.textInput}>
+                <View style={styles.createPostContainer}>
+                    <PostBody post={PostData} />
+                    <View style={styles.textInput}>
                         <View style={{ display: "flex", flexDirection: "row" }}>
-                            <TextInput value={TextValue} multiline={true} 
-                            onChange={(e) =>{
-                                let tempo=e.nativeEvent.text
-                                setTextValue(tempo)
-                                setPostData(prev=>{
-                                    prev.bodyContent=tempo  
-                                    return prev;
-                                })
-                                
-                                // setTextValue(e.nativeEvent.text)
-                            }
-                            } 
-                             placeholder="share your thoughts..." style={{ flex: 100, display: "flex" }} />
+                            <TextInput value={TextValue} multiline={true}
+                                onChange={(e) => {
+                                    let tempo = e.nativeEvent.text
+                                    setTextValue(tempo)
+                                    setPostData(prev => {
+                                        prev.bodyContent = tempo
+                                        return prev;
+                                    })
+                                }
+                                }
+                                placeholder="Share your travel experience..." style={{ flex: 100, display: "flex" }} />
                             <Icon
-                                // reverse
                                 name='send'
                                 type='ion-icon'
                                 color='#517fa4'
@@ -62,6 +60,7 @@ const PostCreator = ({ navigation }) => {
                             />
                         </View>
                     </View>
+                </View>
             </View>
         )
     } else {
@@ -69,7 +68,7 @@ const PostCreator = ({ navigation }) => {
             <ImageUpload _firstButtonContent={"Pick Image"} _secondButtonContent="Upload Image" _parentImageSetter={uploadImage} _toggleButton={toggleUploadFlag} />
         )
     }
-    
+
 }
 
 
@@ -105,6 +104,18 @@ const styles = StyleSheet.create({
     btnContainer: {
         backgroundColor: "red",
         color: "red"
+    },
+    createPostContainer:{
+        backgroundColor:"#fffef2",
+        padding:2,
+        borderWidth:2,
+        borderRadius:15,
+        borderColor:"#f7f5df",
+        minHeight:220,
+        display:"flex",
+        justifyContent:"space-between",
+        margin:4
+
     }
 })
 
