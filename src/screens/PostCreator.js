@@ -32,6 +32,10 @@ const PostCreator = ({ navigation }) => {
         setuploadFlag(prev => !prev)
     }
 
+    const submitPost=()=>{
+        console.log(TextValue.toString())
+    }
+
     if (!uploadFlag) {//show parent
         return (
             <View>
@@ -63,7 +67,7 @@ const PostCreator = ({ navigation }) => {
                                 name='send'
                                 type='ion-icon'
                                 color='#517fa4'
-                                onPress={() => makeComment()}
+                                onPress={() => submitPost()}
                             />
                         </View>
                     </View>
