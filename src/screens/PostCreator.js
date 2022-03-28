@@ -19,6 +19,13 @@ const PostCreator = ({ navigation }) => {
 
     const uploadImage = (image) => {//pass to ImageUpload as prop to handle imageSet.
         setImage(image);
+        if(image){
+            setPostData(prev=>{
+                let obj={imageUrl:image}
+                prev.assets.push(obj)
+                return prev;
+            })
+        }
     }
 
     const toggleUploadFlag = () => {//pass to ImageUpload as prop to handle toggle for display.
