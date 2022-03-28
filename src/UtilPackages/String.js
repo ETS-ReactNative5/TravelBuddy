@@ -23,10 +23,10 @@
 //     }
 // }
 
-const getHashQuoteToken=(sampleString)=>{
+const getHashQuoteToken=(lineQuoteFlag,sampleString)=>{
     //func to return quoted and hash format
     try{
-        let Qflag = false; //Quotation check
+        let Qflag = lineQuoteFlag; //Quotation check
         let stringArr = sampleString.split(' ') //convert string to token basis on spaces
         
         let formattedStringArr = stringArr.map(elem => { //make formatted string with indicator
@@ -42,7 +42,7 @@ const getHashQuoteToken=(sampleString)=>{
                 return [0, elem]
             }
         })
-        return formattedStringArr
+        return [Qflag,formattedStringArr]
     }
     catch(e){
         return []
@@ -54,8 +54,11 @@ export const getTokenizeContent = (sampleString) => {
     try {
         let formattedStringArr=[]
         let singleLineChunks=sampleString.split('\n');
+        let lineQuoteFlag=false;
         for(let i=0;i<singleLineChunks.length;i++){
-           let singleLineSet=getHashQuoteToken(singleLineChunks[i])
+           let singleLineSet=getHashQuoteToken(lineQuoteFlag,singleLineChunks[i])
+           lineQuoteFlag=singleLineSet[0]
+           singleLineSet=singleLineSet[1]
            formattedStringArr.push(singleLineSet)
         }
         return formattedStringArr;
