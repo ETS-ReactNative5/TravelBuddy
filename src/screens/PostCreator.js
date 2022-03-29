@@ -6,6 +6,8 @@ import { Icon } from 'react-native-elements';
 
 //changing dependancies
 import { PostBody } from './post'  //this path will be changed
+import { savePost} from '../data/posts';
+
 
 const PostCreator = ({ navigation }) => {
     const [Image, setImage] = useState(null);
@@ -33,7 +35,7 @@ const PostCreator = ({ navigation }) => {
     }
 
     const submitPost=()=>{
-        console.log(TextValue.toString())
+        savePost(TextValue.toString())
     }
 
     if (!uploadFlag) {//show parent
