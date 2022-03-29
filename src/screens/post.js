@@ -42,7 +42,7 @@ const PostHeader = ({ post }) => {
           <Text style={{ color: "black", marginLeft: 5, fontWeight: '400' }}>{"is at"}</Text>
           <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.locationName}</Text>
           {post.locationDesc == null | "" ? <View></View> :
-            <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{"- "}{post.locationDesc} {"asdasdasdasdasdaaaa"}</Text>
+            <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{"- "}{post.locationDesc}</Text>
           }
         </View>
       </View>
@@ -89,7 +89,7 @@ const PostContent = ({ post }) => {
             alignItems: 'center'
           }}>
           {element1.map((element2, index2) => (
-            <Text key={index2} style={_style[element2[0]]}>{element2[1]}{" "}</Text>
+            <Text key={index2} style={_style[element2[0]]}>{element2[1]} {element2[3]==1 ? " " : ""}</Text>
           ))
           }
         </View>
