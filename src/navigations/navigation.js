@@ -27,8 +27,8 @@ export default function AppNavigator() {    //this component is managaing routes
         }
       }}
       >
-        <Stack.Screen name="createpost" component={PostCreator} options={{ headerShown: false }} />
         <Stack.Screen name="main" component={signin} options={{ headerShown: false }} />
+        <Stack.Screen name="createpost" component={PostCreator} options={{ headerShown: false }} />
         <Stack.Screen name="imageupload" component={ImageUpload} options={{ headerShown: false }} />
         <Stack.Screen name="groups" component={Group} options={{ headerShown: false }} />
         <Stack.Screen name="chat" component={Chat} options={{ headerShown: false }} />

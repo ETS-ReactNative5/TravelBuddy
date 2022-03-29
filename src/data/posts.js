@@ -1,4 +1,6 @@
 import {commentDateSorter} from "../UtilPackages/Date"
+import {db} from "../../firebase-config";
+import { collection,getDoc, addDoc,doc, getDocs, updateDoc, query } from "firebase/firestore"
 
 let testDate=new Date()
 testDate=testDate.toString();
@@ -6,7 +8,7 @@ testDate=testDate.toString();
 export let POSTS = [
   {
     postID:"post_1",
-    bodyContent:"hello this is the best \n in the world, \"feeling\" ",
+    bodyContent:"hello this is the best in the world, \"feeling\" ",
     numberOfComments:3,
     locationName:"Layyah",
     locationDesc:"The house of desert",
@@ -28,7 +30,7 @@ export let POSTS = [
   },
   {
     postID:"post_2",
-    bodyContent:"This is the \n #hash \"apple in\" the world \n#layyah #multan",
+    bodyContent:"This is the #hash \"apple in\" the world #layyah #multan",
     numberOfComments:0,
     locationName:"Layyah",
     locationDesc:"The house of desert",
@@ -256,3 +258,34 @@ export const getGroupList=()=>{
 // }
 
 // console.log(randomDate(new Date(2012, 0, 1), new Date()));
+
+export const savePost=(testContent)=>{
+  let random=new Date().toString()
+  let sample={
+    postID:"post_1"+random,
+    bodyContent:testContent,
+    numberOfComments:3,
+    locationName:"Layyah",
+    locationDesc:"The house of desert",
+    likedByUser: false,
+    timestamp: testDate,
+    assets:[
+      // {imageUrl: 'https://picsum.photos/id/10/2500/1667'},
+    ],
+    user: 'Jane Doe', //these 2 will be colleced from through userID
+    profile_pictures: 'https://i.ibb.co/182bP1y/4k.png',
+    likes: ["user5","user6","user7"],
+  }
+
+  addDoc(collection(db,"post"),sample).then(res=>console.log(res)).then(err=>console.log(err))
+}
+
+export const getPost=async ()=>{
+  let snap=await getDocs(collection(db,"post"))
+  let POSTS=[]
+  snap.forEach((doc)=>{
+    POSTS.push(doc.data())
+  })
+  console.log(POSTS)
+  return POSTS;
+}
