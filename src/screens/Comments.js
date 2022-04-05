@@ -65,8 +65,8 @@ const Comments = ({ route, navigation }) => {
     const [InputValue, setInputValue] = useState("");
     const [UserID, setUserID] = useState("");
 
-    const fetchComments = (postID) => {
-        setComments(getCommentsFunction(postID))
+    const fetchComments = async (postID) => {
+        setComments(await getCommentsFunction(postID))
     }
 
     const updateMakeCommentView = (_userID, _content, _timeStamp) => {
@@ -124,12 +124,12 @@ const Comments = ({ route, navigation }) => {
         setUserID("user1")
     }
 
-    useEffect(() => {
+    useEffect(async () => {
         console.log("working")
         if (isFocused) {
             fetchUserDetails();
-            fetchComments(_postID)
-            console.log("isFocusedCalled")
+            await fetchComments(_postID)
+            console.log("isFocusedCalled",Comments)
         }
     }, [isFocused])
 
@@ -147,9 +147,9 @@ const Comments = ({ route, navigation }) => {
                         ref={scrollViewRef}
                         onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
                     >
-                        {Comments.map((element, index) => (
+                        {Comments ? Comments.length>0 ? Comments.map((element, index) => (
                             <Comment key={index} commentData={element} />
-                        ))}
+                        )):<></>:<></>}
                     </ScrollView>
 
                     <View style={styles.textInput}>

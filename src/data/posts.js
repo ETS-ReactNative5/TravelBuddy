@@ -173,8 +173,9 @@ export const getUserNameAv=(userID)=>{//fetch userName and avatar
   }
 }
 
-export const getCommentsFunction=(postID)=>{
+export const getCommentsFunction=async (postID)=>{
   //it will return comment along with additional check (selfFlag=true currentUser typed/currentUser dont type)
+  let CommentsData=await getCommentFromDB()
   let filterArr=CommentsData.filter((input)=>input.referenceID==postID)
   filterArr.sort(commentDateSorter)
   filterArr=filterArr.map((element)=> {
@@ -185,7 +186,6 @@ export const getCommentsFunction=(postID)=>{
       userData:getUserNameAv(element.userID)
     }
   })
-  console.log(filterArr)
   return filterArr;
 }
 
@@ -275,4 +275,14 @@ export const getPost=async ()=>{
   })
   console.log(POSTS)
   return POSTS;
+}
+
+const getCommentFromDB=async ()=>{
+  let snap=await getDocs(collection(db,"comment"))
+  let COMMENTS=[]
+  snap.forEach((doc)=>{
+    //here make the id useful
+    COMMENTS.push(doc.data())
+  })
+  return COMMENTS;
 }
