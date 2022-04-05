@@ -197,7 +197,13 @@ export const addComment=(_timeStamp,_userID,_content,_referenceID,_commentID)=>{
     referenceID:_referenceID,
     commentID:_commentID
   }
-  CommentsData.push(obj)
+  addDoc(collection(db,"comment"),obj)
+  .then(res=>
+    {
+      const commRef=doc(db,'comment',res.id);
+      updateDoc(commRef,{commentID:res.id})
+    })
+  .then(err=>console.log(err))
 }
 
 export const updateCommentCount=async (_PostID,_count)=>{

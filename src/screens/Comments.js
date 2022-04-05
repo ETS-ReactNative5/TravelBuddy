@@ -93,7 +93,7 @@ const Comments = ({ route, navigation }) => {
     }
 
     const generateCommentID=async (_timeStamp,_postID,_comment)=>{
-        hashTarget=_timeStamp+_postID
+        let hashTarget=_timeStamp+_postID
         try{
             _comment.length>10 ? hashTarget=hashTarget+_comment.slice(0,10) : hashTarget=hashTarget+_comment
             let retCommentID = await JSHash(hashTarget, CONSTANTS.HashAlgorithms.sha256)  //h(comment[1.10]|timestamp|user)
