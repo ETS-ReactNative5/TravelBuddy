@@ -1,6 +1,6 @@
 import {commentDateSorter} from "../UtilPackages/Date"
 import {db} from "../../firebase-config";
-import { collection,getDoc, addDoc,doc, getDocs, updateDoc, query } from "firebase/firestore"
+import { collection,getDoc, addDoc,doc, getDocs, updateDoc,setDoc, query,FieldValue } from "firebase/firestore"
 
 let testDate=new Date()
 testDate=testDate.toString();
@@ -200,13 +200,11 @@ export const addComment=(_timeStamp,_userID,_content,_referenceID,_commentID)=>{
   CommentsData.push(obj)
 }
 
-export const updateCommentCount=(_PostID,_count)=>{
-  //update with firebase check
-  POSTS=POSTS.map((element)=>{
-    if(element.postID==_PostID)
-      element.numberOfComments=element.numberOfComments+_count;
-    return element;
-  })
+export const updateCommentCount=async (_PostID,_count)=>{
+  console.log(_PostID)
+  let incrementVal=_count+1
+  const postRef=doc(db,'post',_PostID);
+  await updateDoc(postRef,{numberOfComments: incrementVal})
 }
 
 export const getChatUserData=(userID)=>{//designed for chat 
@@ -240,33 +238,15 @@ export const getGroupList=()=>{
   return GroupsData;
 }
 
-// export const iconsDataSet=[
-//   {
-//     imageUrl:'https://img.icons8.com/small/64/000000/facebook-like.png',
-//     imageName:'Interesting'
-//   },
-//   {
-//     imageUrl:'https://img.icons8.com/fluency-systems-regular/96/000000/comments--v2.png',
-//     imageName:'Comments'
-//   },
-// ]
-
-
-//random time generator sample
-// function randomDate(start, end) {
-//   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-// }
-
-// console.log(randomDate(new Date(2012, 0, 1), new Date()));
-
 export const savePost=(testContent)=>{
-  let random=new Date().toString()
+  let testDate=new Date()
+  testDate=testDate.toString();
   let sample={
-    postID:"post_1"+random,
+    postID:"test",
     bodyContent:testContent,
-    numberOfComments:3,
-    locationName:"Layyah",
-    locationDesc:"The house of desert",
+    numberOfComments:0,
+    locationName:"Test Location",
+    locationDesc:"",
     likedByUser: false,
     timestamp: testDate,
     assets:[
@@ -277,13 +257,20 @@ export const savePost=(testContent)=>{
     likes: ["user5","user6","user7"],
   }
 
-  addDoc(collection(db,"post"),sample).then(res=>console.log(res)).then(err=>console.log(err))
+  addDoc(collection(db,"post"),sample)
+  .then(res=>
+    {
+      const postRef=doc(db,'post',res.id);
+      updateDoc(postRef,{postID:res.id})
+    })
+  .then(err=>console.log(err))
 }
 
 export const getPost=async ()=>{
   let snap=await getDocs(collection(db,"post"))
   let POSTS=[]
   snap.forEach((doc)=>{
+    //here make the id useful
     POSTS.push(doc.data())
   })
   console.log(POSTS)

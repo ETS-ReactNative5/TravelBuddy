@@ -89,7 +89,7 @@ const Comments = ({ route, navigation }) => {
     const updateMakeCommentStorage = (_postID, _inputValue, _UserID, _timeStamp, _commentID) => {
         //updateMakeComment 
         addComment(_timeStamp, _UserID, _inputValue, _postID, _commentID)
-        updateCommentCount(_postID, 1);
+        updateCommentCount(_postID, Comments.length);
     }
 
     const generateCommentID=async (_timeStamp,_postID,_comment)=>{
