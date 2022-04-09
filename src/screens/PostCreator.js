@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, TextInput,Keyboard,KeyboardAvoidingView,TouchableWithoutFeedback } from 'react-native'
 import Header from './Appbar'
 import ImageUpload from './ImageUpload'
 import { Icon } from 'react-native-elements';
@@ -7,6 +7,7 @@ import { Icon } from 'react-native-elements';
 //changing dependancies
 import { PostBody } from './post'  //this path will be changed
 import { savePost} from '../Manager/BLogic';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const PostCreator = ({ navigation }) => {
@@ -41,24 +42,36 @@ const PostCreator = ({ navigation }) => {
 
     if (!uploadFlag) {//show parent
         return (
-            <View>
+            // <View>
+                // <Header title={"CreatePost"}></Header>
+                <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={styles.container}
+                >
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View styles={styles.inner}>
                 <Header title={"CreatePost"}></Header>
-
+                <ScrollView>           
                 <View style={styles.createPostContainer}>
                     <PostBody post={PostData} />
                     <View style={styles.textInput}>
                         <View style={{ display: "flex", flexDirection: "row" }}>
-                            <TextInput value={TextValue} multiline={true}
-                                onChange={(e) => {
-                                    let tempo = e.nativeEvent.text
-                                    setTextValue(tempo)
-                                    setPostData(prev => {
-                                        prev.bodyContent = tempo
-                                        return prev;
-                                    })
-                                }
-                                }
-                                placeholder="Share your travel experience..." style={{ flex: 100, display: "flex" }} />
+                        
+                        <ScrollView>
+                            <View style={{height:50}}>
+                                <TextInput value={TextValue} multiline={true} numberOfLines={2}
+                                    onChange={(e) => {
+                                        let tempo = e.nativeEvent.text
+                                        setTextValue(tempo)
+                                        setPostData(prev => {
+                                            prev.bodyContent = tempo
+                                            return prev;
+                                        })
+                                    }
+                                    }
+                                    placeholder="Share your travel experience..." style={{ flex: 100, display: "flex" }} />
+                            </View>
+                        </ScrollView>
                             <Icon
                                 name='image'
                                 type='ion-icon'
@@ -70,11 +83,15 @@ const PostCreator = ({ navigation }) => {
                                 type='ion-icon'
                                 color='#517fa4'
                                 onPress={() => submitPost()}
-                            />
+                                />
                         </View>
                     </View>
                 </View>
-            </View>
+                </ScrollView>
+                </View>
+                </TouchableWithoutFeedback>
+                </KeyboardAvoidingView>
+            // </View>
         )
     } else {
         return (
@@ -86,6 +103,7 @@ const PostCreator = ({ navigation }) => {
 
 
 const styles = StyleSheet.create({
+    container:{flex:1},
     story: {
         width: 35,
         height: 35,
@@ -99,7 +117,7 @@ const styles = StyleSheet.create({
     },
     inner: {
         flex: 1,
-        justifyContent: "space-around"
+        justifyContent: "space-around",
     },
     header: {
         fontSize: 36,
