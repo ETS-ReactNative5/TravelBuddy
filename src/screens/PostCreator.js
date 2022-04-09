@@ -24,6 +24,7 @@ const PostCreator = ({ navigation }) => {
         if(image){
             setPostData(prev=>{
                 let obj={imageUrl:image}
+                prev.assets=[]
                 prev.assets.push(obj)
                 return prev;
             })
