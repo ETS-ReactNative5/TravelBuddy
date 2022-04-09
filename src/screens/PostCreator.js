@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, TextInput,Keyboard,KeyboardAvoidingView,TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
 import Header from './Appbar'
 import ImageUpload from './ImageUpload'
 import { Icon } from 'react-native-elements';
 
 //changing dependancies
 import { PostBody } from './post'  //this path will be changed
-import { savePost} from '../Manager/BLogic';
+import { savePost } from '../Manager/BLogic';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -22,10 +22,10 @@ const PostCreator = ({ navigation }) => {
 
     const uploadImage = (image) => {//pass to ImageUpload as prop to handle imageSet.
         setImage(image);
-        if(image){
-            setPostData(prev=>{
-                let obj={imageUrl:image}
-                prev.assets=[]
+        if (image) {
+            setPostData(prev => {
+                let obj = { imageUrl: image }
+                prev.assets = []
                 prev.assets.push(obj)
                 return prev;
             })
@@ -36,61 +36,59 @@ const PostCreator = ({ navigation }) => {
         setuploadFlag(prev => !prev)
     }
 
-    const submitPost=()=>{
+    const submitPost = () => {
         savePost(TextValue.toString())
     }
 
     if (!uploadFlag) {//show parent
         return (
             // <View>
-                // <Header title={"CreatePost"}></Header>
-                <KeyboardAvoidingView
+            // <Header title={"CreatePost"}></Header>
+            <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.container}
-                >
+            >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View styles={styles.inner}>
-                <Header title={"CreatePost"}></Header>
-                <ScrollView>           
-                <View style={styles.createPostContainer}>
-                    <PostBody post={PostData} />
-                    <View style={styles.textInput}>
-                        <View style={{ display: "flex", flexDirection: "row" }}>
-                        
+                    <View styles={styles.inner}>
+                        <Header title={"CreatePost"}></Header>
                         <ScrollView>
-                            <View style={{height:50}}>
-                                <TextInput value={TextValue} multiline={true} numberOfLines={2}
-                                    onChange={(e) => {
-                                        let tempo = e.nativeEvent.text
-                                        setTextValue(tempo)
-                                        setPostData(prev => {
-                                            prev.bodyContent = tempo
-                                            return prev;
-                                        })
-                                    }
-                                    }
-                                    placeholder="Share your travel experience..." style={{ flex: 100, display: "flex" }} />
+                            <View style={styles.createPostContainer}>
+                                <PostBody post={PostData} />
+                                <View style={styles.textInput}>
+                                    <View style={{ display: "flex", flexDirection: "row" }}>
+                                        <ScrollView>
+                                            <View style={{ height: 50 }}>
+                                                <TextInput value={TextValue} multiline={true} numberOfLines={2}
+                                                    onChange={(e) => {
+                                                        let tempo = e.nativeEvent.text
+                                                        setTextValue(tempo)
+                                                        setPostData(prev => {
+                                                            prev.bodyContent = tempo
+                                                            return prev;
+                                                        })
+                                                    }}
+                                                    placeholder="Share your travel experience..." style={{ flex: 100, display: "flex" }} />
+                                            </View>
+                                        </ScrollView>
+                                        <Icon
+                                            name='image'
+                                            type='ion-icon'
+                                            color='#517fa4'
+                                            onPress={() => toggleUploadFlag()}
+                                        />
+                                        <Icon
+                                            name='send'
+                                            type='ion-icon'
+                                            color='#517fa4'
+                                            onPress={() => submitPost()}
+                                        />
+                                    </View>
+                                </View>
                             </View>
                         </ScrollView>
-                            <Icon
-                                name='image'
-                                type='ion-icon'
-                                color='#517fa4'
-                                onPress={() => toggleUploadFlag()}
-                            />
-                            <Icon
-                                name='send'
-                                type='ion-icon'
-                                color='#517fa4'
-                                onPress={() => submitPost()}
-                                />
-                        </View>
                     </View>
-                </View>
-                </ScrollView>
-                </View>
                 </TouchableWithoutFeedback>
-                </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
             // </View>
         )
     } else {
@@ -103,7 +101,7 @@ const PostCreator = ({ navigation }) => {
 
 
 const styles = StyleSheet.create({
-    container:{flex:1},
+    container: { flex: 1 },
     story: {
         width: 35,
         height: 35,
@@ -131,22 +129,22 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         marginBottom: 3,
-        backgroundColor:"white"
+        backgroundColor: "white"
     },
     btnContainer: {
         backgroundColor: "red",
         color: "red"
     },
-    createPostContainer:{
-        backgroundColor:"#fffef2",
-        padding:2,
-        borderWidth:2,
-        borderRadius:15,
-        borderColor:"#f7f5df",
-        minHeight:220,
-        display:"flex",
-        justifyContent:"space-between",
-        margin:4
+    createPostContainer: {
+        backgroundColor: "#fffef2",
+        padding: 2,
+        borderWidth: 2,
+        borderRadius: 15,
+        borderColor: "#f7f5df",
+        minHeight: 220,
+        display: "flex",
+        justifyContent: "space-between",
+        margin: 4
 
     }
 })
