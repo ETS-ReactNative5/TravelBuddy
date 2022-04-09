@@ -44,13 +44,6 @@ const PostCreator = ({ navigation }) => {
             <View>
                 <Header title={"CreatePost"}></Header>
 
-                <TouchableOpacity onPress={() => toggleUploadFlag()}>
-                    <Text>{"Click"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => displayImage()}>
-                    <Text>{"Second"}</Text>
-                </TouchableOpacity>
-
                 <View style={styles.createPostContainer}>
                     <PostBody post={PostData} />
                     <View style={styles.textInput}>
@@ -66,6 +59,12 @@ const PostCreator = ({ navigation }) => {
                                 }
                                 }
                                 placeholder="Share your travel experience..." style={{ flex: 100, display: "flex" }} />
+                            <Icon
+                                name='image'
+                                type='ion-icon'
+                                color='#517fa4'
+                                onPress={() => toggleUploadFlag()}
+                            />
                             <Icon
                                 name='send'
                                 type='ion-icon'
@@ -113,7 +112,8 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderWidth: 1,
         padding: 10,
-        marginBottom: 3
+        marginBottom: 3,
+        backgroundColor:"white"
     },
     btnContainer: {
         backgroundColor: "red",
