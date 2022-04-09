@@ -6,7 +6,7 @@ import { Icon } from 'react-native-elements';
 
 //changing dependancies
 import { PostBody } from './post'  //this path will be changed
-import { savePost} from '../data/posts';
+import { savePost} from '../Manager/BLogic';
 
 
 const PostCreator = ({ navigation }) => {

@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 import Header from './Appbar';
-import { addComment, getCommentsFunction, updateCommentCount } from '../data/posts';
+import { addComment, getCommentsFunction, updateCommentCount } from '../Manager/BLogic';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Divider, Input } from 'react-native-elements';

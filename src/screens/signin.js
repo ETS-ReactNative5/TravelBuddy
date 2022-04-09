@@ -3,7 +3,7 @@ import { View, Text, StyleSheet,TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 
 import Post from './post';  //Post component
-import { getPost } from '../data/posts'; //Post data
+import { getPost } from '../Manager/BLogic'; //Post data
 import Header from "./Appbar"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useIsFocused } from '@react-navigation/native';

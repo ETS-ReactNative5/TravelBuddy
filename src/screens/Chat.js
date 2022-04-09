@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 import Header from './Appbar';
-import { getChatData, addComment } from '../data/posts';
+import { getChatData, addComment } from '../Manager/BLogic';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Divider, Input } from 'react-native-elements';
 import { getFormattedDateForPost } from '../UtilPackages/Date';

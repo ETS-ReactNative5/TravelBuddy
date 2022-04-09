@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import {Colors, View, Card, CardProps, Button, Text} from 'react-native-ui-lib';
 // @ts-ignore
-import posts from '../data/posts';
+import posts from '../Manager/BLogic';
 
 const featureIcon = require("../assets/icons/check.png");
 const shareIcon = require('../assets/icons/check.png');

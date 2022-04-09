@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity,StyleSheet } from 'react-native'
 
 import { useIsFocused } from '@react-navigation/native';
 import Header from "./Appbar"
-import { getGroupList } from '../data/posts'; //Post data
+import { getGroupList } from '../Manager/BLogic'; //Post data
 
 const Group = ({ navigation }) => {
     const isFocused = useIsFocused();
