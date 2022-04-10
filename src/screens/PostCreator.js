@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
 import Header from './Appbar'
 import ImageUpload from './ImageUpload'
@@ -11,6 +11,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 
 const PostCreator = ({ navigation }) => {
+    const scrollViewRef=useRef();
     const [Image, setImage] = useState(null);
     const [uploadFlag, setuploadFlag] = useState(false);
     const [TextValue, setTextValue] = useState("");
@@ -44,14 +45,17 @@ const PostCreator = ({ navigation }) => {
         return (
             // <View>
             // <Header title={"CreatePost"}></Header>
-            <KeyboardAvoidingView
+            <KeyboardAvoidingView keyboardVerticalOffset={100}
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.container}
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View styles={styles.inner}>
                         <Header title={"CreatePost"}></Header>
-                        <ScrollView>
+                        <ScrollView
+                         ref={scrollViewRef}
+                         onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+                        >
                             <View style={styles.createPostContainer}>
                                 <PostBody post={PostData} />
                                 <View style={styles.textInput}>
