@@ -38,7 +38,7 @@ const PostCreator = ({ navigation }) => {
     }
 
     const submitPost = () => {
-        savePost(TextValue.toString())
+        savePost(TextValue.toString(),Image)
     }
 
     if (!uploadFlag) {//show parent

@@ -27,8 +27,9 @@ export default function ImageUpload({_firstButtonContent,_secondButtonContent,_p
         // console.log(result);
 
         if (!result.cancelled) {
-            let imageString = 'data:image/png;base64,' + result.base64
-            // console.log(imageString)
+            // let imageString= Platform.OS==='ios' ? image.sourceUrl : image.path;
+            // let imageString = 'data:image/png;base64,' + result.base64
+            let imageString=result.uri;
             setImage(imageString);
         }
     };

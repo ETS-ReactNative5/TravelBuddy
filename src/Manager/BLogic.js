@@ -1,6 +1,7 @@
 import {commentDateSorter} from "../UtilPackages/Date"
 import {db} from "../../firebase-config";
 import { collection,getDoc, addDoc,doc, getDocs, updateDoc,setDoc, query,FieldValue } from "firebase/firestore"
+import {ref,uploadBytes,getDownloadURL,getStorage} from "firebase/storage"
 
 let testDate=new Date()
 testDate=testDate.toString();
@@ -244,12 +245,27 @@ export const getGroupList=()=>{
   return GroupsData;
 }
 
-export const savePost=(testContent)=>{
+export const saveImageFireStorage=async (_imageUrl,_additionalPath,_imageName)=>{
+  console.log("inside trigger",_imageUrl)
+  const response = await fetch(_imageUrl); //this is the local reference of the file
+  const blobData = await response.blob();
+  
+  const storage=getStorage()
+  const storageRef=ref(storage, `${_additionalPath}/${_imageName}`)
+  await uploadBytes(storageRef, blobData).then((snapshot) => {
+    console.log('Uploaded a base64 string!');
+  });
+
+  let result=await getDownloadURL(storageRef)
+  return result;
+}
+
+export const savePost=(_postContent,_imageUrl)=>{
   let testDate=new Date()
   testDate=testDate.toString();
   let sample={
     postID:"test",
-    bodyContent:testContent,
+    bodyContent:_postContent,
     numberOfComments:0,
     locationName:"Test Location",
     locationDesc:"",
@@ -264,10 +280,11 @@ export const savePost=(testContent)=>{
   }
 
   addDoc(collection(db,"post"),sample)
-  .then(res=>
+  .then(async res=>
     {
+      let _result=await saveImageFireStorage(_imageUrl,"postData",res.id)
       const postRef=doc(db,'post',res.id);
-      updateDoc(postRef,{postID:res.id})
+      updateDoc(postRef,{postID:res.id,assets:[{imageUrl:_result}]})
     })
   .then(err=>console.log(err))
 }
