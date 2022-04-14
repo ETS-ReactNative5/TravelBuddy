@@ -86,7 +86,8 @@ const PostContent = ({ post }) => {
           {
             flexDirection: 'row',
             // margin: 5,
-            alignItems: 'center'
+            alignItems: 'center',
+            flexWrap:"wrap"
           }}>
           {element1.map((element2, index2) => (
             <Text key={index2} style={_style[element2[0]]}>{element2[1]} {element2[3]==1 ? " " : ""}</Text>
