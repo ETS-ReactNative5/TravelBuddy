@@ -16,8 +16,8 @@ export const getFormattedTimeForPost=(inputDate)=>{
     }else{
         hr=hr-12
         hr==0 ? templateString=`12:${min} P.M.`
-        : hr>9 ? templateString= `${hr}:${min} A.M.`
-          : templateString= `0${hr}:${min} A.M.`
+        : hr>9 ? templateString= `${hr}:${min} P.M.`
+          : templateString= `0${hr}:${min} P.M.`
     }
     return templateString
 }
