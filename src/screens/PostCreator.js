@@ -5,7 +5,7 @@ import { ImageUpload } from './ImageUpload';
 import { Icon } from 'react-native-elements';
 
 //changing dependancies
-import { PostBody } from './post'  //this path will be changed
+import { PostBody } from './Post';  //this path will be changed
 import { savePost } from '../Manager/BLogic';
 import { ScrollView } from 'react-native-gesture-handler';
 

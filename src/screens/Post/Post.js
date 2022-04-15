@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { getFormattedDateForPost } from "../UtilPackages/Date";
-import { getTokenizeContent } from "../UtilPackages/String"
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { getFormattedDateForPost } from "../../UtilPackages/Date";
+import { getTokenizeContent } from "../../UtilPackages/String"
 
 import { Divider } from 'react-native-elements'
 import { useFonts } from 'expo-font';
-import like1 from "../assets/like/like1.png"
-import like2 from "../assets/like/like2.png"
-import comment1 from "../assets/like/comments1.png"
+import like1 from "../../assets/like/like1.png"
+import like2 from "../../assets/like/like2.png"
+import comment1 from "../../assets/like/comments1.png"
 
 const Post = ({ navigation, post }) => {
   const isLoadingComplete=true;
@@ -62,8 +62,8 @@ const PostBody = ({ post }) => {
 
 const PostContent = ({ post }) => {
   let [fontsLoaded, error] = useFonts({
-    'EBGaramond': require("../../assets/fonts/EBGaramond-Regular.ttf"),
-    'EBGaramond-B': require("../../assets/fonts/EBGaramond-Bold.ttf")
+    'EBGaramond': require("../../../assets/fonts/EBGaramond-Regular.ttf"),
+    'EBGaramond-B': require("../../../assets/fonts/EBGaramond-Bold.ttf")
   })
 
   const _style = [//style schemes for fonts in postContent
