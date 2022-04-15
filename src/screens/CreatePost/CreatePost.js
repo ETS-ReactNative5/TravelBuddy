@@ -1,25 +1,21 @@
-import React, { useState, useEffect,useRef } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
-import Header from './Appbar'
-import { ImageUpload } from './ImageUpload';
-import { Icon } from 'react-native-elements';
+import React, { useState, useRef } from 'react'
+import { View, StyleSheet, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
 
 //changing dependancies
-import { PostBody } from './Post';  //this path will be changed
-import { savePost } from '../Manager/BLogic';
+import { Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import { ImageUpload } from '../ImageUpload';
+import { PostBody } from '../Post';
+import { savePost } from '../../Manager/BLogic';
+import Header from "../Appbar"
 
 
-const PostCreator = ({ navigation }) => {
+export const CreatePost = ({ navigation }) => {
     const scrollViewRef=useRef();
     const [Image, setImage] = useState(null);
     const [uploadFlag, setuploadFlag] = useState(false);
     const [TextValue, setTextValue] = useState("");
     const [PostData, setPostData] = useState({ bodyContent: TextValue, assets: [] });
-
-    const displayImage = () => {
-        console.log(Image)
-    }
 
     const uploadImage = (image) => {//pass to ImageUpload as prop to handle imageSet.
         setImage(image);
@@ -152,5 +148,3 @@ const styles = StyleSheet.create({
 
     }
 })
-
-export default PostCreator
