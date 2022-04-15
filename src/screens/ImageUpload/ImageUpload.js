@@ -31,7 +31,6 @@ export default function ImageUpload({_firstButtonContent,_secondButtonContent,_p
             quality: 1,
             base64: true
         });
-        // console.log(result);
 
         if (!result.cancelled) {
             // let imageString= Platform.OS==='ios' ? image.sourceUrl : image.path;
