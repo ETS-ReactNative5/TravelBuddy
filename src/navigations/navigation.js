@@ -11,7 +11,7 @@ import signin from "../screens/signin";
 import Comments from "../screens/Comments";
 import Chat from "../screens/Chat";
 import Group from "../screens/Group";
-import ImageUpload from "../screens/ImageUpload";
+import { ImageUpload } from "../screens/ImageUpload";
 import PostCreator from "../screens/PostCreator";
 
 const Stack = createNativeStackNavigator();

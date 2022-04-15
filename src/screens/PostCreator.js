@@ -1,7 +1,7 @@
 import React, { useState, useEffect,useRef } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
 import Header from './Appbar'
-import ImageUpload from './ImageUpload'
+import { ImageUpload } from './ImageUpload';
 import { Icon } from 'react-native-elements';
 
 //changing dependancies

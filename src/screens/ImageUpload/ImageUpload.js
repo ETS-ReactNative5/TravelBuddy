@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { Image, View, Platform, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';  //replace with ImagePicker
 
+/**
+ * UI component for image picking
+ * @param {*} _firstButtonContent text content for first button
+ * @param {*} _secondButtonContent text content for second button
+ * @param {*} _parentImageSetter function that pass state from child to parent
+ * @param {*} _toggleButton function that toggle boolean indicating that image is send to parent.
+ */
 export default function ImageUpload({_firstButtonContent,_secondButtonContent,_parentImageSetter,_toggleButton}) {
     const [image, setImage] = useState(null);
 
