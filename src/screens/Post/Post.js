@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { getFormattedDateForPost } from "../../UtilPackages/Date";
-import { getTokenizeContent } from "../../UtilPackages/String"
 
 import { Divider } from 'react-native-elements'
 import { useFonts } from 'expo-font';
-import like1 from "../../assets/like/like1.png"
-import like2 from "../../assets/like/like2.png"
-import comment1 from "../../assets/like/comments1.png"
+import { getFormattedDateForPost,getTokenizeContent,like1,like2,comment1 } from './Dependancy';
 
 const Post = ({ navigation, post }) => {
   const isLoadingComplete=true;
