@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import ViewP from "../screens/viewP";
 // import CardsScreen from "../screens/signin";
 import { PostList } from "../screens/PostList";
-import Comments from "../screens/Comments";
+import { Comments } from "../screens/Comments";
 import Chat from "../screens/Chat";
 import Group from "../screens/Group";
 import { ImageUpload } from "../screens/ImageUpload";

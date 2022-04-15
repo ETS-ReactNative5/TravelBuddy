@@ -9,7 +9,7 @@ import * as ImagePicker from 'expo-image-picker';  //replace with ImagePicker
  * @param {*} _parentImageSetter function that pass state from child to parent
  * @param {*} _toggleButton function that toggle boolean indicating that image is send to parent.
  */
-export default function ImageUpload({_firstButtonContent,_secondButtonContent,_parentImageSetter,_toggleButton}) {
+export function ImageUpload({_firstButtonContent,_secondButtonContent,_parentImageSetter,_toggleButton}) {
     const [image, setImage] = useState(null);
 
     const permissionTrigger = () => {//ask permission for imagelibrary
