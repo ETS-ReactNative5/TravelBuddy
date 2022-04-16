@@ -1,177 +1,141 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator,Header } from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input,Button, } from 'react-native-elements';
-import {
-  View,
-   TouchableOpacity,TextInput , Animated, Text, Image, FlatList, StyleSheet, Dimensions, KeyboardAvoidingView,ScrollView
-} from "react-native";
-import { auth } from "../../../firebase";
-import {db} from "../../../firebase-config"
-import {collection,doc,documentId,getDocs,addDoc,setDoc,updateDoc,query,deleteDoc,where, Firestore} from "firebase/firestore"
-import RangeSlider, { Slider } from 'react-native-range-slider-expo';
-import { Timestamp } from 'firebase/firestore';
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+//external dependancies
+import { Divider } from 'react-native-elements'
+import { PostBody } from './PostBody';
+import { getFormattedDateForPost,like1,like2,comment1 } from './Dependancy';
 
-var keyboardH=0
-
-if (Platform.OS === 'ios') {
-  keyboardH = 1
-} else {
-  keyboardH= -400
-}
-
-
-export default function Post({ route,navigation }) {  //create post by callig this component
-
-
-    const { userId } = route.params;
-    console.log("Params in Post Screen:" + userId)
-
-    const postCollectionRef = collection(db,"post");
-
-  const [status, setStatus] = useState("");
-  const [location, setLocation] = useState("");
-  const [descr, setDescription] = useState("");
-  const [budget, setBudget] = useState(0);
-  const [days, setDays] = useState(0);
-
-
-  const add = () =>{
-      console.log(location)
-      console.log(days)
-      console.log(budget)
-      console.log(descr)
-
-      const addePost = async() =>{
-        //const dat = doc(db,"user","3Z18RxRIrC3gCpQ0JS9K")
-        await addDoc(postCollectionRef, {
-          location: location,
-          days: days,
-          uid: userId,
-          budget:budget,
-          description:descr,
-          postTime: Timestamp.now(),
-          comments:[
-            {
-            comment_text:"",
-            uid:""
-          }
-        ]
-        });
-  
-       }
-
-       addePost()
-
-       navigation.navigate('home')
-
+const Post = ({ navigation, post }) => {
+  const isLoadingComplete=true;
+  if(!isLoadingComplete){
+    return <View><Text>{"Empty text"}</Text></View>
   }
-
-
-
-return (
-      <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset = {keyboardH}> 
-    <ScrollView style={{backgroundColor:'white'}}>
-  <View>
-    <View style={{
-      backgroundColor:'#F08080',
-      position:'absolute',
-      width:400,
-      height:400,
-      borderRadius:200,
-      right:-100,
-      top:-200,
-    }}></View>
-    <View style={{
-      backgroundColor:'#FFB6C1',
-      position:'absolute',
-      width:200,
-      height:200,
-      borderRadius:100,
-      left:-50,
-      top:-50,
-    }}></View>
-
-    <View style={{paddingVertical:220}}>
-    <Text style={{fontSize:30,color:'grey',marginBottom:60,marginLeft:100}}>Create Post</Text>
-
-<Input
-  placeholder='Enter your Location' 
-  leftIcon={
-    <Icon
-      name='user'
-      size={24}
-      color='black'
-    />
-  }
-  onChangeText={value=> setLocation(value)}
-/>  
-<View style={styles.container}>
-                     <Slider min={0} max={50000} step={20}
-                        valueOnChange={value => setBudget(value)}
-                         initialValue={12}
-                         knobColor='grey'
-                         valueLabelsBackgroundColor='black'
-                         inRangeBarColor='#F08080'
-                          outOfRangeBarColor='#FFB6C1'
-                    />
-                     <Text>Budgtet:  {budget}</Text>
-                </View> 
-
-                <View style={styles.container}>
-                     <Slider min={0} max={10} step={1}
-                          valueOnChange={value => setDays(value)}
-                         initialValue={12}
-                         knobColor='grey'
-                         valueLabelsBackgroundColor='black'
-                         inRangeBarColor='#F08080'
-                          outOfRangeBarColor='#FFB6C1'
-                    />
-                     <Text>Days:  {days}</Text>
-                </View> 
-        
-         <TextInput style={{    height: 100,margin: 12,borderWidth: 2,padding: 10,borderColor:'#FFB6C1'}}
-        placeholder="Post Description"
-        onChangeText={value=> setDescription(value)}
-      />
-
-
-       <TouchableOpacity style={styles.loginBtn} onPress={add}>
-         <Text>Add Post</Text>
-       </TouchableOpacity>
-
+  else return (
+    <View style={{ marginBottom: 30 }}>
+      <Divider style={{ color: "black", paddingBottom: 2 }} width={1} orientation='vertical'></Divider>
+      <PostHeader post={post}></PostHeader>
+      <PostBody post={post}></PostBody>
+      <PostFooter navigation={navigation} post={post} />
     </View>
-
-   </View>
-   </ScrollView>
-   </KeyboardAvoidingView>
-)
+  )
 }
 
+const PostHeader = ({ post }) => {
+
+  return (
+    <View>
+
+      <View style={
+        {
+          flexDirection: 'row',
+          margin: 5,
+          alignItems: 'center'
+        }
+      }>
+        <Image source={{ uri: post.profile_pictures }} style={styles.story} ></Image>
+        <View style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
+          <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.user}</Text>
+          <Text style={{ color: "black", marginLeft: 5, fontWeight: '400' }}>{"is at"}</Text>
+          <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{post.locationName}</Text>
+          {post.locationDesc == null | "" ? <View></View> :
+            <Text style={{ color: "black", marginLeft: 5, fontWeight: '700' }}>{"- "}{post.locationDesc}</Text>
+          }
+        </View>
+      </View>
+      <Text style={{ paddingLeft: 10, fontSize: 11, color: "grey" }}>{"Posted on "}{getFormattedDateForPost(post.timestamp)}</Text>
+    </View>
+  )
+}
+
+const PostFooter = ({ navigation, post }) => {
+  const [UserID, setUserID] = useState("user1");
+  const [LikedFlag, setLikedFlag] = useState(post.likes.includes(UserID));
+  const [Likes, setLikes] = useState(post.likes.length);
+  const handleLike = () => {
+    setLikedFlag((prevLikedFlag)=>{
+      if(prevLikedFlag==false){
+        setLikes(prev=>prev+1);
+      }else{
+        setLikes(prev=>prev-1);
+      }
+      return !prevLikedFlag
+
+    })
+  }
+
+  
+
+  return (
+    <View style={{ backgroundColor: '#f0f2f0', borderRadius: 10, marginLeft: 10, marginRight: 10 }}>
+      <View style={{
+        flexDirection: 'row',
+        marginLeft: 20,
+        marginRight: 20,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}>
+        <Text style={{ fontSize: 10 }}>{Likes} {"Likes"}</Text>
+        <Text style={{ fontSize: 10 }}>{post.numberOfComments} {"Comments"}</Text>
+      </View>
+      <View style={{
+        flexDirection: 'row',
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 5,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[like1, like2]} imageName={"interesting"} links="like" postID={post.postID} handleLike={handleLike} likeStatus={LikedFlag}></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[comment1]} imageName={"comments"} links="comments" postID={post.postID} handleLike={null} likeStatus={LikedFlag}></Icon>
+      </View>
+    </View>
+  )
+}
+
+const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID, handleLike,likeStatus }) => {
+  const [LikedFlag, setLikedFlag] = useState(likeStatus);
+
+
+  return (
+    <View >
+      <TouchableOpacity
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center'
+        }}
+        onPress={() => {
+          if (links == "comments")
+            navigation.navigate(links, { _postID: postID })
+          else {
+            handleLike()
+            setLikedFlag(currentFlag => !currentFlag)
+          }
+        }}
+      >
+        {imageName == "interesting" ? <Image style={imgStyle} source={LikedFlag ? imgUrl[1] : imgUrl[0]} />
+          : <Image style={imgStyle} source={imgUrl[0]} />
+        }
+        <Text style={{ fontSize: 15 }}>{imageName}</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    padding:20
+  story: {
+    width: 35,
+    height: 35,
+    borderRadius: 10,
+    marginLeft: 6,
+    borderWidth: 1.6,
+    borderColor: '#ff8501'
   },
-  loginBtn: {
-    borderWidth:1,
-    marginLeft:100,
-    borderColor:'rgba(0,0,0.2,0.2)',
-    width: "40%",
-    borderRadius:45,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    backgroundColor: "#F08080",
 
-  },
+  footerIcon: {
+    width: 25,
+    height: 25,
+    marginLeft: "2%"
+  }
 })
 
-
-
-
+export default Post
