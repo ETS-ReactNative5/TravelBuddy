@@ -1,18 +1,12 @@
-import { StatusBar } from "expo-status-bar";
+import 'react-native-reanimated'
 import React, { useState } from "react";
-import AppNavigator from "./src/navigation/navigation";
+import AppNavigator from "./src/navigations/navigation";
+import {SafeAreaProvider} from "react-native-safe-area-context";
 
 export default function App() {
   return (
-    <AppNavigator />
+    <SafeAreaProvider>
+      <AppNavigator />
+    </SafeAreaProvider>
   );
 }
-
-
-// const UpdateComment = async (id) => {
-//   let prevComment=
-//   prevComment.push({"UserID":ID,"comment":Comment})
-//   await updateDoc(doc(db, "post",id), {
-//       comments: prevComment
-//   });
-  
