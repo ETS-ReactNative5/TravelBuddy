@@ -6,7 +6,7 @@ import { PostBody } from './PostBody';
 import { getFormattedDateForPost, like1, like2, comment1 } from './Dependancy';
 import { authUpdate } from '../../../firebase/firebase-config';
 
-const Post = ({ navigation, post }) => {
+export const Post = ({ navigation, post }) => {
   const isLoadingComplete = true;
   if (!isLoadingComplete) {
     return <View><Text>{"Empty text"}</Text></View>
@@ -143,5 +143,3 @@ const styles = StyleSheet.create({
     marginLeft: "2%"
   }
 })
-
-export default Post
