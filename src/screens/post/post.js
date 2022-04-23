@@ -45,7 +45,7 @@ const PostHeader = ({ post }) => {
           } */}
         </View>
       </View>
-      <Text style={{ paddingLeft: 10, fontSize: 11, color: "grey" }}>{"Posted on "}{getFormattedDateForPost(post.timestamp)}</Text>
+      <Text style={{ paddingLeft: 10, fontSize: 11, color: "grey" }}>{"Posted on "}{getFormattedDateForPost(post.timeStamp)}</Text>
     </View>
   )
 }
@@ -90,7 +90,7 @@ const PostFooter = ({ navigation, post }) => {
         justifyContent: 'space-between',
       }}>
         <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[like1, like2]} imageName={"interesting"} links="like" postID={post.postID} handleLike={handleLike} likeStatus={LikedFlag}></Icon>
-        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[comment1]} imageName={"comments"} links="comments" postID={post.postID} handleLike={null} likeStatus={LikedFlag}></Icon>
+        <Icon navigation={navigation} imgStyle={styles.footerIcon} imgUrl={[comment1]} imageName={"comments"} links="Post Comments" postID={post.postID} handleLike={null} likeStatus={LikedFlag}></Icon>
       </View>
     </View>
   )
@@ -108,8 +108,10 @@ const Icon = ({ navigation, imgStyle, imgUrl, imageName, links, postID, handleLi
           alignItems: 'center'
         }}
         onPress={() => {
-          if (links == "comments")
+          if (imageName == "comments"){
+            // console.log("post id is,",postID);
             navigation.navigate(links, { _postID: postID })
+          }
           else {
             handleLike()
             setLikedFlag(currentFlag => !currentFlag)

@@ -43,7 +43,7 @@ export const CreateGroup = ({ navigation }) => {
         let _flag = await obj.makeGroup(_id, Title, ImageURL)
         setImageURL(null)
         setTitle("")
-        if (_flag) navigation.navigate("showgroups")
+        if (_flag) navigation.navigate("Groups")
     }
 
     useEffect(async () => {

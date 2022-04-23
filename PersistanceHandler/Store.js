@@ -2,6 +2,8 @@ import { db } from "../firebase/firebase-config";
 import { collection, getDoc, addDoc, doc, getDocs, updateDoc, setDoc, query, FieldValue, where } from "firebase/firestore"
 import { ref, uploadBytes, getDownloadURL, getStorage } from "firebase/storage"
 import { addStorage } from "../StateStorage";
+import { commentDateSorter } from "../src/UtilPackages/Date";
+
 export class PersistanceHandler {
 
     async makeUserDocument(_obj) {
@@ -131,8 +133,8 @@ export class PersistanceHandler {
     }
 
 
-    async getPost() {//fetch all post from collection  --firebase
-        let snap = await getDocs(collection(db, "post"))
+    async getAllPost() {//fetch all post from collection  --firebase
+        let snap = await getDocs(collection(db, "poster"))
         let POSTS = []
         snap.forEach((doc) => {
             //here make the id useful
@@ -141,4 +143,152 @@ export class PersistanceHandler {
         console.log(POSTS)
         return POSTS;
     }
+
+    async createPostDocument(_id, _comment) {
+        let _postDate = new Date()
+        _postDate = _postDate.toString();
+        // console.log("inside creaet postMessage",_id,_comment)
+        // const _id={_name:UserData.name,_image:UserData.image,_uid:_userIdentity}
+        // const _comment={_bodyContent:_commentData,_image:Image}
+        const _content = {
+            bodyContent: _comment._bodyContent ? _comment._bodyContent : "",
+            assets: [], //ternary check else  []
+            profile_pictures: _id._image,
+            user: _id._name,
+            uid: _id._uid,
+            timeStamp: _postDate,
+            postID: "",
+            likes: [],
+            numberOfComments: 0,
+            locationDesc: "",
+            locationName: ""
+        }
+        // console.log(_content);
+        // return true;
+        try {
+            console.log("\n", _comment._image, "\n")
+            let _firstResponse = await addDoc(collection(db, "poster"), _content)
+            let _result = await this.saveImageStorage(_comment._image, "poster", _firstResponse.id)
+            const postRef = doc(db, 'poster', _firstResponse.id);
+            await updateDoc(postRef, { postID: _firstResponse.id, assets: [{ imageUrl: _result }] })
+
+            return true;
+        } catch (e) {
+            console.log("\nEror:\n", e)
+            return false;
+        }
+
+    }
+
+
+
+    async addComment(_timeStamp, _userID, _content, _referenceID, _userName, _userProfile) {//add comment to firebase - firebase - (no need for commentID,remove from UI as well.)
+        let obj = {
+            timeStamp: _timeStamp,
+            userID: _userID,
+            content: _content,
+            referenceID: _referenceID,
+            userData: {
+                name: _userName,
+                av: _userProfile
+            }
+            // commentID:_commentID
+        }
+        addDoc(collection(db, "comment"), obj)
+            .then(res => {
+                const commRef = doc(db, 'comment', res.id);
+                updateDoc(commRef, { commentID: res.id })
+            })
+            .then(err => console.log(err))
+    }
+
+
+
+    async updateCommentCount(_PostID, _count) {//update comment count for post - firebase
+        // console.log(_PostID)
+        let incrementVal = _count + 1
+        const postRef = doc(db, 'poster', _PostID);
+        await updateDoc(postRef, { numberOfComments: incrementVal })
+    }
+
+
+    async getPostComment(postID) {
+        console.log('inside store comment',postID);
+        //it will return comment along with additional check (selfFlag=true currentUser typed/currentUser dont type)
+        let CommentsData = await this._getCommentFromDB()
+        let filterArr = CommentsData.filter((input) => input.referenceID == postID)
+        filterArr.sort(commentDateSorter)
+        // filterArr=filterArr.map((element)=> {
+        //   return {
+        //     content:element.content,
+        //     userID:element.userID,
+        //     timeStamp:element.timeStamp,
+        //     userData:getUserNameAv(element.userID)
+        //   }
+        // })
+        console.log("myFinalComments",filterArr)
+        return filterArr;
+    }
+
+    async _getCommentFromDB() { //fetch all comment from collection --firebase
+        let snap = await getDocs(collection(db, "comment"))
+        let COMMENTS = []
+        snap.forEach((doc) => {
+            //here make the id useful
+            COMMENTS.push(doc.data())
+        })
+        return COMMENTS;
+    }
+
+    async getChatUserData(userID){
+        
+    }
+
+    async getChatData(postID){
+        let CommentsData=await this._getCommentFromDB()
+        let filterArr=CommentsData.filter((input)=>input.referenceID==postID)
+        filterArr.sort(commentDateSorter);
+        filterArr=filterArr.map((element)=> {
+            return {
+              _id:element.commentID,
+              createdAt:element.timeStamp,
+              text:element.content,
+              user:{
+                  _id:element.userID,
+                  avatar:element.av,
+                  name:element.name
+              }
+            }
+          })
+          filterArr.reverse();
+          return filterArr;
+    }
+
+
+    // export const getChatUserData2=(userID)=>{//designed for chat 
+    //     try{
+    //       let data=UserData.find((element)=>element.userID==userID)
+    //       return {_id:userID,avatar:data.profile_pictures,name:data.user}
+    //     }
+    //     catch(e){
+    //       return {_id:null,avatar:null,name:null};
+    //     }
+    //   }
+      
+    //   export const getChatData=(postID)=>{
+    //     //return chat content of user
+    //     let filterArr=CommentsData.filter((input)=>input.referenceID==postID)
+    //     filterArr.sort(commentDateSorter)
+    //     filterArr=filterArr.map((element)=> {
+    //       return {
+    //         _id:element.commentID,
+    //         createdAt:element.timeStamp,
+    //         text:element.content,
+    //         user:getChatUserData(element.userID)
+    //       }
+    //     })
+    //     filterArr.reverse()
+    //     // console.log(filterArr)
+    //     return filterArr;
+    //   }
 }

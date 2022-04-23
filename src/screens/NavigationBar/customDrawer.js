@@ -3,7 +3,8 @@ import { Button,Image ,Text,View,StyleSheet,TouchableOpacity } from 'react-nativ
 import { Feather } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
-import { Entypo,FontAwesome5 } from '@expo/vector-icons'; 
+import { authUpdate } from "../../../firebase/firebase-config";
+import { Entypo,FontAwesome5,FontAwesome } from '@expo/vector-icons'; 
 
 
 
@@ -43,7 +44,7 @@ export function CustomSide({route,navigation}) {    //creating navbar to left si
         </View>
       </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile',{_userID: authUpdate.currentUser.uid})}>
         <View style={{flexDirection:'row',marginTop:20}}>
         <AntDesign name="profile" size={18} color="#3f3d56" style={{marginTop:10,paddingLeft:10}} />
         <Text style={{color:'#3f3d56',fontSize:16,marginTop:10,paddingLeft:10}}>View Profile</Text>
@@ -61,7 +62,18 @@ export function CustomSide({route,navigation}) {    //creating navbar to left si
         <Text style={{color:'#3f3d56',fontSize:16,marginTop:10,paddingLeft:10}}>Trips</Text>
         </View>
       </TouchableOpacity>
-
+      <TouchableOpacity onPress={() => navigation.navigate('Groups')}>
+        <View style={{flexDirection:'row',marginTop:30}}>
+        <FontAwesome name="group" size={20} color="#3f3d56" style={{marginTop:9,paddingLeft:10}} />
+        <Text style={{color:'#3f3d56',fontSize:16,marginTop:9,paddingLeft:10}}>Groups</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Services')}>
+        <View style={{flexDirection:'row',marginTop:20}}>
+        <MaterialIcons name="security" s size={18} color="#3f3d56" style={{marginTop:9,paddingLeft:10}} />
+        <Text style={{color:'#3f3d56',fontSize:16,marginTop:9,paddingLeft:10}}>Services</Text>
+        </View>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.switchBtn} onPress={() => navigation.navigate('')}>
          <Text style={{fontSize:15,color:'#6c63ff',fontWeight:'bold'}}>Switch to Travel Guide</Text>
        </TouchableOpacity>

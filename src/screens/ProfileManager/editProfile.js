@@ -11,6 +11,7 @@ import { Controller } from "../../../BLogic/Controller";
 import { authUpdate } from "../../../firebase/firebase-config";
 import { ImageUpload } from "../ImageUpload";
 import { Loader } from "../Loader/Loader";
+
 // import { StatusBar } from "expo-status-bar";
 // import { NavigationContainer } from '@react-navigation/native';
 // import { createNativeStackNavigator, Header } from '@react-navigation/native-stack';
@@ -115,8 +116,10 @@ export function EditProfile({route,navigation }) {
     if (!uploadFlag)
       return (
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={keyboardH}>
-          <TouchableOpacity style={{ marginTop: 50, marginLeft: 10 }}
-            onPress={() => navigation.navigate('register')}
+          <TouchableOpacity style={{ marginTop: 0, marginLeft: 10 }}
+            onPress={() => navigation.navigate('Profile',{
+                _userID: authUpdate.currentUser.uid
+            })}
           >
             <Ionicons name="arrow-back-sharp" size={24} color="#6c63ff" />
           </TouchableOpacity>

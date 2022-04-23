@@ -6,9 +6,10 @@ import { Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ImageUpload } from '../ImageUpload';
 import { PostBody } from '../Post';
-import { PersistanceHandler } from '../../../PersistanceHandler/Store';
+import { Controller } from '../../../BLogic/Controller';
 import { getStorage as AsyncStateStore } from '../../../StateStorage';
 import { Loader } from '../Loader/Loader';
+import { authUpdate } from '../../../firebase/firebase-config';
 // import { savePost } from '../../Manager/BLogic';
 
 const CreatePostHeader = ({ _imageUrl,_Name }) => {
@@ -39,6 +40,7 @@ export const CreatePost = ({ navigation }) => {
     const [TextValue, setTextValue] = useState("");
     const [PostData, setPostData] = useState({ bodyContent: TextValue, assets: [] });
     const [UserData, setUserData] = useState(null);
+    const [IdleUploadFlag,setIdleUploadFlag]=useState(false)
 
     const uploadImage = (image) => {//pass to ImageUpload as prop to handle imageSet.
         setImage(image);
@@ -56,19 +58,88 @@ export const CreatePost = ({ navigation }) => {
         setuploadFlag(prev => !prev)
     }
 
-    const savePost = async (_text1,_text2) => {
-        console.log(_text1,_text2)
+    
+
+    const thenSubmit=async ()=>{
+        const _commentData=TextValue.toString();
+        const _userIdentity=authUpdate.currentUser.uid
+        const _id={_name:UserData.name,_image:UserData.image,_uid:_userIdentity}
+        const _comment={_bodyContent:_commentData,_image:Image}
+        setIdleUploadFlag(true);
+        let obj=new Controller();
+        let response=await obj.makePost(_id,_comment)
+        console.log("make navigation based on the response",response,"\n");
+        if(response){
+            setIdleUploadFlag(false)
+            setImage(null)
+            setuploadFlag(false)
+            setTextValue("")
+            setPostData({ bodyContent: "", assets: [] })
+            setTextValue("")
+            alert("Posted")
+        }else{  
+            setIdleUploadFlag(false)
+            alert("Connection slow error")
+        }
     }
 
-    const submitPost = () => {
-        savePost(TextValue.toString(), Image)
+    const submitPost =async () => {
+        // UserData.name
+        // UserData.image
+        // Image
+
+    let postData = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({text:TextValue.toString()})
+    }
+    
+    
+    let finalModelResult1=await fetch("http://37b5-34-71-207-54.ngrok.io", postData)
+    finalModelResult1=await finalModelResult1.json()
+
+    let finalModelResult2=await fetch("http://37b5-34-71-207-54.ngrok.io", postData)
+    finalModelResult2=await finalModelResult2.json()
+
+    console.log("what is type",typeof  finalModelResult1,typeof finalModelResult2)
+    console.log(finalModelResult1)
+    console.log(finalModelResult1)
+    if(finalModelResult1==0 && finalModelResult2==0 ){
+        //hate speech nahi hai
+        await thenSubmit()
+        // console.log("not Hate")
+    }else{
+        setImage(null)
+        setuploadFlag(false)
+        setTextValue("")
+        setPostData({ bodyContent: "", assets: [] })
+        setTextValue("")
+        alert("Posted")
+        alert("Not Posted Hate speech detected");
+    }
+
+    // .then((response) => response.json())
+    // .then((responseJson) => { console.log('response:', responseJson); })
+    // .catch((error) => { console.error(error); });
+
+
+
+        
+        
+        
+
+        
+        // savePost(TextValue.toString(), Image)
     }
 
     useEffect(async () => {
         setUserData(await AsyncStateStore("UserData"))
     }, [])
 
-    if (UserData) {
+    if (UserData && !IdleUploadFlag) {
         if (!uploadFlag) {//show parent
             return (
                 // <View>

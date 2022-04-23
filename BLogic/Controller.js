@@ -1,14 +1,16 @@
 import {User} from "./User"
 import {Post} from "./Post"
+import { Comment } from "./Comment";
+import { Group } from "./Group";
 import { PersistanceHandler } from "../PersistanceHandler/Store";
 import { addStorage } from "../StateStorage";
-import { Group } from "./Group";
 
 export class Controller{
     #UserObj;
     #PHandler;
     #PostObj;
     #GroupObj;
+    #CommentObj;
 
 
     constructor(){
@@ -16,6 +18,7 @@ export class Controller{
         this.#PHandler=new PersistanceHandler(); 
         this.#PostObj=new Post();
         this.#GroupObj=new Group();
+        this.#CommentObj=new Comment();
     }
     
     //UC01
@@ -70,4 +73,21 @@ export class Controller{
     async getAllGroup(){
         return await this.#GroupObj.getGroupList();
     }
+
+    async getAllPost(){
+        return await this.#PostObj.getAllPosts();
+    }
+
+    async addComment(_timeStamp, _UserID, _inputValue, _postID,_userName,_userImage){
+        return await this.#CommentObj.makeComment(_timeStamp, _UserID, _inputValue, _postID,_userName,_userImage)    
+    }
+
+    async updateCommentCount(_postID, _length){
+        return await this.#CommentObj.updatePostCommentCount(_postID, _length)
+    }
+
+    async getCommentsFunction(postID){
+        return await this.#CommentObj.getPostComment(postID);
+    }
+
 }

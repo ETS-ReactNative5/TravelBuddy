@@ -1,7 +1,7 @@
 import React from "react";
 import {Text} from "react-native"
 import { NavigationContainer } from "@react-navigation/native";
-import { Tabs } from "./NavigationBar";
+import { DrawNavg, Tabs } from "./NavigationBar";
 
 export default function Home(){
     //displaying the tab navigator once we login to the app
@@ -11,7 +11,7 @@ export default function Home(){
         //     {"Inside home post screen"}
         // </Text>
         <NavigationContainer independent={true}>
-            <Tabs />
+            <DrawNavg />
         </NavigationContainer>
     )
 }

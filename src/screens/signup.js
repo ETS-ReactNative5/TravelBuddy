@@ -29,7 +29,25 @@ export default function SignUp({ navigation }) {
   const isFocused = useIsFocused(); //for update of state variables
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmPass] = useState('');
 
+
+  const validate = (email,pass,confirmPass) => {
+    console.log(email.length)
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    console.log(email, reg.test(email));      //working till @gmail.c else on .co its not working
+    navigation.navigate('completeProfile')
+  
+    // if(reg.test(email)==false && pass!=confirmPass){
+    //   alert("Incorrect Email Address and Password should match Confirm Password")
+    // }
+    // else if(reg.test(email)==false){
+    //   alert("Incorrect Email Address")
+    // }
+    // else if(pass!=confirmPass){
+    //   alert("Password and Confirm Passowrd Should be Equal")
+    // }
+  };
 
   // onAuthStateChanged(authUpdate, (user) => {
   //   if (user) {

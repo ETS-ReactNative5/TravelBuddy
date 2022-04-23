@@ -83,25 +83,6 @@ export function ViewProfile({ route, navigation }) {
 
 
 
-            <View>
-                <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                    <TouchableOpacity>
-                        <Text style={styles.title1}>Posts</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style={styles.title2}>Groups</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style={styles.title3}>Connections</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.title11}>20</Text>
-                    <Text style={styles.title22}>4</Text>
-                    <Text style={styles.title33}>3</Text>
-                </View>
-            </View>
-
 
             <View style={{
                 borderRadius: 2,

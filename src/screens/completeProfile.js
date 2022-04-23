@@ -44,10 +44,14 @@ export default function CompleteProfile({ navigation }) {
   const [DateShowFlag, setDateShowFlag] = useState(false);
 
   const handleSubmit = async () => {
+    if(Gender!="M" || Gender!="F"){
+      alert("Correct you Data")
+    }else{
     const _uid = authUpdate.currentUser.uid;
     let obj = new Controller();
     await obj.detailInformation(Name, Gender, DOB, Address, "", Contact, Hobbies, "", Image, _uid)
-    navigation.navigate("deleteit");
+    navigation.navigate("home");
+    }
   }
 
 
@@ -140,6 +144,7 @@ export default function CompleteProfile({ navigation }) {
 
             <Input
               label="Gender"
+              placeholder="Enter M or F"
               value={Gender}
               onChangeText={value => setGender(value)}
             />

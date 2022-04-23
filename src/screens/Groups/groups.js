@@ -9,6 +9,7 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import { Controller } from "../../../BLogic/Controller";
 import { Loader } from "../Loader/Loader";
 import { authUpdate } from "../../../firebase/firebase-config";
+import { useIsFocused } from "@react-navigation/native";
 // import { StatusBar } from "expo-status-bar";
 // import { NavigationContainer } from '@react-navigation/native';
 // import { createNativeStackNavigator,Header } from '@react-navigation/native-stack';
@@ -53,8 +54,11 @@ const DATA = [
 
 export function Groups({ navigation }) {
   //It will display the group that current user is joined
+  const isFocused = useIsFocused(); //for update of state variables
   const [GroupList, setGroupList] = useState(null);
-  const renderItem = ({ item }) => <Item _title={item.title} _lastComment={item.lastComment} _imageUrl={item.imageUrl} _groupID={item.groupID} />;
+  const renderItem = ({ item }) => <Item _title={item.title} _lastComment={item.lastComment} _imageUrl={item.imageUrl} _groupID={item.groupID} 
+  navigation={navigation}
+  />;
 
 
   const filterCurrentUserGroup = async (_result) => {
@@ -64,21 +68,23 @@ export function Groups({ navigation }) {
   }
 
   useEffect(async () => {
-    const obj = new Controller();
-    let result = await obj.getAllGroup()
-    result = await filterCurrentUserGroup(result)
-    setGroupList(result)
-  }, [])
+    if(isFocused){
+      const obj = new Controller();
+      let result = await obj.getAllGroup()
+      result = await filterCurrentUserGroup(result)
+      setGroupList(result)
+    }
+  }, [isFocused])
 
   if (GroupList) {
     if (GroupList.length > 0) return (
       <SafeAreaView style={styles.container}>
-        <SearchBar
+        {/* <SearchBar
           fontColor="#c6c6c6"
           iconColor="#c6c6c6"
           placeholder="Search Groups"
           style={{ marginTop: -20 }}
-        />
+        /> */}
         <FlatList data={GroupList} renderItem={renderItem} keyExtractor={item => item.groupID}
           style={{ marginTop: 20 }}
         />
@@ -109,9 +115,11 @@ export function Groups({ navigation }) {
 }
 
 
-const Item = ({ _title, _lastComment, _imageUrl, _groupID }) => (
+const Item = ({ _title, _lastComment, _imageUrl, _groupID,navigation }) => (
   <View style={styles.item}>
-    <TouchableOpacity onPress={() => console.log(_groupID)}>
+    <TouchableOpacity onPress={() => navigation.navigate('Group Messaeges',{
+      _groupIDParam:_groupID
+    })}>
       <View style={{ flexDirection: 'row' }}>
         <Image
           source={_imageUrl ? { uri: _imageUrl } : require("../../assets/group.png")/*conditional rendering if image is not present */}

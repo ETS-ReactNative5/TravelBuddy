@@ -30,7 +30,7 @@ export default function LoginScreen({ navigation }) {
     <View style={styles.container}>
 
       <Video
-        source={require('../assets/bv.mp4')}
+        source={require('../assets/bv2.mp4')}
         style={styles.backgroundVideo}
         rate={1}
         shouldPlay={true}

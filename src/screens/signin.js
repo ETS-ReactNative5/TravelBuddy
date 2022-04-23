@@ -29,6 +29,17 @@ export default function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const validate = (text) => {
+    console.log(text.length)
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    console.log(text, reg.test(text));      //working till @gmail.c else on .co its not working
+    if(reg.test(text)==true){
+      Alert.alert("Incorrect Email Address")
+    }else {
+      SignInWithFirebase(email, password);
+    }
+  }
+
   // onAuthStateChanged(authUpdate, (user) => {
   //   if (user) {
   //     console.log("uid of user is:",user.uid)
@@ -62,7 +73,7 @@ export default function SignIn({ navigation }) {
           }}></View>
 
           <View style={{ paddingVertical: 220, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ fontSize: 30, color: '#3f3d56', marginBottom: 60, fontWeight: 'bold' }}>TravelBuddy</Text>
+            <Text style={{ fontSize: 30, color: '#3f3d56', marginBottom: 60, fontWeight: 'bold' }}>SIGN IN</Text>
 
             <Input
               placeholder='Enter your Email'
@@ -88,7 +99,7 @@ export default function SignIn({ navigation }) {
               onChangeText={value => setPassword(value)}
               secureTextEntry={true} />
 
-            <TouchableOpacity style={styles.loginBtn} onPress={() => { SignInWithFirebase(email, password); }}>
+            <TouchableOpacity style={styles.loginBtn} onPress={()=>validate(email)}>
               <Text style={{ fontWeight: 'bold', fontSize: 18, color: '#e5e5e5' }}>Sign In</Text>
             </TouchableOpacity>
 

@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "splash": {
-      "image": "./src/assets/log4.png",
+      "image": "./src/assets/log5.jpeg",
       "resizeMode": "contain"
     },
     "updates": {
